@@ -1,10 +1,10 @@
-/Projectile.class
-/Player.class
+/Block.class
 /Bot.class
 /DrawingSurface.class
-/Block.class
+/Main.class
 /Map.class
 /MovingImage.class
-/Main.class
 /NoClipBlock.class
 /NoClipProjectile.class
+/Player.class
+/Projectile.class
