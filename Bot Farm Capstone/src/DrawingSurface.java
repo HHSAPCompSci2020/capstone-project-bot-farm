@@ -100,7 +100,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             int enemyX = (int) (Math.random() * WIDTH);
             int enemyY = (int) (Math.random() * (HEIGHT / 2));
 
-            list.add(new Oryx(oryx, o2, enemyX, enemyY, 80, 80));
+            list.add(new Bot(oryx, o2, enemyX, enemyY, 80, 80));
         }
     }
 
@@ -134,19 +134,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
                         kills++;
                     }
                 }
-                if (actor instanceof SlowBullet) {
-                    if (actedUpon instanceof Player) {
-                        //if player gets hit by bullet
-                        ((Player) actedUpon).slow();
-                        //slow 
-                        ((Player) actedUpon).loseHP();
-                        //initiate method loseHP
-                        list.remove(actor);
-                        //remove the bullet
-                        i--;
-                    }
                 }
-                if (actor instanceof Player && actedUpon instanceof Oryx) {
+                if (actor instanceof Player && actedUpon instanceof Bot) {
                     list.remove(actedUpon);
                     ((Player) actor).loseHP();
                     //lose hp
