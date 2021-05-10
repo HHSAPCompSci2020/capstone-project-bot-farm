@@ -28,7 +28,6 @@ public abstract class Bot extends MovingImage {
         ehp -= 5;
         if(ehp <= 0){
             die(); //dies when hp less than zero
-            sound("oof.wav");
         }
     }
 
