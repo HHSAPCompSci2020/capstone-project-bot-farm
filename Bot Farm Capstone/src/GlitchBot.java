@@ -9,11 +9,11 @@ public class GlitchBot extends Bot {
 	protected int counter; //Tracks the time. Increases by 1 once every 1/60th of a second.
     protected boolean edead; //true or false dead
     protected int shootSpriteTimer;
+    public final int SPEED;
 	
     public GlitchBot(PImage image, PImage i2, int x, int y, int width, int height){
-        super(image, x, y, width, height, 30);
-	//Initialize all variables. Make sure you use the super() constructor, passing in the image, x, y, width, and height.
-	//velocity should start at 0, as should counter
+		super(image, x, y, width, height, 30);
+		this.SPEED = 5;
         this.vX = 0;
         this.vY = 0;
         this.counter = 0;
@@ -23,6 +23,41 @@ public class GlitchBot extends Bot {
         this.shootSpriteTimer = 0;
         o2.resize(width,height);
     }
+    
+    public MovingImage act(ArrayList<MovingImage> list){
+		if (counter%100 == 0){
+			Player p = null;
+			for (MovingImage m : list) {
+				if (m instanceof Player) {
+					p = (Player) m;
+				}
+			}
+			int pX = (int) p.getX();
+			int pY = (int) p.getY();
+			list.add(this.shoot(pX, pY));
+		} else if(counter%20 == 0){
+			Player p = null;
+			for (MovingImage m : list) {
+				if (m instanceof Player) {
+					p = (Player) m;
+				}
+			}
+			double angle = Math.tan((p.getY() - this.y) / (p.getX() - this.x));
+
+			vY = SPEED*(int)Math.sin(angle);
+			vX = SPEED*(int)Math.cos(angle);
+		}
+		else {
+			vY /= 2;
+			vX /= 2;
+		}
+		counter++; //Adds to counter
+		if(!this.isInWindow() || this.isDead()){
+			return this;
+		}    
+		return null;
+
+	}
     
     public ArrayList<Projectile> shoot(int x, int y){
         shootSpriteTimer = 10;
@@ -36,7 +71,7 @@ public class GlitchBot extends Bot {
         }
     
         ArrayList<Projectile> pattern = new ArrayList<Projectile>();
-        pattern.add(new GlitchProjectile(DrawingSurface.glitchbbullet, (int) this.getX(), (int) this.getY(), 10, 20, "enemy", angle, 10000));
+        pattern.add(new GlitchProjectile(DrawingSurface.glitchbullet, (int) this.getX(), (int) this.getY(), 10, 20, "glitchbot", angle, 10000));
         return pattern;
     }
     
@@ -45,7 +80,7 @@ public class GlitchBot extends Bot {
     }
 	
     public String toString() {
-    	return "bot";
+    	return "glitchbot";
     }
 	
 }

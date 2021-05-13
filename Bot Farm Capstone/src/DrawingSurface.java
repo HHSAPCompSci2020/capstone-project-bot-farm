@@ -10,7 +10,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 
     public static final int WIDTH = 750;
     public static final int HEIGHT = 750;
-    public static PImage explob, explobb, glitchb, blindb, explobbbullet, glitchbbullet, blindbbullet, 
+    public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
     androidbullet, rock, toxicgas, cursor;
     private final Player p1;
     public boolean gameStarted;
@@ -21,8 +21,17 @@ public class DrawingSurface extends PApplet implements MouseListener {
 
     public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
         //add field initialization 
-    	//CHANGE LATER VERY IMPORTANT
-    	p1 = null;
+    	explob = loadImage("../assets/explob.png");
+    	explobb = loadImage("../assets/explobb.png");
+    	explobullet = loadImage("../assets/explobbbullet.png");
+    	glitchb = loadImage("../assets/glitchb.png");
+    	blindb = loadImage("../assets/blindb.png");
+    	rock = loadImage("../assets/rock.png");
+    	glitchbullet = loadImage("../assets/toxicgas.png");
+    	blindbullet = loadImage("../assets/blindbullet.png");
+    	androidbullet = loadImage("../assets/androidbullet.png");
+    	cursor = loadImage("../assets/cursor.png");
+    	p1 = new Player(loadImage("../assets/explob.png"), 270, 550, 42, 42);
     	list = null;
         gameStarted = false;
     }
@@ -49,6 +58,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
                     case 2:
                         NoClipBlock lavva = new NoClipBlock(toxicgas, j * 50, i * 50, 50, 50);
                         list.add(lavva);
+                    case 3:
+                        Block white = new Block(toxicgas, j * 50, i * 50, 40, 40);
+                        list.add(white);
 
                 }
             }
