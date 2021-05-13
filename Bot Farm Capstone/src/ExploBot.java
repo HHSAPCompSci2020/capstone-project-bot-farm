@@ -6,17 +6,14 @@ import processing.core.PImage;
 public class ExploBot extends Bot {
 	protected int counter;
 	protected boolean dead;
-	public ExploBot(PImage image, int x, int y, int width, int height) {
+	public ExploBot(PImage image, PImage i2, int x, int y, int width, int height) {
 		super(image, x,y,width,height,50);
 		
 	}
 	
-	public void draw(PApplet marker) {
-		super.draw(marker);
-	}
 	
 	public MovingImage act(ArrayList<MovingImage> list){
-		return null;
+		return super.act(list);
 	}
 
 	@Override

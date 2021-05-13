@@ -1,4 +1,4 @@
 
-public class ExploBotBaby {
+public class ExploBotBaby extends Bot{
 
 }

@@ -94,9 +94,8 @@ public class Player extends MovingImage {
             if (this != s && this.intersects(s)) {
                 return s;
             }
-        
-        return null;
         }
+		return null;
     }
     
     public String toString(){
