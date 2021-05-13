@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+
+/**
+ * Represnts a GlitchBot.
+ * @author Harry Guan
+ */
 public class GlitchBot extends Bot {
 
 	protected PImage o2;
@@ -11,6 +16,15 @@ public class GlitchBot extends Bot {
     protected int shootSpriteTimer;
     public final int SPEED;
 	
+    /**
+	 * Constructs a GlitchBot.
+	 * @param image The image that corresponds to this bot
+	 * @param x The x-coordinate of the top left corner of the bot
+	 * @param y The y-coordinate of the top left corner of the bot
+	 * @param width The width of the bot
+	 * @param height The height of the bot
+	 * @param hp The amount of HP the bot has
+	 */
     public GlitchBot(PImage image, PImage i2, int x, int y, int width, int height){
 		super(image, x, y, width, height, 30);
 		this.SPEED = 5;
@@ -24,6 +38,12 @@ public class GlitchBot extends Bot {
         o2.resize(width,height);
     }
     
+    /**
+	 * Handles the movement and shooting patterns of the bot
+	 * Also periodically glitches around teleporting to random locations nearby
+	 * @param list The list of entities currently in the game
+	 * @return the Bot to be removed in this process
+	 */
     public MovingImage act(ArrayList<MovingImage> list){
 		if (counter%100 == 0){
 			Player p = null;
@@ -60,9 +80,14 @@ public class GlitchBot extends Bot {
 
 	}
     
+    /**
+	 * Shoots a GlitchProjectile and returns it
+	 * @param x The x-coordinate of the destination of the projectile
+	 * @param y The y-coordinate of the destination of the projectile
+	 * @return The BlindProjectile fired
+	 */
     public ArrayList<Projectile> shoot(int x, int y){
         shootSpriteTimer = 10;
-        //To get the x and the y coordinates of the enemy
         double sX = x - this.getX();
         double sY = y - this.getY();
         double tann = sY/sX;
@@ -76,16 +101,18 @@ public class GlitchBot extends Bot {
         return pattern;
     }
     
+    /**
+     * Teleports to random location nearby.
+     */
     public void glitch() {
     	this.moveByAmount(Math.random() * 10, Math.random() * 10);
     }
 	
+    /**
+	 * Returns the ID of this bot
+	 * @return the ID of this bot
+	 */
     public String toString() {
     	return "glitchbot";
     }
-
-	public void die() {
-		
-	}
-	
 }

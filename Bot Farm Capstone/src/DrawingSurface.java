@@ -6,6 +6,11 @@ import processing.core.PImage;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Represnts the DrawingSurface.
+ * @author Harry Guan
+ */
+
 public class DrawingSurface extends PApplet implements MouseListener {
 
     public static final int WIDTH = 750;
