@@ -40,7 +40,9 @@ public abstract class Bot extends MovingImage {
 
     
         
-    public abstract void die();
+    public void die() {
+    	edead = true;
+    }
 
     public boolean isDead(){
         return edead; //Change the below statement to return an accurate value.
