@@ -48,4 +48,5 @@ public abstract class Bot extends MovingImage {
     
     public abstract Projectile shoot(int x, int y);
     
+    
 }

@@ -43,13 +43,10 @@ public class ExploBotBaby extends Bot{
 		return null;
 
 	}
-	@Override
-	public Projectile shoot(int x, int y) {
+	public Projectile shoot(int x, int y,double angle) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	private 
 	
 	public void die() {
 		shoot((int)getX(),(int)getY());
@@ -57,6 +54,11 @@ public class ExploBotBaby extends Bot{
 	
 	public String toString() {
 		return "bot";
+	}
+	@Override
+	public Projectile shoot(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
