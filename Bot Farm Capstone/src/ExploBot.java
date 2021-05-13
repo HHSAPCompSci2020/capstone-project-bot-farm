@@ -6,7 +6,7 @@ import processing.core.PImage;
 public class ExploBot extends Bot {
 	protected int counter;
 	protected boolean dead;
-	public ExploBot(PImage image, PImage i2, int x, int y, int width, int height) {
+	public ExploBot(PImage image, PImage i2, double x, double y, int width, int height) {
 		super(image, x,y,width,height,50);
 		this.counter = 0;
 	}
