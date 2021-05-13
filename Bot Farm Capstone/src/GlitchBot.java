@@ -39,8 +39,7 @@ public class GlitchBot extends Bot {
     }
     
     public void glitch() {
-    	this.x = x + (int)Math.random() * 100;
-    	this.y = y + (int)Math.random() * 100;
+    	this.moveByAmount(Math.random() * 10, Math.random() * 10);
     }
 	
     public String toString() {
