@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import processing.core.PImage;
 
 public class BlindBot extends Bot {
-	private final double DMG_RADIUS = 5;
+	private final double DMG_RADIUS = 100;
 	private final int AOE_DMG = 5;
 	private final int SPEED = 5;
 	public BlindBot(PImage image, int x, int y, int width, int height, int hp) {
@@ -47,7 +47,8 @@ public class BlindBot extends Bot {
 		counter++; //Adds to counter
 		if(!this.isInWindow() || this.isDead()){
 			return this;
-		}    
+		}
+		this.moveByAmount(vX, vY);
 		return null;
 
 	}

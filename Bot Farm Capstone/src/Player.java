@@ -29,7 +29,7 @@ public class Player extends MovingImage {
 			angle = angle + Math.PI;
 		}
 		if (isDead() == false){
-			return new Projectile(new PImage(), (int)this.getX(), (int)this.getY(), 20, 35, "player", angle,30);
+			return new Projectile(DrawingSurface.androidbullet, this.getX(), this.getY(), 20, 35, "player", angle,30);
 		} else {
 			return null;
 		}

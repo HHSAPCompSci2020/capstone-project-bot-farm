@@ -33,6 +33,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	toxicgas = loadImage("../assets/toxicgas.png");
     	p1 = new Player(loadImage("../assets/explob.png"), 270, 550, 42, 42);
     	list = new ArrayList<MovingImage>();
+    	list.add(p1);
         gameStarted = false;
     }
 
@@ -109,8 +110,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
         for (int i = 0; i < 1; i++) {
             int enemyX = (int) (Math.random() * WIDTH);
             int enemyY = (int) (Math.random() * (HEIGHT / 2));
-
             //add enemies
+            list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 100));
         }
     }
 
@@ -191,6 +192,27 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
 
     } */
+    @Override
+    public void keyPressed() {
+    	if (keyCode == KeyEvent.VK_W) {
+            p1.setvY(-5);
+//            up.resize(42, 42);
+//            p1.image = up;
+        }
+        if (keyCode == KeyEvent.VK_A) {
+            p1.setvX(-5);
+            //p1.image = left;
+        }
+        if (keyCode == KeyEvent.VK_S) {
+            p1.setvY(5);
+            //p1.image = down;
+        }
+        if (keyCode == KeyEvent.VK_D) {
+            p1.setvX(5);
+            ///right.resize(42, 42);
+            //p1.image = right;
+        }
+    }
 
     public void keyReleased() {
         //Create four if statements, W/A/S/D, that sets the player (p1)'s velocity x or y to 0.
