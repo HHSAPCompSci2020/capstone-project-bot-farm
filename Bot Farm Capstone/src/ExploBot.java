@@ -8,11 +8,12 @@ public class ExploBot extends Bot {
 	protected boolean dead;
 	public ExploBot(PImage image, PImage i2, int x, int y, int width, int height) {
 		super(image, x,y,width,height,50);
-		
+		this.counter = 0;
 	}
 	
 	
-	public MovingImage act(ArrayList<MovingImage> list){
+	public MovingImage act(ArrayList<MovingImage> list) {
+		list.add(new ExploBotBaby(image, image, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight()));
 		return super.act(list);
 	}
 
