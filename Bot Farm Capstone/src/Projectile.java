@@ -36,7 +36,7 @@ public class Projectile extends MovingImage {
 
 	}
 
-	public MovingaImage act(ArrayList<MovingImage> list) {
+	public MovingImage act(ArrayList<MovingImage> list) {
 		// If owner is equal to "player", call "this.moveByAmount()" and move it by a
 		// negative number in the y direction.
 		this.moveByAmount(stepX, stepY);
