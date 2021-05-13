@@ -35,11 +35,11 @@ public class GlitchBot extends Bot {
             angle = angle + Math.PI;
         }
         
-        return new Projectile(DrawingSurface.glitchbbullet, (int) this.getX(), (int) this.getY(), 10, 20, "enemy", angle, 10000);
+        return new GlitchProjectile(DrawingSurface.glitchbbullet, (int) this.getX(), (int) this.getY(), 10, 20, "enemy", angle, 10000);
     }
     
     public void glitch() {
-    	
+    	this.moveByAmount(Math.random() * 10, Math.random() * 10);
     }
 	
     public String toString() {
