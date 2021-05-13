@@ -26,12 +26,13 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	glitchb = loadImage("../assets/glitchb.png");
     	blindb = loadImage("../assets/blindb.png");
     	rock = loadImage("../assets/rock.png");
-    	glitchbullet = loadImage("../assets/toxicgas.png");
+    	glitchbullet = loadImage("../assets/glitchbbullet.png");
     	blindbullet = loadImage("../assets/blindbullet.png");
     	androidbullet = loadImage("../assets/androidbullet.png");
     	cursor = loadImage("../assets/cursor.png");
+    	toxicgas = loadImage("../assets/toxicgas.png");
     	p1 = new Player(loadImage("../assets/explob.png"), 270, 550, 42, 42);
-    	list = null;
+    	list = new ArrayList<MovingImage>();
         gameStarted = false;
     }
 

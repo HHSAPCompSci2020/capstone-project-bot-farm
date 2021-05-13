@@ -34,7 +34,8 @@ public class GlitchBot extends Bot {
 			}
 			int pX = (int) p.getX();
 			int pY = (int) p.getY();
-			list.add(this.shoot(pX, pY));
+			for (MovingImage m : this.shoot(pX, pY))
+				this.add(m);
 		} else if(counter%20 == 0){
 			Player p = null;
 			for (MovingImage m : list) {
@@ -82,5 +83,9 @@ public class GlitchBot extends Bot {
     public String toString() {
     	return "glitchbot";
     }
+
+	public void die() {
+		
+	}
 	
 }

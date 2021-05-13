@@ -26,7 +26,8 @@ public class BlindBot extends Bot {
 			}
 			int pX = (int) p.getX();
 			int pY = (int) p.getY();
-			list.add(this.shoot(pX, pY));
+			for (MovingImage m : this.shoot(pX, pY))
+				list.add(m);
 		} else if(counter%20 == 0){
 			Player p = null;
 			for (MovingImage m : list) {
@@ -53,11 +54,17 @@ public class BlindBot extends Bot {
 	public ArrayList<Projectile> shoot(int x, int y) {
 		BlindProjectile proj = new BlindProjectile(image, this.x, this.y, (int)width, (int)height, 
 				"blindbot", Math.tan((double)y / (double)x), 0);
-		return proj;
+		ArrayList<Projectile> projs = new ArrayList<Projectile>();
+		projs.add(proj);
+		return projs;
 	}
 
 	public String toString() {
 		return "blindbot";
+	}
+
+	public void die() {
+		
 	}
 	
 	
