@@ -24,6 +24,6 @@ public class ExploBot extends Bot {
 	}
 	
 	public String toString() {
-		return "bot";
+		return "explobot";
 	}
 }

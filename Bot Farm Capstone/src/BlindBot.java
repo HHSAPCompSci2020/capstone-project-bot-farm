@@ -56,4 +56,9 @@ public class BlindBot extends Bot {
 		return proj;
 	}
 
+	public String toString() {
+		return "blindbot";
+	}
+	
+	
 }
