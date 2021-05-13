@@ -20,7 +20,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
     private int kills;
 
     public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
-        //add field initialization 
     	explob = loadImage("../assets/explob.png");
     	explobb = loadImage("../assets/explobb.png");
     	explobullet = loadImage("../assets/explobbbullet.png");
