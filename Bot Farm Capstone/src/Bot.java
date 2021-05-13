@@ -23,6 +23,7 @@ public abstract class Bot extends MovingImage {
     public void setvY(int y) {
         vY = y;
     }
+  
     
     public void loseHP(){
         ehp -= 5;
