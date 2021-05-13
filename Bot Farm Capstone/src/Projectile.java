@@ -21,6 +21,7 @@ public class Projectile extends MovingImage {
 
 	}
 
+	
 	public Projectile(PImage img, double x, double y, int w, int h, String owner, double angle, int delay) {
 		super(img, x, y, w, h);
 		// The field owner should equal the parameter owner.
