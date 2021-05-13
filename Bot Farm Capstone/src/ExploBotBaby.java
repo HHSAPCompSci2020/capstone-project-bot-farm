@@ -51,7 +51,7 @@ public class ExploBotBaby extends Bot{
 	public ArrayList<Projectile> shoot(int x, int y) {
 		ArrayList<Projectile> pattern = new ArrayList<Projectile>();
 		for(int i = 0; i < 8; i++) {
-			pattern.add(new Projectile(DrawingSurface.explobbbullet, x, y, 20, 20, "enemy", 45*i*Math.PI/180, 0));
+			pattern.add(new ExploBotBabyProjectile(DrawingSurface.explobbbullet, x, y, 20, 20, "enemy", 45*i*Math.PI/180, 0));
 		}
 		return pattern;
 	}
