@@ -36,7 +36,7 @@ public class GlitchBot extends Bot {
         }
     
         ArrayList<Projectile> pattern = new ArrayList<Projectile>();
-        pattern.add(new GlitchProjectile(DrawingSurface.glitchbbullet, (int) this.getX(), (int) this.getY(), 10, 20, "glitchbot", angle, 10000));
+        pattern.add(new GlitchProjectile(DrawingSurface.glitchbullet, (int) this.getX(), (int) this.getY(), 10, 20, "glitchbot", angle, 10000));
         return pattern;
     }
     
