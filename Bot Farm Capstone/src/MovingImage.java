@@ -8,7 +8,7 @@ public class MovingImage extends Rectangle2D.Double {
 	
 	protected PImage image;
 	
-	public MovingImage(PImage img, int x, int y, int w, int h) {
+	public MovingImage(PImage img, double x, double y, int w, int h) {
 		super(x,y,w,h);
 		image = img;
 		image.resize(w, h);
