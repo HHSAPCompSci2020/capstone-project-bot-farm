@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import processing.core.PImage;
 
+/**
+ * represents a projectile
+ * @author Zackery He
+ *
+ */
 public class Projectile extends MovingImage {
 
 	private String owner;
@@ -9,7 +14,16 @@ public class Projectile extends MovingImage {
 	double stepY;
 	protected int timer;
 	double delay;
-
+	/**
+	 * 
+	 * @param img image displayed to represent the bot
+	 * @param x x coord of the bot
+	 * @param y y coord of the bot
+	 * @param w width of the image 
+	 * @param h height of the image
+	 * @param owner owner of the projectile
+	 * @param delay delay of the projectile
+	 */
 	public Projectile(PImage img, double x, double y, int w, int h, String owner, int delay) {
 		super(img, x, y, w, h);
 		// The field owner should equal the parameter owner.
@@ -21,7 +35,17 @@ public class Projectile extends MovingImage {
 
 	}
 
-	
+	/**
+	 * 
+	 * @param img image displayed to represent the bot
+	 * @param x x coord of the bot
+	 * @param y y coord of the bot
+	 * @param w width of the image 
+	 * @param h height of the image
+	 * @param owner owner of the projectile
+	 * @param angle angle the projectile will be shot from
+	 * @param delay delay of the projectile
+	 */
 	public Projectile(PImage img, double x, double y, int w, int h, String owner, double angle, int delay) {
 		super(img, x, y, w, h);
 		// The field owner should equal the parameter owner.
@@ -35,7 +59,12 @@ public class Projectile extends MovingImage {
 		this.stepY = stepY * 5;
 
 	}
-
+	
+	/**
+	 * handles how the projectile will act in game
+	 * @param list list of the all the MovingImages
+	 * @return the bot that will be removed in this process
+	 */
 	public MovingImage act(ArrayList<MovingImage> list) {
 		// If owner is equal to "player", call "this.moveByAmount()" and move it by a
 		// negative number in the y direction.

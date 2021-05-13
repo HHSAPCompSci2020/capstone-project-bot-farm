@@ -1,13 +1,31 @@
 import java.util.ArrayList;
 
 import processing.core.PImage;
-
+/**
+ * represents a explobot baby
+ * @author Zackery He
+ *
+ */
 public class ExploBotBaby extends Bot{
 	private final int SPEED = 10;
+	/**
+	 * 
+	 * @param image image displayed to represent the bot
+	 * @param i2 image used as an attack animation
+	 * @param x x coord of the bot
+	 * @param y y coord of the bot
+	 * @param width width of the image
+	 * @param height height of the image
+	 */
 	public ExploBotBaby(PImage image, PImage i2, double x, double y, int width, int height) {
 		super(image, x,y,width,height,50);
 		
 	}
+	/**
+	 * handles how the bot will act
+	 * @param list list of all the MovingImages in the game
+	 * @return the bot that will be removed in this process
+	 */
 	//taken from blind bot
 	public MovingImage act(ArrayList<MovingImage> list){
 		if (counter%100 == 0){
@@ -43,11 +61,17 @@ public class ExploBotBaby extends Bot{
 		return null;
 
 	}
-	
+	/**
+	 * kills the bot
+	 */
 	public void die() {
 		
 	}
 	
+	/**
+	 * shoots projectiles in the attack pattern of the bot
+	 * @return an arraylist of the bullet pattern
+	 */
 	public ArrayList<Projectile> shoot(int x, int y) {
 		ArrayList<Projectile> pattern = new ArrayList<Projectile>();
 		for(int i = 0; i < 8; i++) {
@@ -56,7 +80,10 @@ public class ExploBotBaby extends Bot{
 		}
 		return pattern;
 	}
-	
+	/**
+	 * returns the id of the bot
+	 * @return the id of the bot
+	 */
 	public String toString() {
 		return "explobotbaby";
 	}
