@@ -46,20 +46,20 @@ public class BlindBot extends Bot {
 				p = (Player) m;
 			}
 		}
-		damage(p);
 		if (counter%100 == 0){
 			int pX = (int) p.getX();
 			int pY = (int) p.getY();
 			for (MovingImage m : this.shoot(pX, pY))
 				list.add(m);
 		} else if(counter%20 == 0){
-			double angle = Math.tan((p.getY() - this.y) / (p.getX() - this.x));
+			double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
 			vY = (int) (SPEED*Math.sin(angle));
 			vX = (int) (SPEED*Math.cos(angle));
-		}
+		} else if (counter % 5 == 0) 
+			damage(p);
 		else {
-			vY /= 1.25;
-			vX /= 1.25;
+			vY /= 1.5;
+			vX /= 1.5;
 		}
 		counter++; //Adds to counter
 		if(!this.isInWindow() || this.isDead()){
@@ -76,8 +76,8 @@ public class BlindBot extends Bot {
 	 * @return The BlindProjectile fired
 	 */
 	public ArrayList<Projectile> shoot(int x, int y) {
-		BlindProjectile proj = new BlindProjectile(image, this.x, this.y, (int)width, (int)height, 
-				"blindbot", Math.tan((double)y / (double)x), 0);
+		BlindProjectile proj = new BlindProjectile(DrawingSurface.blindbullet, this.x, this.y, (int)width, (int)height, 
+				"blindbot", Math.atan2((double)y - this.y, (double)x - this.x), 120);
 		ArrayList<Projectile> projs = new ArrayList<Projectile>();
 		projs.add(proj);
 		return projs;
