@@ -98,7 +98,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             int enemyX = (int) (Math.random() * WIDTH);
             int enemyY = (int) (Math.random() * (HEIGHT / 2));
 
-            list.add(new ExploBot(explob, explob, enemyX, enemyY, 80, 80));
+            //add enemies
         }
     }
 
