@@ -8,13 +8,8 @@ import processing.core.PImage;
  * @author Harry Guan
  */
 public class GlitchBot extends Bot {
-
-	protected PImage o2;
-	protected int vX, vY; //Velocity x and y
-	protected int counter; //Tracks the time. Increases by 1 once every 1/60th of a second.
-    protected boolean edead; //true or false dead
-    protected int shootSpriteTimer;
-    public final int SPEED;
+	
+    public final int SPEED = 5;
 	
     /**
 	 * Constructs a GlitchBot.
@@ -25,17 +20,8 @@ public class GlitchBot extends Bot {
 	 * @param height The height of the bot
 	 * @param hp The amount of HP the bot has
 	 */
-    public GlitchBot(PImage image, PImage i2, int x, int y, int width, int height){
-		super(image, x, y, width, height, 30);
-		this.SPEED = 5;
-        this.vX = 0;
-        this.vY = 0;
-        this.counter = 0;
-        this.ehp = 30;
-        this.edead = false; //not dead :(
-        this.o2 = i2;
-        this.shootSpriteTimer = 0;
-        o2.resize(width,height);
+    public GlitchBot(PImage image, int x, int y, int width, int height, int hp){
+		super(image, x, y, width, height, hp);
     }
     
     /**
@@ -72,6 +58,7 @@ public class GlitchBot extends Bot {
 			vY /= 2;
 			vX /= 2;
 		}
+		glitch();
 		counter++; //Adds to counter
 		if(!this.isInWindow() || this.isDead()){
 			return this;
@@ -87,18 +74,11 @@ public class GlitchBot extends Bot {
 	 * @return The BlindProjectile fired
 	 */
     public ArrayList<Projectile> shoot(int x, int y){
-        shootSpriteTimer = 10;
-        double sX = x - this.getX();
-        double sY = y - this.getY();
-        double tann = sY/sX;
-        double angle = Math.atan(tann);
-        if(x < this.getX()) {
-            angle = angle + Math.PI;
-        }
-    
-        ArrayList<Projectile> pattern = new ArrayList<Projectile>();
-        pattern.add(new GlitchProjectile(DrawingSurface.glitchbullet, (int) this.getX(), (int) this.getY(), 10, 20, "glitchbot", angle, 10000));
-        return pattern;
+    	GlitchProjectile proj = new GlitchProjectile(image, this.x, this.y, (int)width, (int)height, 
+				"glitchbot", Math.tan((double)y / (double)x), 0);
+		ArrayList<Projectile> projs = new ArrayList<Projectile>();
+		projs.add(proj);
+		return projs;
     }
     
     /**
