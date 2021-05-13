@@ -1,6 +1,6 @@
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.awt.event.MouseListener;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import java.io.File;
@@ -198,5 +198,35 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
 
     }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
