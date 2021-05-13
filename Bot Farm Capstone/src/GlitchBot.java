@@ -24,7 +24,7 @@ public class GlitchBot extends Bot {
         o2.resize(width,height);
     }
     
-    public Projectile shoot(int x, int y){
+    public ArrayList<Projectile> shoot(int x, int y){
         shootSpriteTimer = 10;
         //To get the x and the y coordinates of the enemy
         double sX = x - this.getX();
@@ -34,8 +34,10 @@ public class GlitchBot extends Bot {
         if(x < this.getX()) {
             angle = angle + Math.PI;
         }
-        
-        return new GlitchProjectile(DrawingSurface.glitchbbullet, (int) this.getX(), (int) this.getY(), 10, 20, "enemy", angle, 10000);
+    
+        ArrayList<Projectile> pattern = new ArrayList<Projectile>();
+        pattern.add(new GlitchProjectile(DrawingSurface.glitchbbullet, (int) this.getX(), (int) this.getY(), 10, 20, "enemy", angle, 10000));
+        return pattern;
     }
     
     public void glitch() {
