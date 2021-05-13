@@ -7,7 +7,7 @@ public abstract class Bot extends MovingImage {
     protected final int OEHP; //max hp
     protected boolean edead; //true or false dead
     
-    public Bot(PImage image,int x, int y, int width, int height, int hp){
+    public Bot(PImage image, double x, double y, int width, int height, int hp){
             super(image, x, y, width, height);
             this.OEHP = hp;
             this.ehp = OEHP;
