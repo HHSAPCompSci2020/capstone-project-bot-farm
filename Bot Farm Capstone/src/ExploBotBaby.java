@@ -43,13 +43,15 @@ public class ExploBotBaby extends Bot{
 		return null;
 
 	}
-	public Projectile shoot(int x, int y,double angle) {
+	private Projectile shoot(int x, int y,double angle) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	public void die() {
-		shoot((int)getX(),(int)getY());
+		for(int i = 0; i < 8; i++) {
+			shoot((int)getX(),(int)getY(), 45*Math.PI/180*i);
+		}
 	}
 	
 	public String toString() {
