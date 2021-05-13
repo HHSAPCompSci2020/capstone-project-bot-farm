@@ -35,7 +35,7 @@ public class Player extends MovingImage {
 	 * shoots a projectile for the player
 	 * @param x x coordinate of the initial position for the projectile
 	 * @param y y coordinate of the initial position for the projectile
-	 * @return
+	 * @return the projectile being shot
 	 */
 	public Projectile shoot(int x, int y) {
 		double sX = x - this.getX();
