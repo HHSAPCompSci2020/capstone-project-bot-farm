@@ -26,4 +26,11 @@ public class ExploBot extends Bot {
 	public String toString() {
 		return "explobot";
 	}
+
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
+	}
 }
