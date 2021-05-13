@@ -6,6 +6,7 @@ import processing.core.PImage;
 
 public class MovingImage extends Rectangle2D.Double {
 	
+	protected int counter;
 	protected PImage image;
 	
 	public MovingImage(PImage img, double x, double y, int w, int h) {
