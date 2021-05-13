@@ -10,7 +10,7 @@ public class Projectile extends MovingImage {
 	protected int timer;
 	double delay;
 
-	public Projectile(PImage img, double x, double y, int w, int h, String owner, int delay) {
+	public Projectile(PImage img, int x, int y, int w, int h, String owner, int delay) {
 		super(img, x, y, w, h);
 		// The field owner should equal the parameter owner.
 		this.owner = owner;
@@ -21,7 +21,7 @@ public class Projectile extends MovingImage {
 
 	}
 
-	public Projectile(PImage img, double x, double y, int w, int h, String owner, double angle, int delay) {
+	public Projectile(PImage img, int x, int y, int w, int h, String owner, double angle, int delay) {
 		super(img, x, y, w, h);
 		// The field owner should equal the parameter owner.
 		this.owner = owner;
