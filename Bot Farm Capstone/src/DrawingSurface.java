@@ -36,7 +36,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	list.add(p1);
         gameStarted = false;
     }
-
+    /**
+	 * Sets up most the background as well as the kill count. 
+	 */
     public void setup() {
         size(WIDTH, HEIGHT);
         this.frameRate(60);
@@ -70,7 +72,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
         fill(200);
         this.text(kills / 6 + " kills.", 730, 730);
     }
-
+    /**
+	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
+	 */
     public void draw() {
         background(255, 255, 255);
         if (gameStarted) {
@@ -100,13 +104,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
 
     }
-
+    /**
+	 * Spawns the different Bots. 
+	 */
     public void spawnEnemy() {
-        //Spawns the enemy.
-        //You may spawn the enemy however you like for as many times as you'd like.
-        //To spawn the enemy, you would do list.add(new Enemy([parameters]);.
-        //It is recommended that you randomize the x coordinate (Math.random() * 200).
-        //It is also recommended that you spawn multiple enemies with a loop.
         for (int i = 0; i < 1; i++) {
             int enemyX = (int) (Math.random() * WIDTH);
             int enemyY = (int) (Math.random() * (HEIGHT / 2));
@@ -114,7 +115,11 @@ public class DrawingSurface extends PApplet implements MouseListener {
             list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 100));
         }
     }
-
+    
+    
+    /**
+	 * Runs the game and detects for collision. 
+	 */
     public void runGame() {
         if (list.size() < 3) {
             spawnEnemy();
@@ -160,7 +165,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
             }
         }
     
-
+    /**
+	 * Shoots AndroidBasicProjectile on mouse clicks. 
+	 */
     public void mousePressed() {
         if (gameStarted) {
             list.add(p1.shoot(mouseX, mouseY));
@@ -192,7 +199,11 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
 
     } */
-    @Override
+    
+    /**
+     * @Override
+	 * Setting velocity with the WASD keys for player movement.  
+	 */
     public void keyPressed() {
     	if (keyCode == KeyEvent.VK_W) {
             p1.setvY(-5);
@@ -214,21 +225,14 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
     }
 
+    /**
+     * Setting velocity to 0 when WASD keys are released. 
+     */
     public void keyReleased() {
-        //Create four if statements, W/A/S/D, that sets the player (p1)'s velocity x or y to 0.
-        if (keyCode == KeyEvent.VK_W) {
-            p1.setvY(0);
-        }
-        if (keyCode == KeyEvent.VK_A) {
-            p1.setvX(0);
-        }
-        if (keyCode == KeyEvent.VK_S) {
-            p1.setvY(0);
-        }
-        if (keyCode == KeyEvent.VK_D) {
-            p1.setvX(0);
-        }
-
+        if (keyCode == KeyEvent.VK_W) p1.setvY(0);
+        if (keyCode == KeyEvent.VK_A) p1.setvX(0);
+        if (keyCode == KeyEvent.VK_S) p1.setvY(0);
+        if (keyCode == KeyEvent.VK_D) p1.setvX(0);
     }
 
 	@Override
