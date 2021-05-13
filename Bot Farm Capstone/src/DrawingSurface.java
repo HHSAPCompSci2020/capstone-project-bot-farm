@@ -1,6 +1,6 @@
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.awt.event.MouseListener;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import java.io.File;
@@ -100,7 +100,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             int enemyX = (int) (Math.random() * WIDTH);
             int enemyY = (int) (Math.random() * (HEIGHT / 2));
 
-            list.add(new Bot(oryx, o2, enemyX, enemyY, 80, 80));
+            list.add(new ExploBot(oryx, o2, enemyX, enemyY, 80, 80));
         }
     }
 
@@ -116,7 +116,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             MovingImage actor = list.get(i);
             MovingImage actedUpon = actor.act(list);
             if (actedUpon != null) {
-                if (actor instanceof Bullet) {
+                if (actor instanceof Projectile) {
                     if (actedUpon instanceof Player) {
                         //if player gets hit by bullet
                         ((Player) actedUpon).loseHP();
@@ -124,13 +124,14 @@ public class DrawingSurface extends PApplet implements MouseListener {
                         list.remove(actor);
                         //remove the bullet
                         i--;
-                    } else if (actedUpon instanceof Oryx) {
-                        //if oryx gets hit by bullet
+                    } else if (actedUpon instanceof ExploBotBaby) {
+                        //if explobotbaby gets hit by bullet
                         list.remove(actor);
                         //remove bullet
-                        ((Oryx) actedUpon).loseHP();
-                        //damage oryx
+                        ((ExploBotBaby) actedUpon).die();
+                        //die
                         i--;
+                        //need to implement explosion
                         kills++;
                     }
                 }
@@ -197,5 +198,35 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
 
     }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

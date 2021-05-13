@@ -51,7 +51,7 @@ public class Projectile extends MovingImage {
 			if (this.intersects(m) && m instanceof Block && !(m instanceof NoClipBlock)) {
 				return this;
 			}
-			if (this != m && this.intersects(m) && !this.owner.equals(m.toString()) && !(m instanceof Bullet)) {
+			if (this != m && this.intersects(m) && !this.owner.equals(m.toString()) && !(m instanceof Projectile)) {
 				return m;
 			}
 		}
