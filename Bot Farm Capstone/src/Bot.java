@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+
 import processing.core.PImage;
 
 public abstract class Bot extends MovingImage {
@@ -46,7 +48,7 @@ public abstract class Bot extends MovingImage {
         return edead; //Change the below statement to return an accurate value.
     }
     
-    public abstract Projectile[] shoot(int x, int y);
+    public abstract ArrayList<Projectile> shoot(int x, int y);
     
     
 }

@@ -18,7 +18,7 @@ public class ExploBot extends Bot {
 	}
 
 	@Override
-	public Projectile shoot(int x, int y) {
+	public Projectile[] shoot(int x, int y) {
 		// TODO Auto-generated method stub
 		return null;
 	}

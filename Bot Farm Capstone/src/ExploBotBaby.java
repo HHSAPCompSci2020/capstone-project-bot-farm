@@ -19,7 +19,7 @@ public class ExploBotBaby extends Bot{
 			}
 			int pX = (int) p.getX();
 			int pY = (int) p.getY();
-			list.add(this.shoot(pX, pY));
+//			list.add(this.shoot(pX, pY));  doesnt shoot anything
 		} else if(counter%20 == 0){
 			Player p = null;
 			for (MovingImage m : list) {
@@ -43,24 +43,14 @@ public class ExploBotBaby extends Bot{
 		return null;
 
 	}
-	private Projectile shoot(int x, int y,double angle) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	public void die() {
-		for(int i = 0; i < 8; i++) {
-			shoot((int)getX(),(int)getY(), 45*Math.PI/180*i);
-		}
+	public Projectile[] shoot(int x, int y) {
+		Projectile[] pattern;
+		pattern
 	}
 	
 	public String toString() {
 		return "bot";
-	}
-	@Override
-	public Projectile shoot(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	
