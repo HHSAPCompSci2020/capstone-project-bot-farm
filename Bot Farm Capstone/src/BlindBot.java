@@ -20,7 +20,7 @@ public class BlindBot extends Bot {
 		return super.act(list);
 	}
 	public Projectile shoot(int x, int y) {
-		BlindProjectile proj = new BlindProjectile(image, this.x, this.y, width, height, 
+		BlindProjectile proj = new BlindProjectile(image, this.x, this.y, (int)width, (int)height, 
 				"blindbot", Math.tan((double)y / (double)x), 0);
 		return proj;
 	}
