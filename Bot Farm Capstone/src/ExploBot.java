@@ -5,7 +5,7 @@ import processing.core.PImage;
 
 /**
  * represents an ExploBot
- * @author zackeryhe
+ * @author Zackery He
  *
  */
 public class ExploBot extends Bot {

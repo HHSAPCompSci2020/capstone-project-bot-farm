@@ -2,12 +2,25 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * represents the player
+ * @author Zackery He
+ *
+ */
 public class Player extends MovingImage {
 	protected int vX, vY;
 	protected double hp;
 	protected boolean dead;
 	protected final int ohp;
 
+	/**
+	 * 
+	 * @param image image displayed at the players coords
+	 * @param x x coord of the player
+	 * @param y y coord of the player
+	 * @param width width of the image
+	 * @param height height of the image
+	 */
 	public Player(PImage image, double x, double y, int width, int height) {
 		super(image, x, y, width, height);
 		//vX and vY should be initially 0, hp should start at 20, and dead should be false.
@@ -18,7 +31,12 @@ public class Player extends MovingImage {
 		ohp = (int)hp;
 	}
 
-
+	/**
+	 * shoots a projectile for the player
+	 * @param x x coordinate of the initial position for the projectile
+	 * @param y y coordinate of the initial position for the projectile
+	 * @return
+	 */
 	public Projectile shoot(int x, int y) {
 		double sX = x - this.getX();
 		double sY = y - this.getY();
@@ -35,15 +53,24 @@ public class Player extends MovingImage {
 		}
 	}
 
+	/**
+	 * changes the x velocity of the player
+	 * @param x the velocity of the player to be set
+	 */
 	public void setvX(int x) {
 		vX = x;
 	}
-
+	/**
+	 * changes the y velocity of the player
+	 * @param y the velocity of the player to be set
+	 */
 	public void setvY(int y) {
 		vY = y;
 	}
 
-
+	/**
+	 * causes the player to lose 1 hp
+	 */
 	public void loseHP() {
 		//If hp is less than 0, die
 		hp --;
@@ -53,16 +80,25 @@ public class Player extends MovingImage {
 
 	}
 
+	/**
+	 * causes the player to die
+	 */
 	private void die() {
 		dead = true;
 		//Sets the dead boolean to true
 	}
 
+	/**
+	 * checks if the player is dead
+	 * @return true if the player is dead, false if not
+	 */
 	public boolean isDead() {
 		//Change the below statement to return an accurate value.
 		return dead;
 	}
-
+	/**
+	 * draws the hp bar of the player
+	 */
 	public void draw(PApplet marker) {
 		super.draw(marker);
 		if (hp > ohp * 0.75) {
@@ -79,7 +115,10 @@ public class Player extends MovingImage {
 		}
 
 	}
-
+	/**
+	 * handles movement and collision between blocks
+	 * @param list list containing all the MovingImages
+	 */
 	public MovingImage act(ArrayList<MovingImage> list) { 
 		this.moveByAmount(vX, vY);
 		if (!isInWindow()) {
@@ -97,7 +136,10 @@ public class Player extends MovingImage {
 		}
 		return null;
 	}
-
+	/**
+	 * returns the id of the player
+	 * @return returns the id of the player
+	 */
 	public String toString(){
 		return "player";
 	}
