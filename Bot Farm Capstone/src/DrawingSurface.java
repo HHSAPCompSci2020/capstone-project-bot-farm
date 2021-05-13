@@ -8,11 +8,10 @@ import java.util.Scanner;
 
 public class DrawingSurface extends PApplet implements MouseListener {
 
-    private final PImage bg;
     public static final int WIDTH = 750;
     public static final int HEIGHT = 750;
-    public static PImage o2, ebullet, oryx, shot, djinn, star, rocky, lava, 
-    downmouse, cursor, right, left, down, up, invis, slowShot;
+    public static PImage explob, explobb, glitchb, blindb, explobbbullet, glitchbbullet, blindbbullet, 
+    androidbullet, rock, toxicgas, cursor;
     private final Player p1;
     public boolean gameStarted;
 
@@ -21,7 +20,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
     private int kills;
 
     public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
-        //add field initialization
+        //add field initialization 
+    	//CHANGE LATER VERY IMPORTANT
+    	p1 = null;
+    	list = null;
         gameStarted = false;
     }
 
@@ -41,15 +43,12 @@ public class DrawingSurface extends PApplet implements MouseListener {
                 int curBlock = file.nextInt();
                 switch (curBlock) {
                     case 1:
-                        Block block = new Block(rocky, j * 50, i * 50, 40, 40);
+                        Block block = new Block(rock, j * 50, i * 50, 40, 40);
                         list.add(block);
                         break;
                     case 2:
-                        NoClipBlock lavva = new NoClipBlock(lava, j * 50, i * 50, 50, 50);
+                        NoClipBlock lavva = new NoClipBlock(toxicgas, j * 50, i * 50, 50, 50);
                         list.add(lavva);
-                    case 3:
-                        Block white = new Block(invis, j * 50, i * 50, 40, 40);
-                        list.add(white);
 
                 }
             }
@@ -61,7 +60,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 
     public void draw() {
         background(255, 255, 255);
-        this.image(bg, 0, 0);
         if (gameStarted) {
             //Under this comment, draw every MovingImage in list.
             for (MovingImage m : list) {
@@ -100,7 +98,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             int enemyX = (int) (Math.random() * WIDTH);
             int enemyY = (int) (Math.random() * (HEIGHT / 2));
 
-            list.add(new ExploBot(oryx, o2, enemyX, enemyY, 80, 80));
+            list.add(new ExploBot(explob, explob, enemyX, enemyY, 80, 80));
         }
     }
 
@@ -148,7 +146,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
                 }
             }
         }
-    }
+    
 
     public void mousePressed() {
         if (gameStarted) {
@@ -160,7 +158,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
     }
 
-    public void keyPressed() {
+    /*
         if (keyCode == KeyEvent.VK_W) {
             p1.setvY(-5);
             up.resize(42, 42);
@@ -180,7 +178,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             p1.image = right;
         }
 
-    }
+    } */
 
     public void keyReleased() {
         //Create four if statements, W/A/S/D, that sets the player (p1)'s velocity x or y to 0.
