@@ -86,6 +86,14 @@ public class Player extends MovingImage {
 		}
 
 	}
+	/**
+	 * causes the player to lose n hp
+	 * @param n amount of hp to lose
+	 */
+	public void loseHP(int n) {
+		hp-=n;
+		if(hp<=0)die();
+	}
 
 	/**
 	 * causes the player to die

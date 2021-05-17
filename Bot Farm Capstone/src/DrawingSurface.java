@@ -161,7 +161,13 @@ public class DrawingSurface extends PApplet implements MouseListener {
                 if (actor instanceof Projectile) {
                     if (actedUpon instanceof Player) {
                         //if player gets hit by bullet
-                        ((Player) actedUpon).loseHP();
+                        
+                    	//if hit by explobb
+                    	if(actor instanceof ExploBotBabyProjectile) {
+                    		((Player) actedUpon).loseHP(10);
+                    	}
+                    	
+                    	//((Player) actedUpon).loseHP();
                         //initiate method loseHP
                         list.remove(actor);
                         //remove the bullet
