@@ -40,15 +40,9 @@ public class GlitchBot extends Bot {
 			int pY = (int) p.getY();
 			for (MovingImage m : this.shoot(pX, pY))
 				this.add(m);
-		} else if(counter%20 == 0){
-			Player p = null;
-			for (MovingImage m : list) {
-				if (m instanceof Player) {
-					p = (Player) m;
-				}
-			}
+		} else if(counter % 200 == 0){
+			glitch();
 		}
-		glitch();
 		counter++; //Adds to counter
 		if(!this.isInWindow() || this.isDead()){
 			return this;
