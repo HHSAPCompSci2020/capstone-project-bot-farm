@@ -1,3 +1,4 @@
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -67,6 +68,12 @@ public class Player extends MovingImage {
 	public void setvY(int y) {
 		vY = y;
 	}
+	public int getVx() {
+		return vX;
+	}
+	public int getVy() {
+		return vY;
+	}
 
 	/**
 	 * causes the player to lose 1 hp
@@ -120,16 +127,20 @@ public class Player extends MovingImage {
 	 * @param list list containing all the MovingImages
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) { 
-		this.moveByAmount(vX, vY);
+		Rectangle2D rect = new Rectangle2D.Double(x + vX, y + vY, image.width, image.height);
+		//this.moveByAmount(vX, vY);
 		if (!isInWindow()) {
-			this.moveByAmount(-vX, -vY);
+			vX = 0;
+			vY = 0;
+			return this;
 		}   
 
 		for (MovingImage s : list) {
-			if (this.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
-				this.moveByAmount(-vX, -vY);
+			if (rect.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
+				vX = 0;
+				vY = 0;
 			}
-			if (this != s && this.intersects(s)) {
+			if (this != s && rect.intersects(s)) {
 				return s;
 			}
 

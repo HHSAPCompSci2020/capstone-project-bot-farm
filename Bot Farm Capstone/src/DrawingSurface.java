@@ -15,6 +15,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 
     public static final int WIDTH = 750;
     public static final int HEIGHT = 750;
+    private String[] bots = {"blindbot", "explobot", "glitchbot"};
     public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
     androidbullet, rock, toxicgas, cursor;
     private final Player p1;
@@ -23,6 +24,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     private final ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
     private int spawnRate;
     private int kills;
+    private boolean keyX, keyY;
 
     public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
     	explob = loadImage("../assets/explob.png");
@@ -36,10 +38,12 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	androidbullet = loadImage("../assets/androidbullet.png");
     	cursor = loadImage("../assets/cursor.png");
     	toxicgas = loadImage("../assets/toxicgas.png");
-    	p1 = new Player(loadImage("../assets/explob.png"), 270, 550, 42, 42);
+    	p1 = new Player(loadImage("../assets/explob.png"), WIDTH/2, HEIGHT/2, 42, 42);
     	list = new ArrayList<MovingImage>();
     	list.add(p1);
         gameStarted = false;
+        keyX = false;
+        keyY = false;
     }
     /**
 	 * Sets up most the background as well as the kill count. 
@@ -84,6 +88,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
         background(255, 255, 255);
         if (gameStarted) {
             //Under this comment, draw every MovingImage in list.
+        	p1.setvX(keyX ? (int)p1.getVx() : (int)(p1.getVx() * 0.99));
+        	p1.setvY(keyY ? (int)p1.getVy() : (int)(p1.getVy() * 0.99));
             for (MovingImage m : list) {
                 if (m instanceof Block) m.draw(this);
             }
@@ -114,10 +120,16 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 */
     public void spawnEnemy() {
         for (int i = 0; i < 1; i++) {
+        	String bot = bots[(int)(Math.random() * bots.length)];
             int enemyX = (int) (Math.random() * WIDTH);
             int enemyY = (int) (Math.random() * (HEIGHT / 2));
             //add enemies
-            list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 100));
+            if (bot.equalsIgnoreCase("blindbot"))
+            	list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 100));
+//            else if (bot.equalsIgnoreCase("explobot"))
+//            	list.add(new ExploBot(explob, explobb, enemyX, enemyY, 50, 50));
+            else if (bot.equalsIgnoreCase("glitchbot"))
+            	list.add(new GlitchBot(glitchb, enemyX, enemyY, 50, 50, 100));
         }
     }
     
@@ -133,8 +145,15 @@ public class DrawingSurface extends PApplet implements MouseListener {
         if (spawnRate % 200 == 0) { //Spawns enemy once every 400 1/60th of a second.
             spawnEnemy();
         }
+        
+        int pVx = 0;
+        int pVy = 0;
         for (int i = 0; i < list.size(); i++) { //This code handles the collision.
             MovingImage actor = list.get(i);
+            if (actor instanceof Player) {
+            	pVx = ((Player) actor).getVx();
+            	pVy = ((Player) actor).getVy();
+            }
             MovingImage actedUpon = actor.act(list);
             if (actedUpon != null) {
                 if (actor instanceof Projectile) {
@@ -157,11 +176,21 @@ public class DrawingSurface extends PApplet implements MouseListener {
                     }
                 }
                 }
-                if (actor instanceof Player && actedUpon instanceof Bot) {
-                    list.remove(actedUpon);
-                    ((Player) actor).loseHP();
-                    //lose hp
-                    i--;
+                if (actor instanceof Player) {
+                	if (actedUpon instanceof Block && !(actedUpon instanceof NoClipBlock)) {
+//                		while (actor.act(list) != null)
+//                			sideScroll(-pVx, -pVy);
+                	}
+                	else {
+                		sideScroll(p1.getVx(), p1.getVy());
+                	}
+                		
+                	if (actedUpon instanceof Bot) {
+	                    list.remove(actedUpon);
+	                    ((Player) actor).loseHP();
+	                    //lose hp
+	                    i--;
+                	}
                 }
                 if (actor == actedUpon) {
                     list.remove(actedUpon);
@@ -183,63 +212,47 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
     }
 
-    /*
-        if (keyCode == KeyEvent.VK_W) {
-            p1.setvY(-5);
-            up.resize(42, 42);
-            p1.image = up;
-        }
-        if (keyCode == KeyEvent.VK_A) {
-            p1.setvX(-5);
-            p1.image = left;
-        }
-        if (keyCode == KeyEvent.VK_S) {
-            p1.setvY(5);
-            p1.image = down;
-        }
-        if (keyCode == KeyEvent.VK_D) {
-            p1.setvX(5);
-            right.resize(42, 42);
-            p1.image = right;
-        }
-
-    } */
-    
     /**
      * 
 	 * Setting velocity with the WASD keys for player movement.  
 	 */
     public void keyPressed() {
     	if (keyCode == KeyEvent.VK_W) {
-            p1.setvY(-5);
+    		keyY = true;
+    		p1.setvY(5);
+//            p1.setvY(-5);
 //            up.resize(42, 42);
 //            p1.image = up;
         }
         if (keyCode == KeyEvent.VK_A) {
-            p1.setvX(-5);
+        	keyX = true;
+        	p1.setvX(5);
+            //p1.setvX(-5);
             //p1.image = left;
         }
         if (keyCode == KeyEvent.VK_S) {
-            p1.setvY(5);
+        	keyY = true;
+        	p1.setvY(-5);
+            //p1.setvY(5);
             //p1.image = down;
         }
         if (keyCode == KeyEvent.VK_D) {
-            p1.setvX(5);
+        	keyX = true;
+        	p1.setvX(-5);
+            //p1.setvX(5);
             ///right.resize(42, 42);
             //p1.image = right;
         }
     }
-
     /**
      * Setting velocity to 0 when WASD keys are released. 
      */
     public void keyReleased() {
-        if (keyCode == KeyEvent.VK_W) p1.setvY(0);
-        if (keyCode == KeyEvent.VK_A) p1.setvX(0);
-        if (keyCode == KeyEvent.VK_S) p1.setvY(0);
-        if (keyCode == KeyEvent.VK_D) p1.setvX(0);
+        if (keyCode == KeyEvent.VK_W) keyY = false;
+        if (keyCode == KeyEvent.VK_A) keyX = false;
+        if (keyCode == KeyEvent.VK_S) keyY = false;
+        if (keyCode == KeyEvent.VK_D) keyX = false;
     }
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -263,5 +276,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+	private void sideScroll(int x, int y) {
+		for (MovingImage image : list) {
+			if (!(image instanceof Player))
+				image.moveByAmount(x, y);
+		}
+	}
 }
