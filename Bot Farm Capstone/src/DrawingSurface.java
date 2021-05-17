@@ -38,7 +38,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	androidbullet = loadImage("../assets/androidbullet.png");
     	cursor = loadImage("../assets/cursor.png");
     	toxicgas = loadImage("../assets/toxicgas.png");
-    	p1 = new Player(loadImage("../assets/explob.png"), WIDTH/2, HEIGHT/2, 42, 42);
+    	p1 = new Player(explob, WIDTH/2, HEIGHT/2, 42, 42);
     	list = new ArrayList<MovingImage>();
     	list.add(p1);
         gameStarted = false;

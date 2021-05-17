@@ -127,7 +127,8 @@ public class Player extends MovingImage {
 	 * @param list list containing all the MovingImages
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) { 
-		Rectangle2D rect = new Rectangle2D.Double(x + vX, y + vY, image.width, image.height);
+		Player player = (Player) this.clone();
+		player.moveByAmount(-vX, -vY);
 		//this.moveByAmount(vX, vY);
 		if (!isInWindow()) {
 			vX = 0;
@@ -136,11 +137,11 @@ public class Player extends MovingImage {
 		}   
 
 		for (MovingImage s : list) {
-			if (rect.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
+			if (player.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
 				vX = 0;
 				vY = 0;
 			}
-			if (this != s && rect.intersects(s)) {
+			if (this != s && player.intersects(s)) {
 				return s;
 			}
 
