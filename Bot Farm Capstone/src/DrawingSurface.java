@@ -96,6 +96,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             if (!p1.isDead()) {
                 runGame();
             } else {
+            	fill(200);
                 this.text("Game Over", 200, 375);
                 this.text("You've killed " + kills / 6 + " enemies.", 200, 330);
                 delay(4000);

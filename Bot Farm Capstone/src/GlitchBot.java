@@ -47,14 +47,6 @@ public class GlitchBot extends Bot {
 					p = (Player) m;
 				}
 			}
-			double angle = Math.tan((p.getY() - this.y) / (p.getX() - this.x));
-
-			vY = SPEED*(int)Math.sin(angle);
-			vX = SPEED*(int)Math.cos(angle);
-		}
-		else {
-			vY /= 2;
-			vX /= 2;
 		}
 		glitch();
 		counter++; //Adds to counter
