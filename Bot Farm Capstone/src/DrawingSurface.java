@@ -54,7 +54,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     public void setup() {
         size(WIDTH, HEIGHT);
         this.frameRate(60);
-        cursor(cursor, 20, 20);
+    //    cursor(cursor, 16,16);
         File f = new File("../assets/blocks.txt");
         Scanner file = null;
         try {
