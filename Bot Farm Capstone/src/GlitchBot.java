@@ -29,24 +29,24 @@ public class GlitchBot extends Bot {
 	 * @return the Bot to be removed in this process
 	 */
     public MovingImage act(ArrayList<MovingImage> list){
-		if (counter%100 == 0){
-			Player p = null;
-			for (MovingImage m : list) {
-				if (m instanceof Player) {
-					p = (Player) m;
-				}
+    	Player p = null;
+		for (MovingImage m : list) {
+			if (m instanceof Player) {
+				p = (Player) m;
 			}
+		}
+		if (counter%100 == 0){
+			glitch();
 			int pX = (int) p.getX();
 			int pY = (int) p.getY();
 			for (MovingImage m : this.shoot(pX, pY))
-				this.add(m);
-		} else if(counter % 200 == 0){
-			glitch();
-		}
+				list.add(m);
+		} 
+		
 		counter++; //Adds to counter
 		if(!this.isInWindow() || this.isDead()){
 			return this;
-		}    
+		}
 		return null;
 
 	}
