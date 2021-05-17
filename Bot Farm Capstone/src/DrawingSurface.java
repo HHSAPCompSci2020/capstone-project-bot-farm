@@ -31,7 +31,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	explob = loadImage("../assets/explobot.png");
     	explobb = loadImage("../assets/explobotbaby.png");
     	explobullet = loadImage("../assets/explobbullet.png");
-    	glitchb = loadImage("../assets/glitchbot.png");
+    	glitchb = loadImage("../assets/glitchb.png");
     	blindb = loadImage("../assets/blindbot.png");
     	rock = loadImage("../assets/rock.png");
     	glitchbullet = loadImage("../assets/glitchbullet.png");
@@ -128,8 +128,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
             //add enemies
             if (bot.equalsIgnoreCase("blindbot"))
             	list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 100));
-//            else if (bot.equalsIgnoreCase("explobot"))
-//            	list.add(new ExploBot(explob, explobb, enemyX, enemyY, 50, 50));
+            else if (bot.equalsIgnoreCase("explobot"))
+            	list.add(new ExploBot(explob, enemyX, enemyY, 50, 50, 100));
             else if (bot.equalsIgnoreCase("glitchbot"))
             	list.add(new GlitchBot(glitchb, enemyX, enemyY, 50, 50, 100));
         }
