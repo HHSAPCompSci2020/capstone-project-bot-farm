@@ -40,6 +40,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	androidbullet = loadImage("../assets/androidbullet.png");
     	cursor = loadImage("../assets/cursor.png");
     	toxicgas = loadImage("../assets/toxicgas.png");
+//    	backgroundPic = loadImage("../assets/background.png");
     	p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
     	list = new ArrayList<MovingImage>();
     	list.add(p1);
@@ -82,7 +83,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
         textSize(40);
         fill(200);
-        this.text(kills / 6 + " kills.", 730, 730);
+        this.text(kills + " kills.", 730, 730);
     }
     /**
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
@@ -113,15 +114,16 @@ public class DrawingSurface extends PApplet implements MouseListener {
             } else {
             	fill(200);
                 this.text("Game Over", 200, 375);
-                this.text("You've killed " + kills / 6 + " enemies.", 200, 330);
+                this.text("You've killed " + kills + " enemies.", 200, 330);
                 delay(4000);
                 //exit();
             }
         } else {
             textSize(40);
             fill(200);
-            this.text("Start Game", 350, 350);
-            this.rect(350, 350, 150, 50);
+            this.rect(350, 350, 250, 50);
+            fill(255);
+            this.text("Start Game", 370, 390);
         }
 
     }
@@ -219,7 +221,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
         if (gameStarted) {
             list.add(p1.shoot(mouseX, mouseY));
         } else {
-            if (mouseX < 500 && mouseX > 350 && mouseY < 400 && mouseY > 50) {
+            if (mouseX < 600 && mouseX > 350 && mouseY < 400 && mouseY > 350) {
                 gameStarted = true;
             }
         }
