@@ -61,7 +61,7 @@ public class ExploBotBaby extends Bot{
 	 * kills the bot
 	 */
 	public void die() {
-		
+		shoot((int)getX(), (int)getY());
 	}
 	
 	/**
