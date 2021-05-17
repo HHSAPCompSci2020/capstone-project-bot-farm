@@ -8,6 +8,7 @@ import processing.core.PImage;
  */
 public class ExploBotBaby extends Bot{
 	private final int SPEED = 10;
+	private final int DMG_RADIUS = 100;
 
 	/**
 	 * 
@@ -34,13 +35,8 @@ public class ExploBotBaby extends Bot{
 			if (m instanceof Player) {
 				p = (Player) m;
 			}
-		}
-		if (counter%100 == 0){
-			int pX = (int) p.getX();
-			int pY = (int) p.getY();
-			for (MovingImage m : this.shoot(pX, pY))
-				list.add(m);
-		} else if(counter%20 == 0){
+		} 
+		if(counter%20 == 0){
 			double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
 			vY = (int) (SPEED*Math.sin(angle));
 			vX = (int) (SPEED*Math.cos(angle));
@@ -49,6 +45,12 @@ public class ExploBotBaby extends Bot{
 			vY /= 1.5;
 			vX /= 1.5;
 		}
+		double distance = Math.sqrt(Math.pow(p.getY() - this.y, 2) + Math.pow(p.getX() - this.x, 2));
+		if (distance <= DMG_RADIUS) {
+			explode(list);
+		}
+		
+			
 		counter++; //Adds to counter
 		if(!this.isInWindow() || this.isDead()){
 			return this;
@@ -60,8 +62,16 @@ public class ExploBotBaby extends Bot{
 	/**
 	 * kills the bot
 	 */
-	public void die() {
-		shoot((int)getX(), (int)getY());
+	public void explode(ArrayList<MovingImage> list) {
+		Player p = null;
+		for (MovingImage m : list) {
+			if (m instanceof Player) {
+				p = (Player) m;
+			}
+		} 
+		for (MovingImage m : shoot((int)p.getX(),(int)p.getY()))
+			list.add(m);
+		super.die();
 	}
 	
 	/**
@@ -71,11 +81,12 @@ public class ExploBotBaby extends Bot{
 	public ArrayList<Projectile> shoot(int x, int y) {
 		ArrayList<Projectile> pattern = new ArrayList<Projectile>();
 		for(int i = 0; i < 8; i++) {
-			pattern.add(new ExploBotBabyProjectile(DrawingSurface.explobullet, x, y, 20, 20, "explobotbaby", 45*i*Math.PI/180, 0));
+			pattern.add(new ExploBotBabyProjectile(DrawingSurface.explobullet, (int)getX(), (int)getY(), 20, 20, "explobotbaby", 45*i*Math.PI/180, 100));
 
 		}
 		return pattern;
 	}
+	
 	/**
 	 * returns the id of the bot
 	 * @return the id of the bot
