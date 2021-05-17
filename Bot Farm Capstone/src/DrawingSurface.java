@@ -17,7 +17,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     public static final int HEIGHT = 750;
     private String[] bots = {"blindbot", "explobot", "glitchbot"};
     public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
-    androidbullet, rock, toxicgas, cursor;
+    androidbullet, rock, toxicgas, cursor, android;
     private final Player p1;
     public boolean gameStarted;
 
@@ -27,18 +27,19 @@ public class DrawingSurface extends PApplet implements MouseListener {
     private boolean keyX, keyY;
 
     public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
-    	explob = loadImage("../assets/explob.png");
-    	explobb = loadImage("../assets/explobb.png");
-    	explobullet = loadImage("../assets/explobbbullet.png");
-    	glitchb = loadImage("../assets/glitchb.png");
-    	blindb = loadImage("../assets/blindb.png");
+    	android = loadImage("../assets/android.png");
+    	explob = loadImage("../assets/explobot.png");
+    	explobb = loadImage("../assets/explobotbaby.png");
+    	explobullet = loadImage("../assets/explobbullet.png");
+    	glitchb = loadImage("../assets/glitchbot.png");
+    	blindb = loadImage("../assets/blindbot.png");
     	rock = loadImage("../assets/rock.png");
-    	glitchbullet = loadImage("../assets/glitchbbullet.png");
+    	glitchbullet = loadImage("../assets/glitchbullet.png");
     	blindbullet = loadImage("../assets/blindbullet.png");
     	androidbullet = loadImage("../assets/androidbullet.png");
     	cursor = loadImage("../assets/cursor.png");
     	toxicgas = loadImage("../assets/toxicgas.png");
-    	p1 = new Player(explob, WIDTH/2, HEIGHT/2, 42, 42);
+    	p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
     	list = new ArrayList<MovingImage>();
     	list.add(p1);
         gameStarted = false;
