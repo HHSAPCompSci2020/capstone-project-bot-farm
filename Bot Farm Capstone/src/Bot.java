@@ -48,13 +48,22 @@ public abstract class Bot extends MovingImage {
     }
   
     /**
-     * Causes the bot to lose exactly 5 hp, automatically dies if ehp is below 0
+     * Causes the bot to lose exactly 1 hp, automatically dies if ehp is below 0
      */
     public void loseHP(){
-        ehp -= 5;
+        ehp -= 1;
         if(ehp <= 0){
             die(); //dies when hp less than zero
         }
+    }
+    
+    /**
+     * causes the bot to lose n hp
+     * @param n the amount of hp to lose
+     */
+    public void loseHP(int n) {
+    	ehp -=n;
+    	if(ehp <= 0)die();
     }
 
     public static void sound(String filepath) {
