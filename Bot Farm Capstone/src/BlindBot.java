@@ -6,7 +6,7 @@ import processing.core.PImage;
  *
  */
 public class BlindBot extends Bot {
-	private final double DMG_RADIUS = 100;
+	private final double DMG_RADIUS = 50;
 	private final int AOE_DMG = 5;
 	private final int SPEED = 15;
 	
@@ -76,7 +76,7 @@ public class BlindBot extends Bot {
 	 */
 	public ArrayList<Projectile> shoot(int x, int y) {
 		BlindProjectile proj = new BlindProjectile(DrawingSurface.blindbullet, this.x, this.y, (int)width, (int)height, 
-				"blindbot", Math.atan2((double)y - this.y, (double)x - this.x), 120);
+				"blindbot", Math.atan2((double)y - this.y, (double)x - this.x), 240);
 		ArrayList<Projectile> projs = new ArrayList<Projectile>();
 		projs.add(proj);
 		return projs;
