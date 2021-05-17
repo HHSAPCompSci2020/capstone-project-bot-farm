@@ -24,6 +24,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     private final ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
     private int spawnRate;
     private int kills;
+    private int blind;
     private boolean keyX, keyY;
 
     public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
@@ -45,6 +46,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
         gameStarted = false;
         keyX = false;
         keyY = false;
+        blind = 0;
     }
     /**
 	 * Sets up most the background as well as the kill count. 
@@ -99,6 +101,12 @@ public class DrawingSurface extends PApplet implements MouseListener {
             }
             textSize(40);
             fill(200);
+            pushMatrix();
+            fill(0, blind);
+            noStroke();
+        	rect(0, 0, width, height);
+        	popMatrix();
+        	if (blind > 0) blind--;
             //If the player is dead, display a death message.
             if (!p1.isDead()) {
                 runGame();
@@ -148,18 +156,14 @@ public class DrawingSurface extends PApplet implements MouseListener {
             spawnEnemy();
         }
         
-        int pVx = 0;
-        int pVy = 0;
         for (int i = 0; i < list.size(); i++) { //This code handles the collision.
             MovingImage actor = list.get(i);
-            if (actor instanceof Player) {
-            	pVx = ((Player) actor).getVx();
-            	pVy = ((Player) actor).getVy();
-            }
             MovingImage actedUpon = actor.act(list);
             if (actedUpon != null) {
                 if (actor instanceof Projectile) {
                     if (actedUpon instanceof Player) {
+                    	if (actor instanceof BlindProjectile)
+                    		blind = 255;
                         //if player gets hit by bullet
                         
                     	//if hit by explobb
@@ -171,7 +175,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
                         //initiate method loseHP
                         list.remove(actor);
                         //remove the bullet
-                        i--;
                     } else if (actedUpon instanceof ExploBotBaby) {
                         //if explobotbaby gets hit by bullet
                         list.remove(actor);
@@ -181,24 +184,26 @@ public class DrawingSurface extends PApplet implements MouseListener {
                         i--;
                         //need to implement explosion
                         kills++;
+                    } 
+                    else if (actor instanceof AndroidBasicProjectile ){
+                    	if (actedUpon instanceof Bot) {
+                    		((Bot) actedUpon).loseHP();
+                    		list.remove(actor);
+	                    	if (actedUpon instanceof ExploBotBaby) {
+	                    		//if explobotbaby gets hit by bullet
+	                            //remove bullet
+	                            ((ExploBotBaby) actedUpon).die();
+	                            //die
+	                            i--;
+	                            //need to implement explosion
+	                            kills++;  
+	                    	}
+                    	}
                     }
                 }
                 }
                 if (actor instanceof Player) {
-                	if (actedUpon instanceof Block && !(actedUpon instanceof NoClipBlock)) {
-//                		while (actor.act(list) != null)
-//                			sideScroll(-pVx, -pVy);
-                	}
-                	else {
-                		sideScroll(p1.getVx(), p1.getVy());
-                	}
-                		
-                	if (actedUpon instanceof Bot) {
-	                    list.remove(actedUpon);
-	                    ((Player) actor).loseHP();
-	                    //lose hp
-	                    i--;
-                	}
+                	sideScroll(p1.getVx(), p1.getVy());
                 }
                 if (actor == actedUpon) {
                     list.remove(actedUpon);

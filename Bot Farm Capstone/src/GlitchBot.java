@@ -69,7 +69,7 @@ public class GlitchBot extends Bot {
      * Teleports to random location nearby.
      */
     public void glitch() {
-    	this.moveByAmount(Math.random() * 200, Math.random() * 200);
+    	this.moveByAmount((Math.random() * 200) - 100, (Math.random() * 200) - 100);
     }
 	
     /**
