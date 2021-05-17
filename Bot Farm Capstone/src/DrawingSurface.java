@@ -89,7 +89,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
 	 */
     public void draw() {
-        background(255, 255, 255);
+        background(0,100,0);
         if (gameStarted) {
             //Under this comment, draw every MovingImage in list.
         	p1.setvX(keyX ? (int)p1.getVx() : (int)(p1.getVx() * 0.99));
@@ -120,10 +120,11 @@ public class DrawingSurface extends PApplet implements MouseListener {
             }
         } else {
             textSize(40);
+            background(100);
             fill(200);
-            this.rect(350, 350, 250, 50);
+            this.rect(250, 350, 250, 50);
             fill(255);
-            this.text("Start Game", 370, 390);
+            this.text("Start Game", 270, 390);
         }
 
     }
@@ -221,7 +222,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
         if (gameStarted) {
             list.add(p1.shoot(mouseX, mouseY));
         } else {
-            if (mouseX < 600 && mouseX > 350 && mouseY < 400 && mouseY > 350) {
+            if (mouseX < 400 && mouseX > 250 && mouseY < 400 && mouseY > 350) {
                 gameStarted = true;
             }
         }
