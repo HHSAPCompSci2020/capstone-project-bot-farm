@@ -54,7 +54,7 @@ public class BlindBot extends Bot {
 			double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
 			vY = (int) (SPEED*Math.sin(angle));
 			vX = (int) (SPEED*Math.cos(angle));
-		} else if (counter % 5 == 0) 
+		} else if (counter % 8 == 0) 
 			damage(p);
 		else {
 			vY /= 1.5;
