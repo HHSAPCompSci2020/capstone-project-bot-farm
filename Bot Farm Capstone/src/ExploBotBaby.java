@@ -8,6 +8,7 @@ import processing.core.PImage;
  */
 public class ExploBotBaby extends Bot{
 	private final int SPEED = 10;
+
 	/**
 	 * 
 	 * @param image image displayed to represent the bot
@@ -17,7 +18,7 @@ public class ExploBotBaby extends Bot{
 	 * @param width width of the image
 	 * @param height height of the image
 	 */
-	public ExploBotBaby(PImage image, PImage i2, double x, double y, int width, int height) {
+	public ExploBotBaby(PImage image, double x, double y, int width, int height) {
 		super(image, x,y,width,height,50);
 		
 	}
@@ -28,36 +29,31 @@ public class ExploBotBaby extends Bot{
 	 */
 	//taken from blind bot
 	public MovingImage act(ArrayList<MovingImage> list){
-		if (counter%100 == 0){
-			Player p = null;
-			for (MovingImage m : list) {
-				if (m instanceof Player) {
-					p = (Player) m;
-				}
+		Player p = null;
+		for (MovingImage m : list) {
+			if (m instanceof Player) {
+				p = (Player) m;
 			}
+		}
+		if (counter%100 == 0){
 			int pX = (int) p.getX();
 			int pY = (int) p.getY();
-//			list.add(this.shoot(pX, pY));  doesnt shoot anything
+			for (MovingImage m : this.shoot(pX, pY))
+				list.add(m);
 		} else if(counter%20 == 0){
-			Player p = null;
-			for (MovingImage m : list) {
-				if (m instanceof Player) {
-					p = (Player) m;
-				}
-			}
-			double angle = Math.tan((p.getY() - this.y) / (p.getX() - this.x));
-
-			vY = SPEED*(int)Math.sin(angle);
-			vX = SPEED*(int)Math.cos(angle);
-		}
+			double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
+			vY = (int) (SPEED*Math.sin(angle));
+			vX = (int) (SPEED*Math.cos(angle));
+		} 
 		else {
-			vY /= 2;
-			vX /= 2;
+			vY /= 1.5;
+			vX /= 1.5;
 		}
 		counter++; //Adds to counter
 		if(!this.isInWindow() || this.isDead()){
 			return this;
-		}    
+		}
+		this.moveByAmount(vX, vY);
 		return null;
 
 	}

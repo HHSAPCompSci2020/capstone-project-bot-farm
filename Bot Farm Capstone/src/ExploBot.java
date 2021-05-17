@@ -9,8 +9,7 @@ import processing.core.PImage;
  *
  */
 public class ExploBot extends Bot {
-	protected int counter;
-	protected boolean dead;
+	private PImage babyImage;
 	
 	/**
 	 * 
@@ -21,9 +20,9 @@ public class ExploBot extends Bot {
 	 * @param width the width of the image displayed
 	 * @param height the height of the image displayed
 	 */
-	public ExploBot(PImage image, PImage i2, double x, double y, int width, int height) {
-		super(image, x,y,width,height,50);
-		this.counter = 0;
+	public ExploBot(PImage image, PImage babyimage, double x, double y, int width, int height, int hp) {
+		super(image, x,y,width,height,hp);
+		this.babyImage = babyimage;
 	}
 	
 	/**
@@ -31,7 +30,9 @@ public class ExploBot extends Bot {
 	 * @param list an arraylist containing all movingimages
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) {
-		list.add(new ExploBotBaby(image, image, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight()));
+		if(counter%200 == 0)
+		list.add(new ExploBotBaby(babyImage, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight()));
+		counter++;
 		return super.act(list);
 	}
 	/**
