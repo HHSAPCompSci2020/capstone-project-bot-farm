@@ -170,7 +170,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
                         //if explobotbaby gets hit by bullet
                         list.remove(actor);
                         //remove bullet
-                        ((ExploBotBaby) actedUpon).die();
+                        ((ExploBotBaby) actedUpon).explode(list);
                         //die
                         i--;
                         //need to implement explosion

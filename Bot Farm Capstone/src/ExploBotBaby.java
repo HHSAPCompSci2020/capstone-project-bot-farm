@@ -60,7 +60,7 @@ public class ExploBotBaby extends Bot{
 
 	}
 	/**
-	 * kills the bot
+	 * explodes the bot
 	 */
 	public void explode(ArrayList<MovingImage> list) {
 		Player p = null;
