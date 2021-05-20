@@ -63,15 +63,10 @@ public class Projectile extends MovingImage {
 	/**
 	 * handles how the projectile will act in game
 	 * @param list list of the all the MovingImages
-	 * @return the bot that will be removed in this process
+	 * @return the projectile that will be removed in this process
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) {
-		// If owner is equal to "player", call "this.moveByAmount()" and move it by a
-		// negative number in the y direction.
 		this.moveByAmount(stepX, stepY);
-		// Else if owner is equal to "enemy", move it by a positive number in the y
-		// direction
-		// If "this" is not in window, return "this".
 		timer++;
 		if (!this.isInWindow() || timer > delay) {
 			return this;

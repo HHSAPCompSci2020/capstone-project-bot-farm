@@ -261,7 +261,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             //p1.image = right;
         }
         if (keyCode == KeyEvent.VK_Q) {
-        	
+        	list.add(p1.launchMissile(mouseX,  mouseY));
         }
     }
     /**

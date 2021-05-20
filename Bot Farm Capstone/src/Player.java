@@ -56,7 +56,7 @@ public class Player extends MovingImage {
 	
 	
 	public Projectile launchMissile(int x, int y) {
-		return new AndroidMissile(DrawingSurface.missile, (int)this.getX(), (int)this.getY(), 20, 35, "player",30, y);
+		return new AndroidMissile(DrawingSurface.missile, (int)this.getX(), (int)this.getY(), 20, 35, "player", 500);
 	}
 
 	/**
