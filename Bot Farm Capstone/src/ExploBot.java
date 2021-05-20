@@ -31,7 +31,10 @@ public class ExploBot extends Bot {
 		if(counter%200 == 0)
 		list.add(new ExploBotBaby(DrawingSurface.explobb, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight()));
 		counter++;
-		return super.act(list);
+		if(!this.isInWindow() || this.isDead()){
+			return this;
+		}
+		return null;
 	}
 	/**
 	 * does nothing because this bot doesn't shoot
