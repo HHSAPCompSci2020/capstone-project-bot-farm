@@ -17,7 +17,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     public static final int HEIGHT = 750;
     private String[] bots = {"blindbot", "explobot", "glitchbot"};
     public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
-    androidbullet, rock, toxicgas, cursor, android;
+    androidbullet, rock, toxicgas, cursor, android, missile;
     private final Player p1;
     public boolean gameStarted;
 
@@ -40,7 +40,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	androidbullet = loadImage("../assets/androidbullet.png");
     	cursor = loadImage("../assets/cursor.png");
     	toxicgas = loadImage("../assets/toxicgas.png");
-//    	backgroundPic = loadImage("../assets/background.png");
+    	missile = loadImage("../assets/cursor.png");
     	p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
     	list = new ArrayList<MovingImage>();
     	list.add(p1);
@@ -113,6 +113,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
                 runGame();
             } else {
             	fill(200);
+            	background(100);
                 this.text("Game Over", 200, 375);
                 this.text("You've killed " + kills + " enemies.", 200, 330);
                 delay(4000);
@@ -258,6 +259,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
             //p1.setvX(5);
             ///right.resize(42, 42);
             //p1.image = right;
+        }
+        if (keyCode == KeyEvent.VK_Q) {
+        	
         }
     }
     /**

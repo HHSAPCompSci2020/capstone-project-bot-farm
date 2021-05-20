@@ -16,9 +16,9 @@ public class Projectile extends MovingImage {
 	double delay;
 	/**
 	 * 
-	 * @param img image displayed to represent the bot
-	 * @param x x coord of the bot
-	 * @param y y coord of the bot
+	 * @param img image displayed to represent the projectile
+	 * @param x x coord of the projectile launch
+	 * @param y y coord of the projectile launch
 	 * @param w width of the image 
 	 * @param h height of the image
 	 * @param owner owner of the projectile
@@ -38,8 +38,8 @@ public class Projectile extends MovingImage {
 	/**
 	 * 
 	 * @param img image displayed to represent the bot
-	 * @param x x coord of the bot
-	 * @param y y coord of the bot
+	 * @param x x coord of the projectile launch
+	 * @param y y coord of the projectile launch
 	 * @param w width of the image 
 	 * @param h height of the image
 	 * @param owner owner of the projectile

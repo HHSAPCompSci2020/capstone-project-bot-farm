@@ -10,7 +10,7 @@ import processing.core.PImage;
  */
 public class Player extends MovingImage {
 	protected int vX, vY;
-	protected double hp;
+	protected double hp, mp;
 	protected boolean dead;
 	protected final int ohp;
 
@@ -52,6 +52,11 @@ public class Player extends MovingImage {
 		} else {
 			return null;
 		}
+	}
+	
+	
+	public Projectile launchMissile(int x, int y) {
+		return new AndroidMissile(DrawingSurface.missile, (int)this.getX(), (int)this.getY(), 20, 35, "player",30, y);
 	}
 
 	/**
