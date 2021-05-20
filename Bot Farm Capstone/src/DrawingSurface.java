@@ -168,10 +168,15 @@ public class DrawingSurface extends PApplet implements MouseListener {
                     if (actedUpon instanceof Player) {
                     	if (actor instanceof BlindProjectile)
                     		blind = 255;
+                    		((Player) actedUpon).loseHP(1);
                         //if player gets hit by bullet
                         
                     	//if hit by explobb
                     	if(actor instanceof ExploBotBabyProjectile) {
+                    		((Player) actedUpon).loseHP(10);
+                    	}
+                    	
+                    	if(actor instanceof GlitchProjectile) {
                     		((Player) actedUpon).loseHP(10);
                     	}
                     	
@@ -195,11 +200,21 @@ public class DrawingSurface extends PApplet implements MouseListener {
                     		list.remove(actor);
 	                    	if (actedUpon instanceof ExploBotBaby) {
 	                    		//if explobotbaby gets hit by bullet
-	                            //remove bullet
 	                            ((ExploBotBaby) actedUpon).die();
 	                            //die
 	                            i--;
-	                            //need to implement explosion
+	                            kills++;  
+	                    	}
+                    	}
+                    } else if (actor instanceof AndroidMissile ){
+                    	if (actedUpon instanceof Bot) {
+                    		((Bot) actedUpon).loseHP(100);
+                    		list.remove(actor);
+	                    	if (actedUpon instanceof ExploBotBaby) {
+	                    		//if explobotbaby gets hit by bullet
+	                            ((ExploBotBaby) actedUpon).die();
+	                            //die
+	                            i--;
 	                            kills++;  
 	                    	}
                     	}
