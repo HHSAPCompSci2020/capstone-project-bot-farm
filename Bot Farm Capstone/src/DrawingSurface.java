@@ -190,7 +190,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
                     } 
                     else if (actor instanceof AndroidBasicProjectile ){
                     	if (actedUpon instanceof Bot) {
-                    		((Bot) actedUpon).loseHP();
+                    		((Bot) actedUpon).loseHP(10);
                     		list.remove(actor);
 	                    	if (actedUpon instanceof ExploBotBaby) {
 	                    		//if explobotbaby gets hit by bullet
