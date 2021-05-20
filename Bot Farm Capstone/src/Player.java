@@ -48,7 +48,7 @@ public class Player extends MovingImage {
 			angle = angle + Math.PI;
 		}
 		if (isDead() == false){
-			return new AndroidBasicProjectile(DrawingSurface.androidbullet, (int)this.getX(), (int)this.getY(), 20, 35, "player", angle,30);
+			return new AndroidBasicProjectile(DrawingSurface.androidbullet, (int)this.getX(), (int)this.getY(), 20, 35, "player", angle,50);
 		} else {
 			return null;
 		}
