@@ -22,7 +22,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
 	androidbullet, rock, toxicgas, cursor, android, missile;
 	private final Player p1;
-	private Rectangle2D border;
+	private static Rectangle2D.Double border;
 	public boolean gameStarted;
 
 	private final ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
@@ -45,6 +45,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		cursor = loadImage("../assets/cursor.png");
 		toxicgas = loadImage("../assets/toxicgas.png");
 		missile = loadImage("../assets/cursor.png");
+		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
 		list = new ArrayList<MovingImage>();
 		list.add(p1);
@@ -118,6 +119,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			//Under this comment, draw every MovingImage in list.
 			p1.setvX(keyX ? (int)p1.getVx() : (int)(p1.getVx() * 0.99));
 			p1.setvY(keyY ? (int)p1.getVy() : (int)(p1.getVy() * 0.99));
+			
 			for (MovingImage m : list) {
 				if (m instanceof Block) m.draw(this);
 			}
@@ -155,7 +157,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			fill(255);
 			this.text("Start Game", 270, 390);
 		}
-
 	}
 	/**
 	 * Spawns the different Bots. 
@@ -166,10 +167,16 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			boolean occupied = true;
 			int enemyX = 0;
 			int enemyY = 0;
+			int xLeft = border.getX() < 0 ? 0 : (int)border.getX();
+			int xRight = border.getX() + border.getWidth() > WIDTH ? WIDTH : (int) (border.getX() + border.getWidth());
+			int yTop = border.getY() < 0 ? 0 : (int)border.getY();
+			int yBot = border.getY() + border.getHeight() > HEIGHT ? HEIGHT : (int) (border.getY() + border.getHeight());
 			while(occupied) {
-				enemyX = (int) (Math.random() * WIDTH);
-				enemyY = (int) (Math.random() * (HEIGHT / 2));
+				
+				enemyX = (int) (Math.random() * (xRight + xLeft) - xLeft);
+				enemyY = (int) (Math.random() * (yBot + yTop) - yTop);
 				occupied = false;
+				occupied = !border.intersects(enemyX, enemyY, 50, 50);
 				for (MovingImage image : list) {
 					if (image.intersects(enemyX, enemyY, 50, 50))
 						occupied = true;
@@ -351,7 +358,11 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
+	public static Rectangle2D.Double getBorder() {
+		return border;
+	}
 	private void sideScroll(int x, int y) {
+		border.setFrame(border.getX() + x, border.getY() + y, border.getWidth(), border.getHeight());
 		for (MovingImage image : list) {
 			if (!(image instanceof Player))
 				image.moveByAmount(x, y);

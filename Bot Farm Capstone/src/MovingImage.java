@@ -77,9 +77,6 @@ public class MovingImage extends Rectangle2D.Double {
 	 * @return if the MovingImage is in the window
 	 */
 	public boolean isInWindow(){
-		if(this.getX()<0 || this.getX()+this.getWidth()>=DrawingSurface.WIDTH ||this.getY()<0||this.getY()+this.getHeight()+this.getHeight()>=DrawingSurface.HEIGHT){
-			return false;
-		} else
-			return true;
+		return this.intersects(DrawingSurface.getBorder());
 	}
 }
