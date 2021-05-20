@@ -56,7 +56,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
     public void setup() {
         size(WIDTH, HEIGHT);
         this.frameRate(60);
-        cursor(cursor, 16,16);
         for (int x = 0; x < MAP_SIZE; x++) {
         	for (int y = 0; y < MAP_SIZE; y++) {
         		if (x <= 1 || x >= MAP_SIZE - 2 || y <= 1 || y >= MAP_SIZE - 2) {
@@ -69,7 +68,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
         				NoClipBlock gas = new NoClipBlock(toxicgas, x * 50, y * 50, 50, 50);
         				list.add(gas);
         			}
-        			else if (chance < 0.15) {
+        			else if (chance < 0.1) {
         				Block block = new Block(rock, x * 50, y * 50, 40, 40);
         				list.add(block);
         			}
