@@ -149,7 +149,12 @@ public class Player extends MovingImage {
 			vX = 0;
 			vY = 0;
 			return this;
-		}   
+		} 
+		if(counter%100 == 0) {
+			if(hp + 5 < ohp)hp+=5;
+			else hp = ohp;
+		}
+		counter++;
 
 		for (MovingImage s : list) {
 			if (player.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {

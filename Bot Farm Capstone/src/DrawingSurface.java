@@ -285,7 +285,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		if (gameStarted) {
 			list.add(p1.shoot(mouseX, mouseY));
 		} else {
-			if (mouseX < 400 && mouseX > 250 && mouseY < 400 && mouseY > 350) {
+			if (mouseX < 500 && mouseX > 250 && mouseY < 400 && mouseY > 350) {
 				gameStarted = true;
 			}
 		}
