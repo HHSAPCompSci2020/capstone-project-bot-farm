@@ -121,6 +121,8 @@ public class Player extends MovingImage {
 	 */
 	public void draw(PApplet marker) {
 		super.draw(marker);
+		marker.fill(200);
+		marker.rect((float) (this.getX()-width/1.5), (float) (this.getCenterY()-height), (float) (ohp), 10f);
 		if (hp > ohp * 0.75) {
 			marker.fill(0, 255, 0); //stats at green
 		} else if (hp > ohp / 2) {
@@ -131,7 +133,7 @@ public class Player extends MovingImage {
 			marker.fill(255, 0, 0); //change bar to red
 		} 
 		if (hp > 0) {
-			marker.rect((float) this.getX(), (float) (this.getCenterY()), (float) (40 * hp / 40.0), 10f);
+			marker.rect((float) (this.getX()-width/1.5), (float) (this.getCenterY()-height), (float) (40 * hp / 40.0), 10f);
 		}
 
 	}
