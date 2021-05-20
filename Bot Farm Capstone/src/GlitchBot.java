@@ -58,8 +58,8 @@ public class GlitchBot extends Bot {
 	 * @return The BlindProjectile fired
 	 */
     public ArrayList<Projectile> shoot(int x, int y){
-    	GlitchProjectile proj = new GlitchProjectile(image, this.x, this.y, (int)width, (int)height, 
-				"glitchbot", Math.tan((double)y / (double)x), 0);
+    	GlitchProjectile proj = new GlitchProjectile(DrawingSurface.glitchbullet, this.x, this.y, (int)width, (int)height, 
+				"glitchbot", Math.atan2((double)y - this.y, (double)x - this.x), 240);
 		ArrayList<Projectile> projs = new ArrayList<Projectile>();
 		projs.add(proj);
 		return projs;
