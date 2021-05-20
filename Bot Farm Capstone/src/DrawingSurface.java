@@ -18,7 +18,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     public static final int MAP_SIZE = 25;
     private String[] bots = {"blindbot", "explobot", "glitchbot"};
     public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
-    androidbullet, rock, toxicgas, cursor, android;
+    androidbullet, rock, toxicgas, cursor, android, missile;
     private final Player p1;
     public boolean gameStarted;
 
@@ -41,7 +41,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
     	androidbullet = loadImage("../assets/androidbullet.png");
     	cursor = loadImage("../assets/cursor.png");
     	toxicgas = loadImage("../assets/toxicgas.png");
-//    	backgroundPic = loadImage("../assets/background.png");
+    	missile = loadImage("../assets/cursor.png");
     	p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
     	list = new ArrayList<MovingImage>();
     	list.add(p1);
@@ -131,6 +131,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
                 runGame();
             } else {
             	fill(200);
+            	background(100);
                 this.text("Game Over", 200, 375);
                 this.text("You've killed " + kills + " enemies.", 200, 330);
                 delay(4000);
@@ -188,10 +189,15 @@ public class DrawingSurface extends PApplet implements MouseListener {
                     if (actedUpon instanceof Player) {
                     	if (actor instanceof BlindProjectile)
                     		blind = 255;
+                    		((Player) actedUpon).loseHP(1);
                         //if player gets hit by bullet
                         
                     	//if hit by explobb
                     	if(actor instanceof ExploBotBabyProjectile) {
+                    		((Player) actedUpon).loseHP(10);
+                    	}
+                    	
+                    	if(actor instanceof GlitchProjectile) {
                     		((Player) actedUpon).loseHP(10);
                     	}
                     	
@@ -215,11 +221,21 @@ public class DrawingSurface extends PApplet implements MouseListener {
                     		list.remove(actor);
 	                    	if (actedUpon instanceof ExploBotBaby) {
 	                    		//if explobotbaby gets hit by bullet
-	                            //remove bullet
 	                            ((ExploBotBaby) actedUpon).die();
 	                            //die
 	                            i--;
-	                            //need to implement explosion
+	                            kills++;  
+	                    	}
+                    	}
+                    } else if (actor instanceof AndroidMissile ){
+                    	if (actedUpon instanceof Bot) {
+                    		((Bot) actedUpon).loseHP(100);
+                    		list.remove(actor);
+	                    	if (actedUpon instanceof ExploBotBaby) {
+	                    		//if explobotbaby gets hit by bullet
+	                            ((ExploBotBaby) actedUpon).die();
+	                            //die
+	                            i--;
 	                            kills++;  
 	                    	}
                     	}
@@ -279,6 +295,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
             //p1.setvX(5);
             ///right.resize(42, 42);
             //p1.image = right;
+        }
+        if (keyCode == KeyEvent.VK_Q) {
+        	list.add(p1.launchMissile(mouseX,  mouseY));
         }
     }
     /**
