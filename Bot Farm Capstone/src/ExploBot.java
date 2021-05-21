@@ -36,6 +36,8 @@ public class ExploBot extends Bot {
 		}
 		return null;
 	}
+	
+	
 	/**
 	 * does nothing because this bot doesn't shoot
 	 * @param x does nothing

@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 
+import processing.core.PApplet;
 import processing.core.PImage;
 /**
  * The superclass for all bots
@@ -77,6 +78,24 @@ public abstract class Bot extends MovingImage {
     public void die() {
     	edead = true;
     }
+    public void draw(PApplet marker) {
+		super.draw(marker);
+		marker.fill(200);
+		marker.rect((float) (this.getX()), (float) (this.getCenterY()-height), (float) (OEHP/2), 10f);
+		if (ehp > OEHP * 0.75) {
+			marker.fill(200, 0, 0); //stats at bright red
+		} else if (ehp > OEHP / 2) {
+			marker.fill(150, 0 , 0); // change bar to red
+		} else if (ehp > OEHP * 0.25) {
+			marker.fill(100, 0, 0); //change bar to dark red
+		} else {
+			marker.fill(50, 0, 0); //change bar to blackish red
+		} 
+		if (ehp > 0) {
+			marker.rect((float) (this.getX()), (float) (this.getCenterY()-height), (float) (40 * ehp/2 / 40.0), 10f);
+		}
+
+	}
 
     /**
      * Returns if the bot is dead or not

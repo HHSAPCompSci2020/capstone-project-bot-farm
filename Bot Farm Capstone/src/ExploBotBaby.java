@@ -20,7 +20,7 @@ public class ExploBotBaby extends Bot{
 	 * @param height height of the image
 	 */
 	public ExploBotBaby(PImage image, double x, double y, int width, int height) {
-		super(image, x,y,width,height,50);
+		super(image, x,y,width,height,10);
 		
 	}
 	/**
