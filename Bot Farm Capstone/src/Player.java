@@ -48,7 +48,7 @@ public class Player extends MovingImage {
 			angle = angle + Math.PI;
 		}
 		if (isDead() == false){
-			return new AndroidBasicProjectile(DrawingSurface.androidbullet, (int)this.getX(), (int)this.getY(), 20, 35, "player", angle,30);
+			return new AndroidBasicProjectile(DrawingSurface.androidbullet, (int)this.getX(), (int)this.getY(), 20, 35, "player", angle,50);
 		} else {
 			return null;
 		}
@@ -120,7 +120,10 @@ public class Player extends MovingImage {
 	 * draws the hp bar of the player
 	 */
 	public void draw(PApplet marker) {
+
 		super.draw(marker);
+		marker.fill(200);
+		marker.rect((float) (this.getX()-width/1.5), (float) (this.getCenterY()-height), (float) (ohp), 10f);
 		if (hp > ohp * 0.75) {
 			marker.fill(0, 255, 0); //stats at green
 		} else if (hp > ohp / 2) {
@@ -131,7 +134,7 @@ public class Player extends MovingImage {
 			marker.fill(255, 0, 0); //change bar to red
 		} 
 		if (hp > 0) {
-			marker.rect((float) this.getX() - 40, (float) (this.getCenterY() + 20), (float) (40 * hp / 40.0), 10f);
+			marker.rect((float) (this.getX()-width/1.5), (float) (this.getCenterY()-height), (float) (40 * hp / 40.0), 10f);
 		}
 
 	}
@@ -140,22 +143,29 @@ public class Player extends MovingImage {
 	 * @param list list containing all the MovingImages
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) { 
-		Player player = (Player) this.clone();
-		player.moveByAmount(-vX, -vY);
+		MovingImage image = null;
+		Rectangle2D.Double posX = new Rectangle2D.Double(x + vX, y, width, height);
+		Rectangle2D.Double posY = new Rectangle2D.Double(x, y + vY, width, height);
 		//this.moveByAmount(vX, vY);
 		if (!isInWindow()) {
 			vX = 0;
 			vY = 0;
 			return this;
-		}   
+		} 
+		if(counter%100 == 0) {
+			if(hp + 5 < ohp)hp+=5;
+			else hp = ohp;
+		}
+		counter++;
 
 		for (MovingImage s : list) {
-			if (player.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
+			if (posX.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
 				vX = 0;
-				vY = 0;
 			}
-			if (this != s && player.intersects(s)) {
-				return s;
+			if (posY.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
+				vY = 0;
+			if (this != s && (posX.intersects(s) || posY.intersects(s))) {
+				image = s;
 			}
 
 		}

@@ -1,3 +1,8 @@
+
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.util.ArrayList;
 import processing.core.PImage;
 /**
@@ -9,7 +14,6 @@ public class BlindBot extends Bot {
 	private final double DMG_RADIUS = 50;
 	private final int AOE_DMG = 5;
 	private final int SPEED = 15;
-	
 	/**
 	 * 
 	 * @param image The image that corresponds to this bot
@@ -51,12 +55,44 @@ public class BlindBot extends Bot {
 			for (MovingImage m : this.shoot(pX, pY))
 				list.add(m);
 		} else if(counter%20 == 0){
+			Point2D.Double pointP = new Point2D.Double(p.getX(), p.getY());
 			double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
-			vY = (int) (SPEED*Math.sin(angle));
-			vX = (int) (SPEED*Math.cos(angle));
+			double finalAngle = angle;
+			double smallestDistance = Integer.MAX_VALUE;
+			for (int i = 0; i < 360; i++) {
+				double newAngle = angle + Math.toRadians(i);
+				Rectangle2D.Double newPos = new Rectangle2D.Double(x + SPEED*Math.cos(newAngle),
+						y + SPEED*Math.sin(newAngle), width, height);
+				boolean intersects = false;
+				for (MovingImage s : list) {
+					if (!newPos.intersects(DrawingSurface.getBorder()) ||
+							(newPos.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))) {
+						intersects = true;
+					}
+				}
+				if (!intersects) {
+					double distance = pointP.distance(newPos.getX(), newPos.getY());
+					if (distance < smallestDistance) {
+						smallestDistance = distance;
+						finalAngle = newAngle;
+					}
+				}
+			}
+			vY = (int) (SPEED*Math.sin(finalAngle));
+			vX = (int) (SPEED*Math.cos(finalAngle));
 		} else if (counter % 8 == 0) 
 			damage(p);
 		else {
+			Rectangle2D.Double posX = new Rectangle2D.Double(x + vX, y, width, height);
+			Rectangle2D.Double posY = new Rectangle2D.Double(x, y + vY, width, height);
+			for (MovingImage s : list) {
+				if (this != s) {
+					if (posX.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
+						vX = 0;
+					if (posY.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
+						vY = 0;
+				}
+			}
 			vY /= 1.5;
 			vX /= 1.5;
 		}
@@ -89,5 +125,4 @@ public class BlindBot extends Bot {
 	public String toString() {
 		return "blindbot";
 	}
-
 }
