@@ -1,11 +1,10 @@
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
-
 import processing.core.PApplet;
 import processing.core.PImage;
-
+import processing.core.PConstants;
+import processing.sound.SoundFile;
 /**
  * Represnts the DrawingSurface.
  * @author Harry Guan
@@ -332,5 +331,30 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			if (!(image instanceof Player))
 				image.moveByAmount(-x, -y);
 		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

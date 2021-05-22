@@ -1,18 +1,26 @@
-import java.awt.*;
+import java.awt.Dimension;
 import javax.swing.JFrame;
+import processing.awt.PSurfaceAWT;
+import processing.core.PApplet;
 
-public class Main { 
-    
-	public static void main(String[] args) {
-      	DrawingSurface drawing = new DrawingSurface();
-      	drawing.init();
-      	JFrame window = new JFrame();
-      	window.setSize(DrawingSurface.WIDTH, DrawingSurface.HEIGHT);
+public class Main {
+
+	public static void main(String args[]) {
+
+		DrawingSurface drawing = new DrawingSurface();
+		PApplet.runSketch(new String[]{""}, drawing);
+		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
+		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
+		JFrame window = (JFrame)canvas.getFrame();
+
+		window.setBounds(0,0,800, 600);
 		window.setMinimumSize(new Dimension(100,100));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.add(drawing);
-		window.requestFocus();
+		window.setResizable(true);
+
 		window.setVisible(true);
+		
+		canvas.requestFocus();
 	}
-     
+
 }
