@@ -1,3 +1,5 @@
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import processing.core.PImage;
@@ -7,7 +9,7 @@ import processing.core.PImage;
  *
  */
 public class ExploBotBaby extends Bot{
-	private final int SPEED = 10;
+	private final int SPEED = 5;
 	private final int DMG_RADIUS = 100;
 
 	/**
@@ -36,14 +38,40 @@ public class ExploBotBaby extends Bot{
 				p = (Player) m;
 			}
 		} 
-		if(counter%20 == 0){
-			double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
-			vY = (int) (SPEED*Math.sin(angle));
-			vX = (int) (SPEED*Math.cos(angle));
-		} 
-		else {
-			vY /= 1.5;
-			vX /= 1.5;
+		Point2D.Double pointP = new Point2D.Double(p.getX(), p.getY());
+		double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
+		double finalAngle = angle;
+		double smallestDistance = Integer.MAX_VALUE;
+		for (int i = 0; i < 360; i++) {
+			double newAngle = angle + Math.toRadians(i);
+			Rectangle2D.Double newPos = new Rectangle2D.Double(x + SPEED*Math.cos(newAngle),
+					y + SPEED*Math.sin(newAngle), width, height);
+			boolean intersects = false;
+			for (MovingImage s : list) {
+				if (!newPos.intersects(DrawingSurface.getBorder()) ||
+						(newPos.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))) {
+					intersects = true;
+				}
+			}
+			if (!intersects) {
+				double distance = pointP.distance(newPos.getX(), newPos.getY());
+				if (distance < smallestDistance) {
+					smallestDistance = distance;
+					finalAngle = newAngle;
+				}
+			}
+		}
+		vY = (int) (SPEED*Math.sin(finalAngle));
+		vX = (int) (SPEED*Math.cos(finalAngle));
+		Rectangle2D.Double posX = new Rectangle2D.Double(x + vX, y, width, height);
+		Rectangle2D.Double posY = new Rectangle2D.Double(x, y + vY, width, height);
+		for (MovingImage s : list) {
+			if (this != s) {
+				if (posX.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
+					vX = 0;
+				if (posY.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
+					vY = 0;
+			}
 		}
 		double distance = Math.sqrt(Math.pow(p.getY() - this.y, 2) + Math.pow(p.getX() - this.x, 2));
 		if (distance <= DMG_RADIUS) {
