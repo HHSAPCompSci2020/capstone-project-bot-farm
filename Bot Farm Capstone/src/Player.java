@@ -84,20 +84,16 @@ public class Player extends MovingImage {
 	 * causes the player to lose 1 hp
 	 */
 	public void loseHP() {
-		//If hp is less than 0, die
 		hp --;
-		if (hp <= 0) {
-			die();
-		}
-
+		if (hp <= 0) die();
 	}
 	/**
 	 * causes the player to lose n hp
 	 * @param n amount of hp to lose
 	 */
 	public void loseHP(int n) {
-		hp-=n;
-		if(hp<=0)die();
+		hp -= n;
+		if ( hp <= 0) die();
 	}
 
 	/**
@@ -105,9 +101,16 @@ public class Player extends MovingImage {
 	 */
 	private void die() {
 		dead = true;
-		//Sets the dead boolean to true
 	}
 
+	/**
+	 * causes the player to take damage from lava
+	 */
+	public void lavaDamage() {
+        hp -= 0.1;
+        if (hp <= 0)
+            die();
+    } 
 	/**
 	 * checks if the player is dead
 	 * @return true if the player is dead, false if not
@@ -152,21 +155,21 @@ public class Player extends MovingImage {
 			vY = 0;
 			return this;
 		} 
-		if(counter%100 == 0) {
-			if(hp + 5 < ohp)hp+=5;
+		if(counter % 40 == 0) {
+			if(hp + 2 < ohp)hp+=2;
 			else hp = ohp;
 		}
 		counter++;
 
 		for (MovingImage s : list) {
-			if (posX.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
+			if (posX.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
 				vX = 0;
-			}
 			if (posY.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
 				vY = 0;
-			if (this != s && (posX.intersects(s) || posY.intersects(s))) {
+			else if (this.intersects(s) && s instanceof NoClipBlock)
+                lavaDamage();
+			if (this != s && (posX.intersects(s) || posY.intersects(s)))
 				image = s;
-			}
 
 		}
 		return null;
