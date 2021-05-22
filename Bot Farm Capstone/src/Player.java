@@ -44,14 +44,12 @@ public class Player extends MovingImage {
 		double tann = sY/sX;
 		double angle = Math.atan(tann);
 
-		if(x < this.getX()) {
+		if(x < this.getX()) 
 			angle = angle + Math.PI;
-		}
-		if (isDead() == false){
+		if (isDead() == false)
 			return new AndroidBasicProjectile(DrawingSurface.androidbullet, (int)this.getX(), (int)this.getY(), 20, 35, "player", angle,50);
-		} else {
+		else
 			return null;
-		}
 	}
 	
 	
@@ -73,9 +71,17 @@ public class Player extends MovingImage {
 	public void setvY(int y) {
 		vY = y;
 	}
+	/**
+	 * returns the x velocity of the player
+	 * @return the x velocity of the player
+	 */
 	public int getVx() {
 		return vX;
 	}
+	/**
+	 * returns the y velocity of the player
+	 * @return the y velocity of the player
+	 */
 	public int getVy() {
 		return vY;
 	}
@@ -93,7 +99,7 @@ public class Player extends MovingImage {
 	 */
 	public void loseHP(int n) {
 		hp -= n;
-		if ( hp <= 0) die();
+		if (hp <= 0) die();
 	}
 
 	/**

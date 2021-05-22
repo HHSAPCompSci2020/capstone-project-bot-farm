@@ -45,9 +45,8 @@ public class BlindBot extends Bot {
 	public MovingImage act(ArrayList<MovingImage> list){
 		Player p = null;
 		for (MovingImage m : list) {
-			if (m instanceof Player) {
+			if (m instanceof Player)
 				p = (Player) m;
-			}
 		}
 		if (counter%100 == 0){
 			int pX = (int) p.getX();
@@ -97,9 +96,8 @@ public class BlindBot extends Bot {
 			vX /= 1.5;
 		}
 		counter++; //Adds to counter
-		if(!this.isInWindow() || this.isDead()){
+		if(!this.isInWindow() || this.isDead())
 			return this;
-		}
 		this.moveByAmount(vX, vY);
 		return null;
 

@@ -60,7 +60,7 @@ public class MovingImage extends Rectangle2D.Double {
      * @param marker The PApplet to draw on
      */
 	public void draw(PApplet marker) {
-            marker.image(image, (float)((int)(this.getX())), (float)((int)(this.getY())));
+        marker.image(image, (float)((int)(this.getX())), (float)((int)(this.getY())));
 	}
 	
 	/**

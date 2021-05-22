@@ -31,9 +31,8 @@ public class GlitchBot extends Bot {
     public MovingImage act(ArrayList<MovingImage> list){
     	Player p = null;
 		for (MovingImage m : list) {
-			if (m instanceof Player) {
+			if (m instanceof Player)
 				p = (Player) m;
-			}
 		}
 		if (counter%100 == 0){
 			glitch();
@@ -44,9 +43,8 @@ public class GlitchBot extends Bot {
 		} 
 		
 		counter++; //Adds to counter
-		if(!this.isInWindow() || this.isDead()){
+		if(!this.isInWindow() || this.isDead())
 			return this;
-		}
 		return null;
 
 	}

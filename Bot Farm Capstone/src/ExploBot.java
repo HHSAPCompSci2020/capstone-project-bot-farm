@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-
-import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
@@ -31,9 +29,8 @@ public class ExploBot extends Bot {
 		if(counter%200 == 0)
 		list.add(new ExploBotBaby(DrawingSurface.explobb, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight()));
 		counter++;
-		if(!this.isInWindow() || this.isDead()){
+		if(!this.isInWindow() || this.isDead())
 			return this;
-		}
 		return null;
 	}
 	

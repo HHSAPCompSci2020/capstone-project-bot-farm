@@ -5,8 +5,6 @@ import java.awt.geom.Rectangle2D;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-import java.io.File;
-import java.util.Scanner;
 
 /**
  * Represnts the DrawingSurface.
@@ -72,75 +70,39 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				}
 				else {
 					float chance = (float)Math.random();
-					if (!p1.intersects(x * 50, y * 50, 50, 50)) {
-
-						if (chance < 0.05) {
-							NoClipBlock gas = new NoClipBlock(toxicgas, x * 50, y * 50, 50, 50);
-							list.add(gas);
-						}
-						else if (chance < 0.15) {
-							Block block = new Block(rock, x * 50, y * 50, 40, 40);
-							list.add(block);
-						}
+					if (!p1.intersects(x * 50, y * 50, 50, 50) && chance < 0.05) {
+						NoClipBlock gas = new NoClipBlock(toxicgas, x * 50, y * 50, 50, 50);
+						list.add(gas);
+					} else if (!p1.intersects(x * 50, y * 50, 50, 50) && chance < 0.15) {
+						Block block = new Block(rock, x * 50, y * 50, 40, 40);
+						list.add(block);
 					}
 				}
 			}
 		}
-
-		//        File f = new File("../assets/blocks.txt");
-		//        Scanner file = null;
-		//        try {
-		//            file = new Scanner(f);
-		//        } catch (Exception e) {
-		//            e.printStackTrace();
-		//        }
-		//        for (int i = 0; i < 15; i++) { //looks through the rows
-		//            for (int j = 0; j < 15; j++) { // looks through columns
-		//                int curBlock = file.nextInt();
-		//                switch (curBlock) {
-		//                    case 1:
-		//                        Block block = new Block(rock, j * 50, i * 50, 40, 40);
-		//                        list.add(block);
-		//                        break;
-		//                    case 2:
-		//                        NoClipBlock lavva = new NoClipBlock(toxicgas, j * 50, i * 50, 50, 50);
-		//                        list.add(lavva);
-		//                    case 3:
-		//                        Block white = new Block(toxicgas, j * 50, i * 50, 40, 40);
-		//                        list.add(white);
-		//
-		//                }
-		//            }
-		//        }
 	}
+	
 	/**
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
 	 */
 	public void draw() {
 		background(0,100,0);
 		if (gameStarted) {
-			//Under this comment, draw every MovingImage in list.
 			if (keyW || keyS) {
-				if (keyW)
-					p1.setvY(-5);
-				if (keyS)
-					p1.setvY(5);
+				if (keyW) p1.setvY(-5);
+				if (keyS) p1.setvY(5);
 			}
 			else p1.setvY((int)(p1.getVy() * 0.99));
 			if (keyA || keyD) {
-				if (keyA)
-					p1.setvX(-5);
-				if (keyD)
-					p1.setvX(5);
+				if (keyA) p1.setvX(-5);
+				if (keyD) p1.setvX(5);
 			}
 			else p1.setvX((int)(p1.getVx() * 0.99));
 			
-			for (MovingImage m : list) {
+			for (MovingImage m : list)
 				if (m instanceof Block) m.draw(this);
-			}
-			for (MovingImage m : list) {
+			for (MovingImage m : list)
 				if (!(m instanceof Block)) m.draw(this);
-			}
 			textSize(40);
 			fill(200);
 			pushMatrix();
@@ -153,9 +115,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			textSize(40);
 			fill(200);
 			this.text(kills + " kills.", 25, 50);
-			if (!p1.isDead()) {
+			if (!p1.isDead())
 				runGame();
-			} else {
+			else {
 				blind = 250;
 				textSize(40);
 				fill(200);
@@ -168,7 +130,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				this.text("Game Over", 200, 375);
 				this.text("You've killed " + kills + " enemies.", 200, 330);
 				delay(20);
-				//exit();
 			}
 			
 		} else {
@@ -217,7 +178,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 
 
 	/**
-	 * Runs the game and detects for collision. 
+	 * Runs the game and detects for collision of projectiles. 
 	 */
 	public void runGame() {
 		if (list.size() < 3) {
@@ -231,8 +192,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			MovingImage actor = list.get(i);
 			MovingImage actedUpon = actor.act(list);
 			if (actedUpon != null) {
-				if (actor instanceof NoClipBlock && p1.intersects(actor))
-					p1.loseHP(3);
 				if (actor instanceof Projectile) {
 					if (actedUpon instanceof Player) {
 						if (actor instanceof BlindProjectile) {
@@ -358,32 +317,15 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		if (keyCode == KeyEvent.VK_S) keyS = false;
 		if (keyCode == KeyEvent.VK_D) keyD = false;
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	/**
+	 * Returns the border of the DrawingSurface
+	 * @return border A Rectangle2D object representing the border.
+	 */
 	public static Rectangle2D.Double getBorder() {
 		return border;
 	}
+	
 	private void sideScroll(int x, int y) {
 		border.setFrame(border.getX() - x, border.getY() - y, border.getWidth(), border.getHeight());
 		for (MovingImage image : list) {

@@ -68,17 +68,14 @@ public class Projectile extends MovingImage {
 	public MovingImage act(ArrayList<MovingImage> list) {
 		this.moveByAmount(stepX, stepY);
 		timer++;
-		if (!this.isInWindow() || timer > delay) {
+		if (!this.isInWindow() || timer > delay)
 			return this;
-		}
 
 		for (MovingImage m : list) { // Collision detection (do not modify) m scrolls thru list
-			if (this.intersects(m) && m instanceof Block && !(m instanceof NoClipBlock)) {
+			if (this.intersects(m) && m instanceof Block && !(m instanceof NoClipBlock))
 				return this;
-			}
-			if (this != m && this.intersects(m) && !this.owner.equals(m.toString()) && !(m instanceof Projectile)) {
+			if (this != m && this.intersects(m) && !this.owner.equals(m.toString()) && !(m instanceof Projectile))
 				return m;
-			}
 		}
 		return null; // If all else fails, return null.
 

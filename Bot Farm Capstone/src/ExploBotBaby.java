@@ -34,9 +34,8 @@ public class ExploBotBaby extends Bot{
 	public MovingImage act(ArrayList<MovingImage> list){
 		Player p = null;
 		for (MovingImage m : list) {
-			if (m instanceof Player) {
+			if (m instanceof Player)
 				p = (Player) m;
-			}
 		} 
 		Point2D.Double pointP = new Point2D.Double(p.getX(), p.getY());
 		double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
@@ -80,9 +79,8 @@ public class ExploBotBaby extends Bot{
 		
 			
 		counter++; //Adds to counter
-		if(!this.isInWindow() || this.isDead()){
+		if(!this.isInWindow() || this.isDead())
 			return this;
-		}
 		this.moveByAmount(vX, vY);
 		return null;
 
@@ -93,9 +91,8 @@ public class ExploBotBaby extends Bot{
 	public void explode(ArrayList<MovingImage> list) {
 		Player p = null;
 		for (MovingImage m : list) {
-			if (m instanceof Player) {
+			if (m instanceof Player)
 				p = (Player) m;
-			}
 		} 
 		for (MovingImage m : shoot((int)p.getX(),(int)p.getY()))
 			list.add(m);
