@@ -120,6 +120,7 @@ public class Player extends MovingImage {
 	 * draws the hp bar of the player
 	 */
 	public void draw(PApplet marker) {
+
 		super.draw(marker);
 		marker.fill(200);
 		marker.rect((float) (this.getX()-width/1.5), (float) (this.getCenterY()-height), (float) (ohp), 10f);
@@ -142,8 +143,9 @@ public class Player extends MovingImage {
 	 * @param list list containing all the MovingImages
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) { 
-		Player player = (Player) this.clone();
-		player.moveByAmount(-vX, -vY);
+		MovingImage image = null;
+		Rectangle2D.Double posX = new Rectangle2D.Double(x + vX, y, width, height);
+		Rectangle2D.Double posY = new Rectangle2D.Double(x, y + vY, width, height);
 		//this.moveByAmount(vX, vY);
 		if (!isInWindow()) {
 			vX = 0;
@@ -157,12 +159,13 @@ public class Player extends MovingImage {
 		counter++;
 
 		for (MovingImage s : list) {
-			if (player.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
+			if (posX.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock)) {
 				vX = 0;
-				vY = 0;
 			}
-			if (this != s && player.intersects(s)) {
-				return s;
+			if (posY.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
+				vY = 0;
+			if (this != s && (posX.intersects(s) || posY.intersects(s))) {
+				image = s;
 			}
 
 		}

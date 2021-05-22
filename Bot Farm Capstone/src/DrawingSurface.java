@@ -29,7 +29,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private int spawnRate;
 	private int kills;
 	private int blind;
-	private boolean keyX, keyY;
+	private boolean keyW, keyA, keyS, keyD;
 
 	public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
 		android = loadImage("../assets/android.png");
@@ -50,8 +50,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		list = new ArrayList<MovingImage>();
 		list.add(p1);
 		gameStarted = false;
-		keyX = false;
-		keyY = false;
+		keyW = false;
+		keyA = false;
+		keyS = false;
+		keyD = false;
 		blind = 0;
 	}
 	/**
@@ -118,8 +120,20 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		background(0,100,0);
 		if (gameStarted) {
 			//Under this comment, draw every MovingImage in list.
-			p1.setvX(keyX ? (int)p1.getVx() : (int)(p1.getVx() * 0.99));
-			p1.setvY(keyY ? (int)p1.getVy() : (int)(p1.getVy() * 0.99));
+			if (keyW || keyS) {
+				if (keyW)
+					p1.setvY(-5);
+				if (keyS)
+					p1.setvY(5);
+			}
+			else p1.setvY((int)(p1.getVy() * 0.99));
+			if (keyA || keyD) {
+				if (keyA)
+					p1.setvX(-5);
+				if (keyD)
+					p1.setvX(5);
+			}
+			else p1.setvX((int)(p1.getVx() * 0.99));
 			
 			for (MovingImage m : list) {
 				if (m instanceof Block) m.draw(this);
@@ -298,27 +312,27 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 */
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_W) {
-			keyY = true;
-			p1.setvY(5);
+			keyW = true;
+			p1.setvY(-5);
 			//            p1.setvY(-5);
 			//            up.resize(42, 42);
 			//            p1.image = up;
 		}
 		if (keyCode == KeyEvent.VK_A) {
-			keyX = true;
-			p1.setvX(5);
+			keyA = true;
+			p1.setvX(-5);
 			//p1.setvX(-5);
 			//p1.image = left;
 		}
 		if (keyCode == KeyEvent.VK_S) {
-			keyY = true;
-			p1.setvY(-5);
+			keyS = true;
+			p1.setvY(5);
 			//p1.setvY(5);
 			//p1.image = down;
 		}
 		if (keyCode == KeyEvent.VK_D) {
-			keyX = true;
-			p1.setvX(-5);
+			keyD = true;
+			p1.setvX(5);
 			//p1.setvX(5);
 			///right.resize(42, 42);
 			//p1.image = right;
@@ -331,10 +345,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Setting velocity to 0 when WASD keys are released. 
 	 */
 	public void keyReleased() {
-		if (keyCode == KeyEvent.VK_W) keyY = false;
-		if (keyCode == KeyEvent.VK_A) keyX = false;
-		if (keyCode == KeyEvent.VK_S) keyY = false;
-		if (keyCode == KeyEvent.VK_D) keyX = false;
+		if (keyCode == KeyEvent.VK_W) keyW = false;
+		if (keyCode == KeyEvent.VK_A) keyA = false;
+		if (keyCode == KeyEvent.VK_S) keyS = false;
+		if (keyCode == KeyEvent.VK_D) keyD = false;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -363,10 +377,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		return border;
 	}
 	private void sideScroll(int x, int y) {
-		border.setFrame(border.getX() + x, border.getY() + y, border.getWidth(), border.getHeight());
+		border.setFrame(border.getX() - x, border.getY() - y, border.getWidth(), border.getHeight());
 		for (MovingImage image : list) {
 			if (!(image instanceof Player))
-				image.moveByAmount(x, y);
+				image.moveByAmount(-x, -y);
 		}
 	}
 }
