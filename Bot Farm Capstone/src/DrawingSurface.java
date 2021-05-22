@@ -156,11 +156,18 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			if (!p1.isDead()) {
 				runGame();
 			} else {
+				blind = 250;
+				textSize(40);
 				fill(200);
-				background(100);
+				pushMatrix();
+				fill(0, blind);
+				noStroke();
+				rect(0, 0, width, height);
+				popMatrix();
+				fill(255);
 				this.text("Game Over", 200, 375);
 				this.text("You've killed " + kills + " enemies.", 200, 330);
-				delay(4000);
+				delay(20);
 				//exit();
 			}
 			
@@ -239,7 +246,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 						}
 
 						if(actor instanceof GlitchProjectile) {
-							((Player) actedUpon).loseHP(10);
+							((Player) actedUpon).loseHP(15);
 						}
 
 						//((Player) actedUpon).loseHP();
