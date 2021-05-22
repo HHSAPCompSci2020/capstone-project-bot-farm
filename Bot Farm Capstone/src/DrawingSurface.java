@@ -18,9 +18,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public static final int MAP_SIZE = 25;
 	private String[] bots = {"blindbot", "explobot", "glitchbot"};
 	public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
-	androidbullet, rock, toxicgas, cursor, android, missile;
+	androidbullet, rock, toxicgas, cursor, android, missile, button;
 	private final Player p1;
 	private static Rectangle2D.Double border;
+	private Button start;
 	public boolean gameStarted;
 
 	private final ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
@@ -43,6 +44,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		cursor = loadImage("../assets/cursor.png");
 		toxicgas = loadImage("../assets/toxicgas.png");
 		missile = loadImage("../assets/cursor.png");
+		button = loadImage("../assets/button.png");
+		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
 		list = new ArrayList<MovingImage>();
@@ -60,7 +63,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public void setup() {
 		size(WIDTH, HEIGHT);
 		this.frameRate(60);
-		
 		//cursor(cursor, 16,16);
 		for (int x = 0; x < MAP_SIZE; x++) {
 			for (int y = 0; y < MAP_SIZE; y++) {
@@ -133,12 +135,13 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			}
 			
 		} else {
-			textSize(40);
+//			textSize(40);
 			background(100);
-			fill(200);
-			this.rect(250, 350, 250, 50);
-			fill(255);
-			this.text("Start Game", 270, 390);
+//			fill(200);
+//			this.rect(250, 350, 250, 50);
+//			fill(255);
+//			this.text("Start Game", 270, 390);
+			start.draw(this);
 		}
 	}
 	/**
@@ -267,7 +270,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		if (gameStarted) {
 			list.add(p1.shoot(mouseX, mouseY));
 		} else {
-			if (mouseX < 500 && mouseX > 250 && mouseY < 400 && mouseY > 350) {
+			if (start.isHovered(mouseX, mouseY)) {
 				gameStarted = true;
 			}
 		}
