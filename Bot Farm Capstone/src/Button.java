@@ -16,10 +16,10 @@ public class Button extends MovingImage {
 	}
 	public void draw(PApplet marker) {
 		super.draw(marker);
-		marker.pushMatrix();
+		marker.pushStyle();
 		marker.textSize(textSize);
 		marker.textAlign(marker.CENTER, marker.CENTER);
 		marker.text(text, (float)(x + width/2), (float)(y + height/2));
-		marker.popMatrix();
+		marker.popStyle();
 	}
 }

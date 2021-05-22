@@ -1,10 +1,10 @@
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.awt.geom.Rectangle2D;
+
 import processing.core.PApplet;
 import processing.core.PImage;
-import processing.core.PConstants;
-import processing.sound.SoundFile;
+
 /**
  * Represnts the DrawingSurface.
  * @author Harry Guan
@@ -18,18 +18,35 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private String[] bots = {"blindbot", "explobot", "glitchbot"};
 	public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
 	androidbullet, rock, toxicgas, cursor, android, missile, button;
-	private final Player p1;
+	private Player p1;
 	private static Rectangle2D.Double border;
-	private Button start;
-	public boolean gameStarted;
+	private Button start, playAgain;
+	public int gameState;
+	// -1: Before start, 0: Playing, 1: Dead
 
-	private final ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
+	private ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
 	private int spawnRate;
 	private int kills;
 	private int blind;
 	private boolean keyW, keyA, keyS, keyD;
 
 	public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
+		
+		list = new ArrayList<MovingImage>();
+		gameState = -1;
+		keyW = false;
+		keyA = false;
+		keyS = false;
+		keyD = false;
+		blind = 0;
+	}
+	public void settings() {
+		size(WIDTH, HEIGHT);
+	}
+	/**
+	 * Sets up most the background as well as the kill count. 
+	 */
+	public void setup() {
 		android = loadImage("../assets/android.png");
 		explob = loadImage("../assets/explobot.png");
 		explobb = loadImage("../assets/explobotbaby.png");
@@ -45,42 +62,13 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		missile = loadImage("../assets/cursor.png");
 		button = loadImage("../assets/button.png");
 		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
+		playAgain = new Button(button, WIDTH/2, 500, 250, 50, "Play Again?", 40);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
-		list = new ArrayList<MovingImage>();
 		list.add(p1);
-		gameStarted = false;
-		keyW = false;
-		keyA = false;
-		keyS = false;
-		keyD = false;
-		blind = 0;
-	}
-	/**
-	 * Sets up most the background as well as the kill count. 
-	 */
-	public void setup() {
-		size(WIDTH, HEIGHT);
 		this.frameRate(60);
 		//cursor(cursor, 16,16);
-		for (int x = 0; x < MAP_SIZE; x++) {
-			for (int y = 0; y < MAP_SIZE; y++) {
-				if (x <= 1 || x >= MAP_SIZE - 2 || y <= 1 || y >= MAP_SIZE - 2) {
-					Block border = new Block(toxicgas, x * 50, y * 50, 50, 50);
-					list.add(border);
-				}
-				else {
-					float chance = (float)Math.random();
-					if (!p1.intersects(x * 50, y * 50, 50, 50) && chance < 0.05) {
-						NoClipBlock gas = new NoClipBlock(toxicgas, x * 50, y * 50, 50, 50);
-						list.add(gas);
-					} else if (!p1.intersects(x * 50, y * 50, 50, 50) && chance < 0.15) {
-						Block block = new Block(rock, x * 50, y * 50, 40, 40);
-						list.add(block);
-					}
-				}
-			}
-		}
+		startGame();
 	}
 	
 	/**
@@ -88,7 +76,21 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 */
 	public void draw() {
 		background(0,100,0);
-		if (gameStarted) {
+		if (gameState == 0) {
+			
+			if (p1.isDead()) {
+				if (list.contains(p1)) {
+					blind = 0;
+					list.remove(p1);
+					delay(1500);
+				}
+				if (blind >= 255)
+					gameState = 1;
+				else
+					blind += 3;
+			}
+			else
+				runGame();
 			if (keyW || keyS) {
 				if (keyW) p1.setvY(-5);
 				if (keyS) p1.setvY(5);
@@ -116,31 +118,35 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			textSize(40);
 			fill(200);
 			this.text(kills + " kills.", 25, 50);
-			if (!p1.isDead())
-				runGame();
-			else {
-				blind = 250;
-				textSize(40);
-				fill(200);
-				pushMatrix();
-				fill(0, blind);
-				noStroke();
-				rect(0, 0, width, height);
-				popMatrix();
-				fill(255);
-				this.text("Game Over", 200, 375);
-				this.text("You've killed " + kills + " enemies.", 200, 330);
-				delay(20);
-			}
-			
-		} else {
-//			textSize(40);
+		} else if (gameState == -1){
 			background(100);
 //			fill(200);
 //			this.rect(250, 350, 250, 50);
 //			fill(255);
 //			this.text("Start Game", 270, 390);
 			start.draw(this);
+		}
+		else if (gameState == 1) {
+			blind = 250;
+			textSize(40);
+			fill(200);
+			pushMatrix();
+			fill(0, blind);
+			noStroke();
+			rect(0, 0, width, height);
+			popMatrix();
+			fill(255);
+			pushStyle();
+			textAlign(CENTER, CENTER);
+			textSize(100);
+			fill(255, 0, 0);
+			this.text("Game Over", WIDTH/2, 200);
+			textSize(40);
+			fill(200);
+			this.text("You've killed " + kills + " enemies.", WIDTH/2, 330);
+			popStyle();
+			playAgain.draw(this);
+			delay(20);
 		}
 	}
 	/**
@@ -233,9 +239,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 								//if explobotbaby gets hit by bullet
 								((ExploBotBaby) actedUpon).die();
 								//die
-								i--;
-								kills++;  
+								i--; 
 							}
+							if (((Bot) actedUpon).isDead())
+								kills++;
 						}
 					} else if (actor instanceof AndroidMissile){
 						if (actedUpon instanceof Bot) {
@@ -266,11 +273,17 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Shoots AndroidBasicProjectile on mouse clicks. 
 	 */
 	public void mousePressed() {
-		if (gameStarted) {
+		if (gameState == 0) {
 			list.add(p1.shoot(mouseX, mouseY));
-		} else {
+		} else if (gameState == -1){
 			if (start.isHovered(mouseX, mouseY)) {
-				gameStarted = true;
+				gameState = 0;
+			}
+		}
+		else if (gameState == 1) {
+			if (playAgain.isHovered(mouseX, mouseY)) {
+				startGame();
+				gameState = 0;
 			}
 		}
 	}
@@ -335,28 +348,48 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				image.moveByAmount(-x, -y);
 		}
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
+	private void startGame() {
+		blind = 0;
+		list = new ArrayList<MovingImage>();
+		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
+		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
+		list.add(p1);
+		for (int x = 0; x < MAP_SIZE; x++) {
+			for (int y = 0; y < MAP_SIZE; y++) {
+				if (x <= 1 || x >= MAP_SIZE - 2 || y <= 1 || y >= MAP_SIZE - 2) {
+					Block border = new Block(toxicgas, x * 50, y * 50, 50, 50);
+					list.add(border);
+				}
+				else {
+					float chance = (float)Math.random();
+					if (!p1.intersects(x * 50, y * 50, 50, 50) && chance < 0.05) {
+						NoClipBlock gas = new NoClipBlock(toxicgas, x * 50, y * 50, 50, 50);
+						list.add(gas);
+					} else if (!p1.intersects(x * 50, y * 50, 50, 50) && chance < 0.15) {
+						Block block = new Block(rock, x * 50, y * 50, 40, 40);
+						list.add(block);
+					}
+				}
+			}
+		}
+	}
+	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
+	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void mouseExited(MouseEvent e) {
+	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
