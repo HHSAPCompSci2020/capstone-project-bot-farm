@@ -47,20 +47,20 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Sets up most the background as well as the kill count. 
 	 */
 	public void setup() {
-		android = loadImage("../assets/android.png");
-		explob = loadImage("../assets/explobot.png");
-		explobb = loadImage("../assets/explobotbaby.png");
-		explobullet = loadImage("../assets/explobbullet.png");
-		glitchb = loadImage("../assets/glitchb.png");
-		blindb = loadImage("../assets/blindbot.png");
-		rock = loadImage("../assets/rock.png");
-		glitchbullet = loadImage("../assets/glitchbullet.png");
-		blindbullet = loadImage("../assets/blindbullet.png");
-		androidbullet = loadImage("../assets/androidbullet.png");
-		cursor = loadImage("../assets/cursor.png");
-		toxicgas = loadImage("../assets/toxicgas.png");
-		missile = loadImage("../assets/cursor.png");
-		button = loadImage("../assets/button.png");
+		android = loadImage("android.png");
+		explob = loadImage("explobot.png");
+		explobb = loadImage("explobotbaby.png");
+		explobullet = loadImage("explobbullet.png");
+		glitchb = loadImage("glitchb.png");
+		blindb = loadImage("blindbot.png");
+		rock = loadImage("rock.png");
+		glitchbullet = loadImage("glitchbullet.png");
+		blindbullet = loadImage("blindbullet.png");
+		androidbullet = loadImage("androidbullet.png");
+		cursor = loadImage("cursor.png");
+		toxicgas = loadImage("toxicgas.png");
+		missile = loadImage("cursor.png");
+		button = loadImage("button.png");
 		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
 		playAgain = new Button(button, WIDTH/2, 500, 250, 50, "Play Again?", 40);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
