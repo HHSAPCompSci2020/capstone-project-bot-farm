@@ -131,7 +131,7 @@ public class Player extends MovingImage {
 			marker.fill(255, 0, 0); //change bar to red
 		} 
 		if (hp > 0) {
-			marker.rect((float) this.getX(), (float) (this.getCenterY()), (float) (40 * hp / 40.0), 10f);
+			marker.rect((float) this.getX() - 40, (float) (this.getCenterY() + 20), (float) (40 * hp / 40.0), 10f);
 		}
 
 	}

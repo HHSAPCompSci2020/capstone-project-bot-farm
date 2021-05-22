@@ -77,7 +77,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
         }
         
 //        File f = new File("../assets/blocks.txt");
-//        Scanner file = null;
+//        Scanner file = null;	
 //        try {
 //            file = new Scanner(f);
 //        } catch (Exception e) {
@@ -133,7 +133,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
             	background(100);
                 this.text("Game Over", 200, 375);
                 this.text("You've killed " + kills + " enemies.", 200, 330);
-                delay(4000);
+                delay(200);
                 //exit();
             }
             textSize(40);
