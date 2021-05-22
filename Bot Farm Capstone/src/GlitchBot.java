@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.awt.geom.Rectangle2D;
 import processing.core.PImage;
 
 /**
@@ -65,9 +66,14 @@ public class GlitchBot extends Bot {
     
     /**
      * Teleports to random location nearby.
+     * Cannot be outside the grid.
      */
     public void glitch() {
-    	this.moveByAmount((Math.random() * 200) - 100, (Math.random() * 200) - 100);
+    	double newx = (Math.random() * 200) - 100;
+    	double newy = (Math.random() * 200) - 100;
+    	GlitchBot temp = new GlitchBot(DrawingSurface.glitchb, (int)newx, (int)newy, 50, 50, 100);
+    	if (temp.intersects(DrawingSurface.getBorder()))
+    		this.moveByAmount(newx, newy);
     }
 	
     /**
