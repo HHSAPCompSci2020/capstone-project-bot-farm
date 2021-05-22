@@ -178,7 +178,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			if (bot.equalsIgnoreCase("blindbot"))
 				list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 100));
 			else if (bot.equalsIgnoreCase("explobot"))
-				list.add(new ExploBot(explob, enemyX, enemyY, 50, 50, 100));
+				list.add(new ExploBot(explob, enemyX, enemyY, 50, 50, 50));
 			else if (bot.equalsIgnoreCase("glitchbot"))
 				list.add(new GlitchBot(glitchb, enemyX, enemyY, 50, 50, 100));
 		}

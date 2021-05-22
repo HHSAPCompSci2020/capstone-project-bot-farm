@@ -26,6 +26,9 @@ public class ExploBot extends Bot {
 	 * @param list an arraylist containing all movingimages
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) {
+		if(counter%100 == 0 && counter != 0) {
+			loseHP(5);
+		}
 		if(counter%200 == 0)
 		list.add(new ExploBotBaby(DrawingSurface.explobb, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight()));
 		counter++;
