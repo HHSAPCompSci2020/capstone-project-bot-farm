@@ -37,31 +37,33 @@ public class ExploBotBaby extends Bot{
 			if (m instanceof Player)
 				p = (Player) m;
 		} 
-		Point2D.Double pointP = new Point2D.Double(p.getX(), p.getY());
-		double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
-		double finalAngle = angle;
-		double smallestDistance = Integer.MAX_VALUE;
-		for (int i = 0; i < 360; i++) {
-			double newAngle = angle + Math.toRadians(i);
-			Rectangle2D.Double newPos = new Rectangle2D.Double(x + SPEED*Math.cos(newAngle),
-					y + SPEED*Math.sin(newAngle), width, height);
-			boolean intersects = false;
-			for (MovingImage s : list) {
-				if (!newPos.intersects(DrawingSurface.getBorder()) ||
-						(newPos.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))) {
-					intersects = true;
+		if (counter % 20 == 0) {
+			Point2D.Double pointP = new Point2D.Double(p.getX(), p.getY());
+			double angle = Math.atan2(p.getY() - this.y, p.getX() - this.x);
+			double finalAngle = angle;
+			double smallestDistance = Integer.MAX_VALUE;
+			for (int i = 0; i < 360; i++) {
+				double newAngle = angle + Math.toRadians(i);
+				Rectangle2D.Double newPos = new Rectangle2D.Double(x + SPEED*Math.cos(newAngle),
+						y + SPEED*Math.sin(newAngle), width, height);
+				boolean intersects = false;
+				for (MovingImage s : list) {
+					if (!newPos.intersects(DrawingSurface.getBorder()) ||
+							(newPos.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))) {
+						intersects = true;
+					}
+				}
+				if (!intersects) {
+					double distance = pointP.distance(newPos.getX(), newPos.getY());
+					if (distance < smallestDistance) {
+						smallestDistance = distance;
+						finalAngle = newAngle;
+					}
 				}
 			}
-			if (!intersects) {
-				double distance = pointP.distance(newPos.getX(), newPos.getY());
-				if (distance < smallestDistance) {
-					smallestDistance = distance;
-					finalAngle = newAngle;
-				}
-			}
+			vY = (int) (SPEED*Math.sin(finalAngle));
+			vX = (int) (SPEED*Math.cos(finalAngle));
 		}
-		vY = (int) (SPEED*Math.sin(finalAngle));
-		vX = (int) (SPEED*Math.cos(finalAngle));
 		Rectangle2D.Double posX = new Rectangle2D.Double(x + vX, y, width, height);
 		Rectangle2D.Double posY = new Rectangle2D.Double(x, y + vY, width, height);
 		for (MovingImage s : list) {
