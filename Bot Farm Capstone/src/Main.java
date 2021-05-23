@@ -41,7 +41,7 @@ public class Main {
 		
 		//edited from https://www.geeksforgeeks.org/play-audio-file-using-java/
 		//volume from http://helpdesk.objects.com.au/java/how-to-control-volume-of-audio-clip
-		String filePath = "gamemusic.wav";
+		String filePath = "../Bot Farm Capstone/data/gamemusic.wav";
 		AudioInputStream audioInputStream;
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
