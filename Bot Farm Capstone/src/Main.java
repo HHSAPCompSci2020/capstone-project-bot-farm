@@ -32,7 +32,7 @@ public class Main {
 		canvas.requestFocus();
 		
 		//edited from https://www.geeksforgeeks.org/play-audio-file-using-java/
-
+		//volume from http://helpdesk.objects.com.au/java/how-to-control-volume-of-audio-clip
 		String filePath = "gamemusic.wav";
 		AudioInputStream audioInputStream;
 		try {
