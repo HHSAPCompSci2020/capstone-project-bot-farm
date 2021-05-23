@@ -26,7 +26,7 @@ public class Player extends MovingImage {
 	public Player(PImage image, double x, double y, int width, int height) {
 		super(image, x, y, width, height);
 		//vX and vY should be initially 0, hp should start at 20, and dead should be false.
-		maxCooldown = 600;
+		maxCooldown = 450;
 		cooldown = maxCooldown;
 		vX = 0;
 		vY = 0;
@@ -195,7 +195,7 @@ public class Player extends MovingImage {
 		if(counter % 40 == 0) {
 			if(hp + 2 < ohp)hp+=2;
 			else hp = ohp;
-			if(mana + 5 < maxMana)mana+=2;
+			if(mana + 3 < maxMana)mana+=3;
 			else mana = maxMana;
 		}
 		counter++;
