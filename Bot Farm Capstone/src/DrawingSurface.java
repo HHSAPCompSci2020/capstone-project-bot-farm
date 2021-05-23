@@ -154,11 +154,13 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			background(0);
 			textSize(20);
 			fill(200,30,30);
-			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
-					, 50,100);
+//			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
+//					, 50,100);
+			this.text("     After a devastating robot takeover of the Planet X-69, there is a miniscule amount of human lifeforms remaining on the planet which the massive army of robots seek to snuff out. The robots are rapidly advancing in their combat prowess, and the rebels must wipe them out before they are unstoppable."
+					, 50,100, WIDTH-100,1000);
 			this.text("MISSION\n"
-					+ "Poison gas stops your retreat, defeat all the bots and survive for as \nlong as possible while avoiding clouds of poisonous gas."
-					, 100,300);
+					+ "Poison gas stops your retreat, defeat all the bots and survive for as long as possible while avoiding clouds of poisonous gas."
+					, 100,300,WIDTH-200,1000);
 			this.text("INSTRUCTIONS\n"
 					+ "WASD: keys for movement\n"
 					+ "Q: Special ability. Watch out for mana usage\n"
