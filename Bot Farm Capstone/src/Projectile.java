@@ -32,7 +32,7 @@ public class Projectile extends MovingImage {
 		stepY = -5;
 		timer = 0;
 		this.delay = delay;
-
+		
 	}
 
 	/**

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.awt.geom.Rectangle2D;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 
 /**
@@ -20,9 +21,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	androidbullet, rock, toxicgas, cursor, android, missile, button;
 	private Player p1;
 	private static Rectangle2D.Double border;
-	private Button start, playAgain;
+	private Button start, playAgain, info, goBack;
 	public int gameState;
-	// -1: Before start, 0: Playing, 1: Dead
+	// -1: Before start, 0: Playing, 1: Dead -2: info
 
 	private ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
 	private int spawnRate;
@@ -31,7 +32,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private boolean keyW, keyA, keyS, keyD;
 
 	public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
-		
+
 		list = new ArrayList<MovingImage>();
 		gameState = -1;
 		keyW = false;
@@ -47,37 +48,40 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Sets up most the background as well as the kill count. 
 	 */
 	public void setup() {
-		android = loadImage("../assets/android.png");
-		explob = loadImage("../assets/explobot.png");
-		explobb = loadImage("../assets/explobotbaby.png");
-		explobullet = loadImage("../assets/explobbullet.png");
-		glitchb = loadImage("../assets/glitchb.png");
-		blindb = loadImage("../assets/blindbot.png");
-		rock = loadImage("../assets/rock.png");
-		glitchbullet = loadImage("../assets/glitchbullet.png");
-		blindbullet = loadImage("../assets/blindbullet.png");
-		androidbullet = loadImage("../assets/androidbullet.png");
-		cursor = loadImage("../assets/cursor.png");
-		toxicgas = loadImage("../assets/toxicgas.png");
-		missile = loadImage("../assets/cursor.png");
-		button = loadImage("../assets/button.png");
+		android = loadImage("android.png");
+		explob = loadImage("explobot.png");
+		explobb = loadImage("explobotbaby.png");
+		explobullet = loadImage("explobbullet.png");
+		glitchb = loadImage("glitchb.png");
+		blindb = loadImage("blindbot.png");
+		rock = loadImage("rock.png");
+		glitchbullet = loadImage("glitchbullet.png");
+		blindbullet = loadImage("blindbullet.png");
+		androidbullet = loadImage("androidbullet.png");
+		cursor = loadImage("cursor.png");
+		toxicgas = loadImage("toxicgas.png");
+		missile = loadImage("cursor.png");
+		button = loadImage("button.png");
 		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
 		playAgain = new Button(button, WIDTH/2, 500, 250, 50, "Play Again?", 40);
+		info = new Button(button, WIDTH/2,500, 250, 50, "Info", 40);
+		goBack = new Button(button, WIDTH/2,700,250,50, "Go Back", 40);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
 		list.add(p1);
 		this.frameRate(60);
 		//cursor(cursor, 16,16);
+		textFont(createFont("Bahnschrift", 40));
 		startGame();
 	}
-	
+
 	/**
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
 	 */
 	public void draw() {
 		background(0,100,0);
 		if (gameState == 0) {
-			
+
 			if (p1.isDead()) {
 				if (list.contains(p1)) {
 					blind = 0;
@@ -101,7 +105,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				if (keyD) p1.setvX(5);
 			}
 			else p1.setvX((int)(p1.getVx() * 0.99));
-			
+
 			for (MovingImage m : list)
 				if (m instanceof Block) m.draw(this);
 			for (MovingImage m : list)
@@ -118,13 +122,40 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			textSize(40);
 			fill(200);
 			this.text(kills + " kills.", 25, 50);
-		} else if (gameState == -1){
-			background(100);
-//			fill(200);
-//			this.rect(250, 350, 250, 50);
-//			fill(255);
-//			this.text("Start Game", 270, 390);
+		}
+		else if(gameState == -2) {
+			pushMatrix();
+			background(0);
+			textSize(20);
+			fill(200,30,30);
+			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
+					, 50,100);
+			this.text("MISSION\n"
+					+ "Poison gas stops your retreat, defeat all the bots and survive for as \nlong as possible while avoiding clouds of poisonous gas."
+					, 100,300);
+			this.text("INSTRUCTIONS\n"
+					+ "WASD: keys for movement\n"
+					+ "Q: Special ability. Watch out for mana usage\n"
+					+ "Left Mouse click: basic attacks\n"
+					+ "", 100,500);
+			fill(255);
+			popMatrix();
+			goBack.draw(this);
+		}
+		else if (gameState == -1){
+			background(0);
+			//			fill(200);
+			//			this.rect(250, 350, 250, 50);
+			//			fill(255);
+			pushMatrix();
+			textSize(100);
+			fill(200,30,30);
+			this.text("BOT FARM", 150,300);
+			fill(255);
+			popMatrix();
+			//			this.text("Start Game", 270, 390);
 			start.draw(this);
+			info.draw(this);
 		}
 		else if (gameState == 1) {
 			blind = 250;
@@ -163,7 +194,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			int yTop = border.getY() < 0 ? 0 : (int)border.getY();
 			int yBot = border.getY() + border.getHeight() > HEIGHT ? HEIGHT : (int) (border.getY() + border.getHeight());
 			while(occupied) {
-				
+
 				enemyX = (int) (Math.random() * (xRight + xLeft) - xLeft);
 				enemyY = (int) (Math.random() * (yBot + yTop) - yTop);
 				occupied = false;
@@ -178,7 +209,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			if (bot.equalsIgnoreCase("blindbot"))
 				list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 100));
 			else if (bot.equalsIgnoreCase("explobot"))
-				list.add(new ExploBot(explob, enemyX, enemyY, 50, 50, 100));
+				list.add(new ExploBot(explob, enemyX, enemyY, 50, 50, 50));
 			else if (bot.equalsIgnoreCase("glitchbot"))
 				list.add(new GlitchBot(glitchb, enemyX, enemyY, 50, 50, 100));
 		}
@@ -244,17 +275,16 @@ public class DrawingSurface extends PApplet implements MouseListener {
 							if (((Bot) actedUpon).isDead())
 								kills++;
 						}
-					} else if (actor instanceof AndroidMissile){
-						if (actedUpon instanceof Bot) {
-							((Bot) actedUpon).loseHP(100);
+					} else if (actor instanceof AndroidMissile) {
+						if (!(actedUpon instanceof NoClipBlock)) {
 							list.remove(actor);
-							if (actedUpon instanceof ExploBotBaby) {
-								//if explobotbaby gets hit by bullet
-								((ExploBotBaby) actedUpon).die();
-								//die
-								i--;
-								kills++;  
+							ArrayList<MovingImage> temp = new ArrayList<MovingImage>(list);
+							for (MovingImage exploded : ((AndroidMissile) actor).explode(list)) {
+								temp.remove(exploded);
+								if (exploded instanceof Bot)
+									kills++;
 							}
+							list = temp;
 						}
 					}
 				}
@@ -273,17 +303,26 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Shoots AndroidBasicProjectile on mouse clicks. 
 	 */
 	public void mousePressed() {
-		if (gameState == 0) {
-			list.add(p1.shoot(mouseX, mouseY));
+		if (gameState == 0 &&  !p1.isDead()	) {
+			Projectile proj = p1.shoot(mouseX, mouseY);
+			if (proj != null)
+				list.add(proj);
 		} else if (gameState == -1){
 			if (start.isHovered(mouseX, mouseY)) {
 				gameState = 0;
+			} else if(info.isHovered(mouseX,mouseY)) {
+				gameState = -2;
 			}
 		}
 		else if (gameState == 1) {
 			if (playAgain.isHovered(mouseX, mouseY)) {
 				startGame();
 				gameState = 0;
+			}
+		}
+		else if(gameState == -2) {
+			if(goBack.isHovered(mouseX,mouseY)) {
+				gameState = -1;
 			}
 		}
 	}
@@ -320,7 +359,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			//p1.image = right;
 		}
 		if (keyCode == KeyEvent.VK_Q) {
-			list.add(p1.launchMissile(mouseX,  mouseY));
+			Projectile proj = p1.launchMissile(mouseX,  mouseY);
+			if (proj != null)
+				list.add(proj);
 		}
 	}
 	/**
@@ -340,7 +381,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public static Rectangle2D.Double getBorder() {
 		return border;
 	}
-	
+
 	private void sideScroll(int x, int y) {
 		border.setFrame(border.getX() - x, border.getY() - y, border.getWidth(), border.getHeight());
 		for (MovingImage image : list) {
@@ -350,6 +391,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	}
 	private void startGame() {
 		blind = 0;
+		kills = 0;
 		list = new ArrayList<MovingImage>();
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
@@ -366,7 +408,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 						NoClipBlock gas = new NoClipBlock(toxicgas, x * 50, y * 50, 50, 50);
 						list.add(gas);
 					} else if (!p1.intersects(x * 50, y * 50, 50, 50) && chance < 0.15) {
-						Block block = new Block(rock, x * 50, y * 50, 40, 40);
+						Rock block = new Rock(rock, x * 50, y * 50, 40, 40);
 						list.add(block);
 					}
 				}
@@ -375,22 +417,22 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	}
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
