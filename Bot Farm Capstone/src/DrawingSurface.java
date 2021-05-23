@@ -1,9 +1,14 @@
 import java.awt.event.*;
 import java.util.ArrayList;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PImage;
 
 /**
@@ -215,6 +220,20 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		}
 	}
 
+	private void playMusic(String musicLocation) {
+		try {
+			File musicPath = new File(musicLocation);
+			if (musicPath.exists()) {
+				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+				Clip clip = AudioSystem.getClip();
+				clip.start();
+			} else {
+				System.out.println("No file found.");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Runs the game and detects for collision of projectiles. 
@@ -301,7 +320,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 
 	/**
 	 * Shoots AndroidBasicProjectile on mouse clicks. 
-	 */
+	 */	
 	public void mousePressed() {
 		if (gameState == 0 &&  !p1.isDead()	) {
 			Projectile proj = p1.shoot(mouseX, mouseY);
@@ -390,6 +409,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		}
 	}
 	private void startGame() {
+		playMusic("gamemusic.mp3");
 		blind = 0;
 		kills = 0;
 		list = new ArrayList<MovingImage>();
