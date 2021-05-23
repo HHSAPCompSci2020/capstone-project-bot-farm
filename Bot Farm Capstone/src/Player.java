@@ -44,8 +44,8 @@ public class Player extends MovingImage {
 	 * @return the projectile being shot
 	 */
 	public Projectile shoot(int x, int y) {
-		if (mana >= 5) {
-			mana -= 5;
+		if (mana >= 2) {
+			mana -= 2;
 			double sX = x - this.getX();
 			double sY = y - this.getY();
 			double angle = Math.atan2(sY, sX);

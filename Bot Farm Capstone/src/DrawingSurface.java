@@ -303,7 +303,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 */
 	public void mousePressed() {
 		if (gameState == 0 &&  !p1.isDead()	) {
-			list.add(p1.shoot(mouseX, mouseY));
+			Projectile proj = p1.shoot(mouseX, mouseY);
+			if (proj != null)
+				list.add(proj);
 		} else if (gameState == -1){
 			if (start.isHovered(mouseX, mouseY)) {
 				gameState = 0;
