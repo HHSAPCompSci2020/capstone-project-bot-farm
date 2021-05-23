@@ -65,7 +65,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
 		playAgain = new Button(button, WIDTH/2, 500, 250, 50, "Play Again?", 40);
 		info = new Button(button, WIDTH/2,500, 250, 50, "Info", 40);
-		goBack = new Button(button, WIDTH/2,700,250,50, "Go Back", 40);
+		goBack = new Button(button, WIDTH/2,650,250,50, "Go Back", 40);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
 		list.add(p1);
