@@ -299,15 +299,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 						//initiate method loseHP
 						list.remove(actor);
 						//remove the bullet
-					} else if (actedUpon instanceof ExploBotBaby) {
-						//if explobotbaby gets hit by bullet
-						list.remove(actor);
-						//remove bullet
-						((ExploBotBaby) actedUpon).explode(list);
-						//die
-						i--;
-						//need to implement explosion
-						kills++;
 					} 
 					else if (actor instanceof AndroidBasicProjectile ){
 						if (actedUpon instanceof Bot) {
@@ -315,7 +306,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 							list.remove(actor);
 							if (actedUpon instanceof ExploBotBaby) {
 								//if explobotbaby gets hit by bullet
-								((ExploBotBaby) actedUpon).die();
+								((ExploBotBaby) actedUpon).explode(list);
 								//die
 								i--; 
 							}
