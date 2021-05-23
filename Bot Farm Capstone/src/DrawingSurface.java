@@ -95,8 +95,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
 	 */
 	public void draw() {
-		String filepath = "gamemusic.wav";
-		playMusic(filepath);
+//		String filepath = "gamemusic.wav";
+//		playMusic(filepath);
 		runTime++;
 		background(0,100,0);
 		if (gameState == 0) {
@@ -215,18 +215,18 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		}
 	}
 	
-	public void playMusic(String filepath) {
-		try {
-			File musicPath = new File(filepath);
-			if (musicPath.exists()) {
-				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-				Clip clip = AudioSystem.getClip();
-				clip.start();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public void playMusic(String filepath) {
+//		try {
+//			File musicPath = new File(filepath);
+//			if (musicPath.exists()) {
+//				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+//				Clip clip = AudioSystem.getClip();
+//				clip.start();
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	/**
 	 * Spawns the different Bots. 
@@ -310,8 +310,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 								//die
 								i--; 
 							}
-							if (((Bot) actedUpon).isDead())
+							if (((Bot) actedUpon).isDead()) {
 								kills++;
+								
+							}
 						}
 					} else if (actor instanceof AndroidMissile) {
 						if (!(actedUpon instanceof NoClipBlock)) {
