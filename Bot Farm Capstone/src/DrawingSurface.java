@@ -1,7 +1,13 @@
 import java.awt.event.*;
 import java.util.ArrayList;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 import java.awt.geom.Point2D.Double;
 
 import processing.core.PApplet;
@@ -89,6 +95,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
 	 */
 	public void draw() {
+		String filepath = "gamemusic.wav";
+		playMusic(filepath);
 		runTime++;
 		background(0,100,0);
 		if (gameState == 0) {
@@ -206,6 +214,20 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			delay(20);
 		}
 	}
+	
+	public void playMusic(String filepath) {
+		try {
+			File musicPath = new File(filepath);
+			if (musicPath.exists()) {
+				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+				Clip clip = AudioSystem.getClip();
+				clip.start();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Spawns the different Bots. 
 	 */
@@ -240,8 +262,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				list.add(new GlitchBot(glitchb, enemyX, enemyY, 50, 50, 100));
 		}
 	}
-
-
+	
 	/**
 	 * Runs the game and detects for collision of projectiles. 
 	 */
