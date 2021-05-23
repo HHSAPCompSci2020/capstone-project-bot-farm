@@ -1,6 +1,8 @@
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Point2D.Double;
 
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -26,13 +28,15 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	// -1: Before start, 0: Playing, 1: Dead -2: info
 
 	private ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
+	private ArrayList<Rectangle2D> stars;
+	private int runTime;
 	private int spawnRate;
 	private int kills;
 	private int blind;
 	private boolean keyW, keyA, keyS, keyD;
 
 	public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
-
+		stars = new ArrayList<Rectangle2D>();
 		list = new ArrayList<MovingImage>();
 		gameState = -1;
 		keyW = false;
@@ -40,6 +44,12 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		keyS = false;
 		keyD = false;
 		blind = 0;
+		for (int i = 0; i < 100; i++) {
+			double x = Math.random() * (double)WIDTH;
+			double y = Math.random() * (double)HEIGHT;
+			double size = Math.random() * 3 + 2;
+			stars.add(new Rectangle2D.Double(x, y, size, size));
+		}
 	}
 	public void settings() {
 		size(WIDTH, HEIGHT);
@@ -79,6 +89,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
 	 */
 	public void draw() {
+		runTime++;
 		background(0,100,0);
 		if (gameState == 0) {
 
@@ -121,7 +132,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			//If the player is dead, display a death message.
 			textSize(40);
 			fill(200);
-			this.text(kills + " kills.", 25, 50);
+			this.text(kills + " kills", 25, 50);
 		}
 		else if(gameState == -2) {
 			pushMatrix();
@@ -148,14 +159,29 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			//			this.rect(250, 350, 250, 50);
 			//			fill(255);
 			pushMatrix();
+			noStroke();
+			for (Rectangle2D star : stars) {
+				if (runTime % 10 == 0) {
+					double width = Math.random() * 3 + 2;
+					star.setFrame(star.getX() + 10, star.getY() + 1, width, width);
+					if (star.getCenterX() > WIDTH || star.getCenterY() > HEIGHT)
+						star.setFrame(0, (float)Math.random() * HEIGHT, width, width);
+				}
+				square((float)star.getX(), (float)star.getY(), (float)star.getWidth());
+			}
 			textSize(100);
 			fill(200,30,30);
-			this.text("BOT FARM", 150,300);
+			pushStyle();
+			textAlign(CENTER, CENTER);
+			this.text("BOT FARM", WIDTH/2, 200);
+			popStyle();
 			fill(255);
 			popMatrix();
 			//			this.text("Start Game", 270, 390);
 			start.draw(this);
 			info.draw(this);
+			
+			
 		}
 		else if (gameState == 1) {
 			blind = 250;

@@ -27,7 +27,7 @@ public class Player extends MovingImage {
 		super(image, x, y, width, height);
 		//vX and vY should be initially 0, hp should start at 20, and dead should be false.
 		maxCooldown = 600;
-		cooldown = 0;
+		cooldown = maxCooldown;
 		vX = 0;
 		vY = 0;
 		hp = 100;
@@ -169,9 +169,12 @@ public class Player extends MovingImage {
 			marker.fill(255);
 		marker.arc((float)(this.getX() + maxMana - 5), (float) (this.getCenterY()-height-3), 25f, 25f, -(float)Math.PI/2f,
 				(float)(2*Math.PI * ((float)(maxCooldown -cooldown)/(float)maxCooldown) - Math.PI/2f), marker.PIE);
+		marker.pushStyle();
 		marker.textSize(20);
+		marker.textAlign(marker.CENTER, marker.CENTER);
 		marker.fill(0);
-		marker.text("Q", (float)(this.getX() + maxMana - 13), (float) (this.getCenterY()-height+3));
+		marker.text("Q", (float)(this.getX() + maxMana - 5), (float) (this.getCenterY()-height-6));
+		marker.popStyle();
 		marker.popMatrix();
 	}
 	/**
