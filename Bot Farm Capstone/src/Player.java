@@ -9,7 +9,7 @@ import processing.core.PImage;
  *
  */
 public class Player extends MovingImage {
-	protected int vX, vY, cooldown;
+	protected int vX, vY, cooldown, slowed;
 	protected double hp, mana;
 	protected boolean dead;
 	protected final double ohp, maxMana;
@@ -35,6 +35,7 @@ public class Player extends MovingImage {
 		dead = false;
 		ohp = hp;
 		maxMana = mana;
+		slowed = 0;
 	}
 
 	/**
@@ -124,9 +125,9 @@ public class Player extends MovingImage {
 	}
 
 	/**
-	 * causes the player to take damage from lava
+	 * causes the player to take damage from poison
 	 */
-	public void lavaDamage() {
+	public void poisonDamage() {
         hp -= 0.2;
         if (hp <= 0)
             die();
@@ -184,6 +185,11 @@ public class Player extends MovingImage {
 	public MovingImage act(ArrayList<MovingImage> list) { 
 		MovingImage image = null;
 		cooldown--;
+		if(slowed > 0) {
+			vX*=0.5;
+			vY*=0.5;
+			slowed--;
+		}
 		Rectangle2D.Double posX = new Rectangle2D.Double(x + vX, y, width, height);
 		Rectangle2D.Double posY = new Rectangle2D.Double(x, y + vY, width, height);
 		//this.moveByAmount(vX, vY);
@@ -205,8 +211,10 @@ public class Player extends MovingImage {
 				vX = 0;
 			if (posY.intersects(s) && s instanceof Block && !(s instanceof NoClipBlock))
 				vY = 0;
-			else if (this.intersects(s) && s instanceof NoClipBlock)
-                lavaDamage();
+			else if (this.intersects(s) && s instanceof NoClipBlock) {
+                poisonDamage();
+                slowed = 30;
+			}
 			if (this != s && (posX.intersects(s) || posY.intersects(s)))
 				image = s;
 
