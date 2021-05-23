@@ -95,8 +95,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
 	 */
 	public void draw() {
-		String filepath = "gamemusic.wav";
-		playMusic(filepath);
+		//String filepath = "gamemusic.wav";
+		//playMusic(filepath);
 		runTime++;
 		background(0,100,0);
 		if (gameState == 0) {
