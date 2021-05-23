@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.awt.geom.Rectangle2D;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 
 /**
@@ -70,6 +71,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		list.add(p1);
 		this.frameRate(60);
 		//cursor(cursor, 16,16);
+		textFont(createFont("Bahnschrift", 40));
 		startGame();
 	}
 
