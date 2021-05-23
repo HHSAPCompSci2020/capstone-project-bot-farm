@@ -27,7 +27,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private String[] bots = { "blindbot", "explobot", "glitchbot" };
 	public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, androidbullet, rock,
 			toxicgas, cursor, android, missile, button, forcefieldU, forcefieldD, forcefieldL, forcefieldR, generatorU,
-			generatorD, generatorL, generatorR;
+			generatorD, generatorL, generatorR, generatorC;
 	private Player p1;
 	private static Rectangle2D.Double border;
 	private Button start, playAgain, info, goBack;
@@ -98,6 +98,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		generatorD = loadImage("generator_down.png");
 		generatorL = loadImage("generator_left.png");
 		generatorR = loadImage("generator_right.png");
+		generatorC = loadImage("generator_corner.png");
 		start = new Button(button, WIDTH / 2, HEIGHT / 2, 250, 50, "Start Game", 40);
 		playAgain = new Button(button, WIDTH / 2, 500, 250, 50, "Play Again?", 40);
 		info = new Button(button, WIDTH / 2, 500, 250, 50, "Info", 40);
@@ -490,6 +491,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 					}
 					if (y == MAP_SIZE -1) {
 						Block border = new Block(generatorU, x * 50, y * 50, 50, 50);
+						list.add(border);
+					}
+					if(x==0 && y == 0 || x==MAP_SIZE-1 && y == 0 ||x==0 && y == MAP_SIZE-1 ||x==MAP_SIZE-1 && y == MAP_SIZE-1) {
+						Block border = new Block(generatorC, x * 50, y * 50, 50, 50);
 						list.add(border);
 					}
 				} else {
