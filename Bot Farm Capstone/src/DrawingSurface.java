@@ -1,10 +1,8 @@
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.awt.geom.Rectangle2D;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PImage;
 
 /**
@@ -33,7 +31,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private boolean keyW, keyA, keyS, keyD;
 
 	public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
-		System.out.println(Arrays.toString(PFont.list()));
+		
 		list = new ArrayList<MovingImage>();
 		gameState = -1;
 		keyW = false;
@@ -135,7 +133,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 					, 100,300);
 			this.text("INSTRUCTIONS\n"
 					+ "WASD: keys for movement\n"
-					+ "Q: Special ability\n"
+					+ "Q: Special ability. Watch out for mana usage\n"
 					+ "Left Mouse click: basic attacks\n"
 					+ "", 100,500);
 			fill(255);
@@ -304,15 +302,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Shoots AndroidBasicProjectile on mouse clicks. 
 	 */
 	public void mousePressed() {
-		if (gameState == 0 &&  !p1.isDead()) {
-			Projectile proj = p1.shoot(mouseX, mouseY);
-			if (proj != null)
-				list.add(proj);
-		}
-		if (gameState == 0) {
-			Projectile proj = p1.shoot(mouseX, mouseY);
-			if (proj != null)
-				list.add(proj);
+		if (gameState == 0 &&  !p1.isDead()	) {
+			list.add(p1.shoot(mouseX, mouseY));
 		} else if (gameState == -1){
 			if (start.isHovered(mouseX, mouseY)) {
 				gameState = 0;
@@ -365,9 +356,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			//p1.image = right;
 		}
 		if (keyCode == KeyEvent.VK_Q) {
-			Projectile proj = p1.launchMissile(mouseX,  mouseY);
-			if (proj != null)
-				list.add(proj);
+			list.add(p1.launchMissile(mouseX,  mouseY));
 		}
 	}
 	/**
