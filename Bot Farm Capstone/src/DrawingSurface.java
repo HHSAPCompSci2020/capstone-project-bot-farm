@@ -20,7 +20,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	androidbullet, rock, toxicgas, cursor, android, missile, button;
 	private Player p1;
 	private static Rectangle2D.Double border;
-	private Button start, playAgain;
+	private Button start, playAgain, info, goBack;
 	public int gameState;
 	// -1: Before start, 0: Playing, 1: Dead
 
@@ -63,6 +63,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		button = loadImage("button.png");
 		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
 		playAgain = new Button(button, WIDTH/2, 500, 250, 50, "Play Again?", 40);
+		info = new Button(button, WIDTH/2,500, 250, 50, "Info", 40);
+		goBack = new Button(button, WIDTH/2,700,250,50, "Go Back", 40);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
 		list.add(p1);
@@ -118,13 +120,40 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			textSize(40);
 			fill(200);
 			this.text(kills + " kills.", 25, 50);
-		} else if (gameState == -1){
-			background(100);
+		}
+		else if(gameState == -2) {
+			pushMatrix();
+			background(0);
+			textSize(20);
+			fill(200,30,30);
+			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
+					 , 50,100);
+			this.text("MISSION\n"
+					+ "defeat all the bots and survive for as long as possible."
+					, 100,300);
+			this.text("INSTRUCTIONS\n"
+					+ "WASD: keys for movement\n"
+					+ "Q: Special ability\n"
+					+ "Left Mouse click: basic attacks\n"
+					+ "", 100,400);
+			fill(255);
+			popMatrix();
+			goBack.draw(this);
+		}
+		else if (gameState == -1){
+			background(0);
 //			fill(200);
 //			this.rect(250, 350, 250, 50);
 //			fill(255);
+			pushMatrix();
+			textSize(100);
+			fill(200,30,30);
+			this.text("BOT FARM", 200,300);
+			fill(255);
+			popMatrix();
 //			this.text("Start Game", 270, 390);
 			start.draw(this);
+			info.draw(this);
 		}
 		else if (gameState == 1) {
 			blind = 250;
@@ -278,12 +307,19 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		} else if (gameState == -1){
 			if (start.isHovered(mouseX, mouseY)) {
 				gameState = 0;
+			} else if(info.isHovered(mouseX,mouseY)) {
+				gameState = -2;
 			}
 		}
 		else if (gameState == 1) {
 			if (playAgain.isHovered(mouseX, mouseY)) {
 				startGame();
 				gameState = 0;
+			}
+		}
+		else if(gameState == -2) {
+			if(goBack.isHovered(mouseX,mouseY)) {
+				gameState = -1;
 			}
 		}
 	}
