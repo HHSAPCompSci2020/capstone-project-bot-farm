@@ -169,6 +169,9 @@ public class Player extends MovingImage {
 			marker.fill(255);
 		marker.arc((float)(this.getX() + maxMana - 5), (float) (this.getCenterY()-height-3), 25f, 25f, -(float)Math.PI/2f,
 				(float)(2*Math.PI * ((float)(maxCooldown -cooldown)/(float)maxCooldown) - Math.PI/2f), marker.PIE);
+		marker.textSize(20);
+		marker.fill(0);
+		marker.text("Q", (float)(this.getX() + maxMana - 13), (float) (this.getCenterY()-height+3));
 		marker.popMatrix();
 	}
 	/**
