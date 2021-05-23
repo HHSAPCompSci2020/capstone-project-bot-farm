@@ -195,7 +195,7 @@ public class Player extends MovingImage {
 		if(counter % 40 == 0) {
 			if(hp + 2 < ohp)hp+=2;
 			else hp = ohp;
-			if(mana + 3 < maxMana)mana+=3;
+			if(mana + 2 < maxMana)mana+=2;
 			else mana = maxMana;
 		}
 		counter++;
