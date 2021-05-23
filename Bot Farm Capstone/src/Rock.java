@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 import processing.core.PImage;
 
@@ -36,10 +37,11 @@ public class Rock extends Block {
 	}
 	/**
 	 * Decrements the respawn timer of the rock
-	 * @param list The list of movingimages on the map
+	 * @param list T
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) {
 		if (respawnTimer > 0)
 			respawnTimer--;
+		return super.act(list);
 	}
 }
