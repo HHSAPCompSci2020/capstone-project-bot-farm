@@ -37,7 +37,7 @@ public class Rock extends Block {
 	}
 	/**
 	 * Decrements the respawn timer of the rock
-	 * @param list T
+	 * @param list The list of movingimages on the map
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) {
 		if (respawnTimer > 0)

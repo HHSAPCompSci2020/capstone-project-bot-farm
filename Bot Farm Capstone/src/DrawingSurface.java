@@ -96,7 +96,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		list.add(p1);
 		this.frameRate(60);
 		//cursor(cursor, 16,16);
-		textFont(createFont("Bahnschrift", 40));
+		textFont(createFont("bahnschrift.ttf", 40));
 		startGame();
 	}
 
