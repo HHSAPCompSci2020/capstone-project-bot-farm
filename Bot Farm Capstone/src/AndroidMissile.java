@@ -33,12 +33,13 @@ public class AndroidMissile extends Projectile {
 	 */
 	public ArrayList<MovingImage> explode(ArrayList<MovingImage> list) {
 		ArrayList<MovingImage> exploded = new ArrayList<MovingImage>();
+		ArrayList<MovingImage> temp = new ArrayList<MovingImage>(list);
 		Point2D.Double pos = new Point2D.Double(getCenterX(), getCenterY());
 		for (MovingImage s : list) {
 			if (pos.distance(s.getCenterX(), s.getCenterY()) <= RADIUS) {
 				if (s instanceof Bot) {
 					if (s instanceof ExploBotBaby)
-						((ExploBotBaby) s).explode(list);
+						((ExploBotBaby) s).explode(temp);
 					((Bot)s).die();
 					exploded.add(s);
 				}
@@ -47,6 +48,7 @@ public class AndroidMissile extends Projectile {
 					
 			}
 		}
+		list = temp;
 		return exploded;
 	}
 }

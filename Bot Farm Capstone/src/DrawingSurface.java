@@ -26,15 +26,15 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public static final int MAP_SIZE = 25;
 	private String[] bots = { "blindbot", "explobot", "glitchbot" };
 	public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, androidbullet, rock,
-			toxicgas, cursor, android, missile, button, forcefieldU, forcefieldD, forcefieldL, forcefieldR, generatorU,
-			generatorD, generatorL, generatorR, generatorC;
+	toxicgas, cursor, android, missile, button, forcefieldU, forcefieldD, forcefieldL, forcefieldR, generatorU,
+	generatorD, generatorL, generatorR, generatorC, backdrop;
 	private Player p1;
 	private static Rectangle2D.Double border;
 	private Button start, playAgain, info, goBack;
 	public int gameState;
 	// -1: Before start, 0: Playing, 1: Dead -2: info
 
-	private ArrayList<MovingImage> list; // This ArrayList stores every single object represented on screen.
+	private ArrayList<MovingImage> list, background; //This ArrayList stores every single object represented on screen.
 	private ArrayList<Rock> brokenRocks;
 	private ArrayList<Rectangle2D> stars;
 	private int runTime;
@@ -51,6 +51,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		stars = new ArrayList<Rectangle2D>();
 		list = new ArrayList<MovingImage>();
 		brokenRocks = new ArrayList<Rock>();
+		background = new ArrayList<MovingImage>();
 		gameState = -1;
 		keyW = false;
 		keyA = false;
@@ -103,6 +104,11 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		playAgain = new Button(button, WIDTH / 2, 500, 250, 50, "Play Again?", 40);
 		info = new Button(button, WIDTH / 2, 500, 250, 50, "Info", 40);
 		goBack = new Button(button, WIDTH / 2, 650, 250, 50, "Go Back", 40);
+		backdrop = loadImage("background.png");
+		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
+		playAgain = new Button(button, WIDTH/2, 500, 250, 50, "Play Again?", 40);
+		info = new Button(button, WIDTH/2,500, 250, 50, "Info", 40);
+		goBack = new Button(button, WIDTH/2,650,250,50, "Go Back", 40);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		p1 = new Player(android, WIDTH / 2, HEIGHT / 2, 42, 42);
 		list.add(p1);
@@ -148,7 +154,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 					p1.setvX(5);
 			} else
 				p1.setvX((int) (p1.getVx() * 0.99));
-
+			for (MovingImage b : background)
+				b.draw(this);
 			for (MovingImage m : list)
 				if (m instanceof Block)
 					m.draw(this);
@@ -167,16 +174,22 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			textSize(40);
 			fill(200);
 			this.text(kills + " kills", 25, 50);
-		} else if (gameState == -2) {
+		}
+		else if (gameState == -2) {
 			pushMatrix();
 			background(0);
 			textSize(20);
 			fill(200, 30, 30);
-//			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
-//					, 50,100);
+			//			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
+			//					, 50,100);
 			this.text(
 					"     After a devastating robot takeover of the Planet X-69, there is a miniscule amount of human lifeforms remaining on the planet which the massive army of robots seek to snuff out. The robots are rapidly advancing in their combat prowess, and the rebels must wipe them out before they are unstoppable.",
 					50, 100, WIDTH - 100, 1000);
+			fill(200,30,30);
+			//			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
+			//					, 50,100);
+			this.text("     After a devastating robot takeover of the Planet X-69, there is a miniscule amount of human lifeforms remaining on the planet which the massive army of robots seek to snuff out. The robots are rapidly advancing in their combat prowess, and the rebels must wipe them out before they are unstoppable."
+					, 50,100, WIDTH-100,1000);
 			this.text("MISSION\n"
 					+ "You've been trapped in a forcefield by the robot army, defeat all the bots and survive for as long as possible while avoiding clouds of poisonous gas.",
 					100, 300, WIDTH - 200, 1000);
@@ -209,7 +222,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			start.draw(this);
 			info.draw(this);
 
-		} else if (gameState == 1) {
+		}
+		else if (gameState == 1) {
 			blind = 250;
 			textSize(40);
 			fill(200);
@@ -447,6 +461,18 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		}
 		for (Rock rock : brokenRocks)
 			rock.moveByAmount(-x, -y);
+		double minX = Math.min(border.getX(), border.getX() + x);
+		double maxX = Math.max(border.getX(), border.getX() + x);
+		double minY = Math.min(border.getY(), border.getY() + y);
+		double maxY = Math.max(border.getY(), border.getY() + y);
+		for (MovingImage image : background) {
+			image.moveByAmount(-x, -y);
+
+			if (minX % 50 > maxX % 50)
+				image.moveByAmount(Math.signum(x)*50, 0);
+			if (minY % 50 > maxY % 50)
+				image.moveByAmount(0, Math.signum(y)*50);
+		}
 	}
 
 	private void startGame() {
@@ -457,6 +483,12 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		p1 = new Player(android, WIDTH / 2, HEIGHT / 2, 42, 42);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		list.add(p1);
+		for (int x = -2; x < MAP_SIZE + 2; x++) {
+			for (int y = -2; y < MAP_SIZE + 2; y++) {
+				MovingImage block = new MovingImage(backdrop, x*50, y*50, 50, 50);
+				background.add(block);
+			}
+		}
 		for (int x = 0; x < MAP_SIZE; x++) {
 			for (int y = 0; y < MAP_SIZE; y++) {
 				if (x <= 1 || x >= MAP_SIZE - 2 || y <= 1 || y >= MAP_SIZE - 2) {
