@@ -31,7 +31,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private boolean keyW, keyA, keyS, keyD;
 
 	public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
-		
+
 		list = new ArrayList<MovingImage>();
 		gameState = -1;
 		keyW = false;
@@ -72,14 +72,14 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		//cursor(cursor, 16,16);
 		startGame();
 	}
-	
+
 	/**
 	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
 	 */
 	public void draw() {
 		background(0,100,0);
 		if (gameState == 0) {
-			
+
 			if (p1.isDead()) {
 				if (list.contains(p1)) {
 					blind = 0;
@@ -103,7 +103,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				if (keyD) p1.setvX(5);
 			}
 			else p1.setvX((int)(p1.getVx() * 0.99));
-			
+
 			for (MovingImage m : list)
 				if (m instanceof Block) m.draw(this);
 			for (MovingImage m : list)
@@ -127,7 +127,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			textSize(20);
 			fill(200,30,30);
 			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
-					 , 50,100);
+					, 50,100);
 			this.text("MISSION\n"
 					+ "Poison gas stops your retreat, defeat all the bots and survive for as \nlong as possible while avoiding clouds of poisonous gas."
 					, 100,300);
@@ -142,16 +142,16 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		}
 		else if (gameState == -1){
 			background(0);
-//			fill(200);
-//			this.rect(250, 350, 250, 50);
-//			fill(255);
+			//			fill(200);
+			//			this.rect(250, 350, 250, 50);
+			//			fill(255);
 			pushMatrix();
 			textSize(100);
 			fill(200,30,30);
 			this.text("BOT FARM", 150,300);
 			fill(255);
 			popMatrix();
-//			this.text("Start Game", 270, 390);
+			//			this.text("Start Game", 270, 390);
 			start.draw(this);
 			info.draw(this);
 		}
@@ -192,7 +192,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			int yTop = border.getY() < 0 ? 0 : (int)border.getY();
 			int yBot = border.getY() + border.getHeight() > HEIGHT ? HEIGHT : (int) (border.getY() + border.getHeight());
 			while(occupied) {
-				
+
 				enemyX = (int) (Math.random() * (xRight + xLeft) - xLeft);
 				enemyY = (int) (Math.random() * (yBot + yTop) - yTop);
 				occupied = false;
@@ -273,17 +273,16 @@ public class DrawingSurface extends PApplet implements MouseListener {
 							if (((Bot) actedUpon).isDead())
 								kills++;
 						}
-					} else if (actor instanceof AndroidMissile){
-						if (actedUpon instanceof Bot) {
-							((Bot) actedUpon).loseHP(100);
+					} else if (actor instanceof AndroidMissile) {
+						if (!(actedUpon instanceof NoClipBlock)) {
 							list.remove(actor);
-							if (actedUpon instanceof ExploBotBaby) {
-								//if explobotbaby gets hit by bullet
-								((ExploBotBaby) actedUpon).die();
-								//die
-								i--;
-								kills++;  
+							ArrayList<MovingImage> temp = new ArrayList<MovingImage>(list);
+							for (MovingImage exploded : ((AndroidMissile) actor).explode(list)) {
+								temp.remove(exploded);
+								if (exploded instanceof Bot)
+									kills++;
 							}
+							list = temp;
 						}
 					}
 				}
@@ -358,7 +357,9 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			//p1.image = right;
 		}
 		if (keyCode == KeyEvent.VK_Q) {
-			list.add(p1.launchMissile(mouseX,  mouseY));
+			Projectile proj = p1.launchMissile(mouseX,  mouseY);
+			if (proj != null)
+				list.add(proj);
 		}
 	}
 	/**
@@ -378,7 +379,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public static Rectangle2D.Double getBorder() {
 		return border;
 	}
-	
+
 	private void sideScroll(int x, int y) {
 		border.setFrame(border.getX() - x, border.getY() - y, border.getWidth(), border.getHeight());
 		for (MovingImage image : list) {
@@ -405,7 +406,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 						NoClipBlock gas = new NoClipBlock(toxicgas, x * 50, y * 50, 50, 50);
 						list.add(gas);
 					} else if (!p1.intersects(x * 50, y * 50, 50, 50) && chance < 0.15) {
-						Block block = new Block(rock, x * 50, y * 50, 40, 40);
+						Rock block = new Rock(rock, x * 50, y * 50, 40, 40);
 						list.add(block);
 					}
 				}
@@ -414,22 +415,22 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	}
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
