@@ -27,7 +27,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private String[] bots = { "blindbot", "explobot", "glitchbot" };
 	public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, androidbullet, rock,
 	toxicgas, cursor, android, missile, button, forcefieldU, forcefieldD, forcefieldL, forcefieldR, generatorU,
-	generatorD, generatorL, generatorR, generatorC, backdrop;
+	generatorD, generatorL, generatorR, generatorC, backdrop, explosion;
 	private Player p1;
 	private static Rectangle2D.Double border;
 	private Button start, playAgain, info, goBack;
@@ -100,6 +100,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		generatorL = loadImage("generator_left.png");
 		generatorR = loadImage("generator_right.png");
 		generatorC = loadImage("generator_corner.png");
+		explosion = loadImage("explosion.png");
 		start = new Button(button, WIDTH / 2, HEIGHT / 2, 250, 50, "Start Game", 40);
 		playAgain = new Button(button, WIDTH / 2, 500, 250, 50, "Play Again?", 40);
 		info = new Button(button, WIDTH / 2, 500, 250, 50, "Info", 40);
@@ -341,6 +342,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 								kills++;
 							} else {
 								list.remove(actor);
+								list.add(new Explosion(explosion, actor.getCenterX(), actor.getCenterY(), 400, 400));
 								ArrayList<MovingImage> temp = new ArrayList<MovingImage>(list);
 								for (MovingImage exploded : ((AndroidMissile) actor).explode(list)) {
 									temp.remove(exploded);
@@ -355,6 +357,12 @@ public class DrawingSurface extends PApplet implements MouseListener {
 							}
 						}
 					}
+				}
+			}
+			if (actor instanceof Explosion) {
+				if (((Explosion) actor).isExpired()) {
+					list.remove(actor);
+					i--;
 				}
 			}
 			if (actor instanceof Player) {
