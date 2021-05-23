@@ -13,7 +13,7 @@ import processing.core.PImage;
 public class BlindBot extends Bot {
 	private final double DMG_RADIUS = 50;
 	private final int AOE_DMG = 5;
-	private final int SPEED = 15;
+	private final int SPEED = 13;
 	/**
 	 * 
 	 * @param image The image that corresponds to this bot

@@ -29,7 +29,7 @@ public class ExploBot extends Bot {
 		if(counter%100 == 0 && counter != 0) {
 			loseHP(5);
 		}
-		if(counter%200 == 0)
+		if(counter%300 == 0)
 		list.add(new ExploBotBaby(DrawingSurface.explobb, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight()));
 		counter++;
 		if(!this.isInWindow() || this.isDead())

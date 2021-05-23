@@ -6,7 +6,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class AndroidMissile extends Projectile {
-	private final int RADIUS = 100;
+	private final int RADIUS = 200;
 	public AndroidMissile(PImage img, double x, double y, int w, int h, String owner, double angle, int delay) {
         super(img, x, y, w, h, owner, angle, delay);        
 	}
