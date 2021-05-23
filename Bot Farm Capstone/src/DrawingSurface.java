@@ -25,7 +25,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public static final int MAP_SIZE = 25;
 	private String[] bots = {"blindbot", "explobot", "glitchbot"};
 	public static PImage explob, explobb, glitchb, blindb, explobullet, glitchbullet, blindbullet, 
-	androidbullet, rock, toxicgas, cursor, android, missile, button;
+	androidbullet, rock, toxicgas, cursor, android, missile, button, forcefieldU, forcefieldD,forcefieldL,
+	forcefieldR, generatorU,generatorD,generatorL,generatorR;
 	private Player p1;
 	private static Rectangle2D.Double border;
 	private Button start, playAgain, info, goBack;
@@ -87,6 +88,14 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		toxicgas = loadImage("toxicgas.png");
 		missile = loadImage("missile.png");
 		button = loadImage("button.png");
+		forcefieldU = loadImage("forcefield_up.png");
+		forcefieldD = loadImage("forcefield_down.png");
+		forcefieldL = loadImage("forcefield_left.png");
+		forcefieldR = loadImage("forcefield_right.png");
+		generatorU = loadImage("generator_up.png");
+		generatorD = loadImage("generator_down.png");
+		generatorL = loadImage("generator_left.png");
+		generatorR = loadImage("generator_right.png");
 		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
 		playAgain = new Button(button, WIDTH/2, 500, 250, 50, "Play Again?", 40);
 		info = new Button(button, WIDTH/2,500, 250, 50, "Info", 40);
