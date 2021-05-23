@@ -133,7 +133,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 					, 100,300);
 			this.text("INSTRUCTIONS\n"
 					+ "WASD: keys for movement\n"
-					+ "Q: Special ability\n"
+					+ "Q: Special ability. Watch out for mana usage\n"
 					+ "Left Mouse click: basic attacks\n"
 					+ "", 100,500);
 			fill(255);
@@ -302,7 +302,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Shoots AndroidBasicProjectile on mouse clicks. 
 	 */
 	public void mousePressed() {
-		if (gameState == 0 &&  !p1.isDead()) {
+		if (gameState == 0 &&  !p1.isDead()	) {
 			list.add(p1.shoot(mouseX, mouseY));
 		} else if (gameState == -1){
 			if (start.isHovered(mouseX, mouseY)) {
