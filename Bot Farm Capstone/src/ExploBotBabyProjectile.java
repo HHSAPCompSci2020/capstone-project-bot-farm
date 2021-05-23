@@ -1,25 +1,24 @@
 import processing.core.PImage;
 /**
- * represents the projectiles shot by the ExploBotBaby
+ * Represents the Projectiles shot by the ExploBotBaby
  * @author Zackery He
  *
  */
 public class ExploBotBabyProjectile extends Projectile {
 
 	/**
-	 * 
-	 * @param img img displayed at the coords of the projectile
-	 * @param x x coords of the projectile
-	 * @param y y coords of the projectile
-	 * @param w width of the image
-	 * @param h height of the image
-	 * @param owner id of the enemy who shot the bullet
-	 * @param angle angle the projectile will fly
-	 * @param delay delay of when the projectile will be launched
+	 * Constructs an ExploBotBabyProjectile.
+	 * @param img The image to be used.
+	 * @param x The x-coordinate of the ExploBotBabyProjectile.
+	 * @param y The y-coordinate of the ExploBotBabyProjectile. 
+	 * @param w The width of the ExploBotBabyProjectile.
+	 * @param h The height of the ExploBotBabyProjectile.
+	 * @param owner The owner of the ExploBotBabyProjectile (will be ExploBotBaby).
+	 * @param angle The angle to fire the ExploBotBabyProjectile.
+	 * @param delay The range (or delay before the ExploBotBabyProjectile disappears).
 	 */
 	public ExploBotBabyProjectile(PImage img, int x, int y, int w, int h, String owner, double angle, int delay) {
 		super(img, x, y, w, h, owner, angle, delay);
-		// TODO Auto-generated constructor stub
 	}
 
 }

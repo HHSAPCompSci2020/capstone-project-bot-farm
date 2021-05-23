@@ -2,28 +2,29 @@ import java.util.ArrayList;
 import processing.core.PImage;
 
 /**
- * represents an ExploBot
+ * Represents an ExploBot
  * @author Zackery He
  *
  */
 public class ExploBot extends Bot {
 	
 	/**
-	 * 
-	 * @param image image that will be displayed on the location of the bot
-	 * @param i2 a second image that will be used as an attack animation
-	 * @param x the x coord of the bot
-	 * @param y the y coord of the bot
-	 * @param width the width of the image displayed
-	 * @param height the height of the image displayed
+	 * Constructs an ExploBot.
+	 * @param image The image that corresponds to this ExploBot.
+	 * @param x The x-coordinate of the top left corner of the ExploBot.
+	 * @param y The y-coordinate of the top left corner of the ExploBot.
+	 * @param width The width of the ExploBot.
+	 * @param height The height of the ExploBot.
+	 * @param hp The amount of HP the ExploBot has.
 	 */
 	public ExploBot(PImage image, double x, double y, int width, int height, int hp) {
 		super(image, x,y,width,height,hp);
 	}
 	
 	/**
-	 * Handles behavior of the bot
-	 * @param list an arraylist containing all movingimages
+	 * Handles the movement and shooting patterns of the ExploBot.
+	 * @param list The list of entities currently in the game.
+	 * @return The ExploBot to be removed in this process.
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) {
 		if(counter%100 == 0 && counter != 0) {
@@ -39,9 +40,9 @@ public class ExploBot extends Bot {
 	
 	
 	/**
-	 * does nothing because this bot doesn't shoot
-	 * @param x does nothing
-	 * @param y does nothing
+	 * Does nothing because ExploBot does not shoot.
+	 * @param x Does nothing.
+	 * @param y Does nothing.
 	 */
 	@Override
 	public ArrayList<Projectile> shoot(int x, int y) {
@@ -50,8 +51,8 @@ public class ExploBot extends Bot {
 	}
 	
 	/**
-	 * returns the id of the bot
-	 * @return the id of the bot
+	 * Returns the ID of the ExploBot.
+	 * @return the ID of the ExploBot.
 	 */
 	public String toString() {
 		return "explobot";

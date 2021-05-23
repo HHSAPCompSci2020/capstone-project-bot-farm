@@ -1,35 +1,33 @@
-
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.util.ArrayList;
 import processing.core.PImage;
+
 /**
  * Represnts a BlindBot.
  * @author Michael Chen
- *
  */
 public class BlindBot extends Bot {
+	
 	private final double DMG_RADIUS = 50;
 	private final int AOE_DMG = 5;
 	private final int SPEED = 15;
 	/**
-	 * 
-	 * @param image The image that corresponds to this bot
-	 * @param x The x-coordinate of the top left corner of the bot
-	 * @param y The y-coordinate of the top left corner of the bot
-	 * @param width The width of the bot
-	 * @param height The height of the bot
-	 * @param hp The amount of HP the bot has
+	 * Constructs a BlindBot.
+	 * @param image The image that corresponds to this BlindBot.
+	 * @param x The x-coordinate of the top left corner of the BlindBot.
+	 * @param y The y-coordinate of the top left corner of the BlindBot.
+	 * @param width The width of the BlindBot.
+	 * @param height The height of the BlindBot.
+	 * @param hp The amount of HP the BlindBot has.
 	 */
 	public BlindBot(PImage image, int x, int y, int width, int height, int hp) {
 		super(image, x, y, width, height, hp);
 	}
 
 	/**
-	 * Damages any nearby players
-	 * @param player The player to be damaged
+	 * Damages any nearby players.
+	 * @param player The player to be damaged.
 	 */
 	public void damage(Player player) {
 		double distance = Math.sqrt(Math.pow(player.getY() - this.y, 2) + Math.pow(player.getX() - this.x, 2));
@@ -38,9 +36,9 @@ public class BlindBot extends Bot {
 				player.loseHP();
 	}
 	/**
-	 * Handles the movement and shooting patterns of the bot
-	 * @param list The list of entities currently in the game
-	 * @return the bot to be removed in this process
+	 * Handles the movement and shooting patterns of the BlindBot.
+	 * @param list The list of entities currently in the game.
+	 * @return The BlindBot to be removed in this process.
 	 */
 	public MovingImage act(ArrayList<MovingImage> list){
 		Player p = null;
@@ -103,10 +101,10 @@ public class BlindBot extends Bot {
 
 	}
 	/**
-	 * Shoots a BlindProjectile and returns it
-	 * @param x The x-coordinate of the destination of the projectile
-	 * @param y The y-coordinate of the destination of the projectile
-	 * @return The BlindProjectile fired
+	 * Shoots a BlindProjectile and returns it.
+	 * @param x The x-coordinate of the destination of the BlindProjectile.
+	 * @param y The y-coordinate of the destination of the BlindProjectile.
+	 * @return The BlindProjectile fired.
 	 */
 	public ArrayList<Projectile> shoot(int x, int y) {
 		BlindProjectile proj = new BlindProjectile(DrawingSurface.blindbullet, this.x, this.y, (int)width, (int)height, 
@@ -117,8 +115,8 @@ public class BlindBot extends Bot {
 	}
 
 	/**
-	 * Returns the ID of this bot
-	 * @return the ID of this bot
+	 * Returns the ID of this BlindBot.
+	 * @return the ID of this BlindBot.
 	 */
 	public String toString() {
 		return "blindbot";

@@ -18,7 +18,6 @@ import processing.core.PImage;
  * Represnts the DrawingSurface.
  * @author Harry Guan
  */
-
 public class DrawingSurface extends PApplet implements MouseListener {
 
 	public static final int WIDTH = 750;
@@ -40,8 +39,11 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private int kills;
 	private int blind;
 	private boolean keyW, keyA, keyS, keyD;
-
-	public DrawingSurface() { //Initializes every field, creating images and objects, adding them to the list.
+	
+	/**
+	 * Initializes every field, creating images and objects, and adds them to the list. 
+	 */
+	public DrawingSurface() {
 		stars = new ArrayList<Rectangle2D>();
 		list = new ArrayList<MovingImage>();
 		gameState = -1;
@@ -57,9 +59,14 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			stars.add(new Rectangle2D.Double(x, y, size, size));
 		}
 	}
+	
+	/**
+	 * Sets the size of the window.
+	 */
 	public void settings() {
 		size(WIDTH, HEIGHT);
 	}
+	
 	/**
 	 * Sets up most the background as well as the kill count. 
 	 */
@@ -92,11 +99,10 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	}
 
 	/**
-	 * Draws all of the MovingImages in the list, and creates a hardcoded Start and game end HUD. 
+	 * Draws all of the MovingImages in the list, and creates a Start and death screen.  
 	 */
 	public void draw() {
-//		String filepath = "gamemusic.wav";
-//		playMusic(filepath);
+		
 		runTime++;
 		background(0,100,0);
 		if (gameState == 0) {
@@ -137,7 +143,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			rect(0, 0, width, height);
 			popMatrix();
 			if (blind > 0) blind--;
-			//If the player is dead, display a death message.
 			textSize(40);
 			fill(200);
 			this.text(kills + " kills", 25, 50);
@@ -163,9 +168,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		}
 		else if (gameState == -1){
 			background(0);
-			//			fill(200);
-			//			this.rect(250, 350, 250, 50);
-			//			fill(255);
 			pushMatrix();
 			noStroke();
 			for (Rectangle2D star : stars) {
@@ -185,7 +187,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			popStyle();
 			fill(255);
 			popMatrix();
-			//			this.text("Start Game", 270, 390);
 			start.draw(this);
 			info.draw(this);
 			
@@ -214,19 +215,6 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			delay(20);
 		}
 	}
-	
-//	public void playMusic(String filepath) {
-//		try {
-//			File musicPath = new File(filepath);
-//			if (musicPath.exists()) {
-//				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-//				Clip clip = AudioSystem.getClip();
-//				clip.start();
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 	
 	/**
 	 * Spawns the different Bots. 
@@ -368,35 +356,25 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	}
 
 	/**
-	 * 
-	 * Setting velocity with the WASD keys for player movement.  
+	 * Sets velocity with the WASD keys for player movement.  
+	 * Also shoots the AndroidMissile on Q press. 
 	 */
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_W) {
 			keyW = true;
 			p1.setvY(-5);
-			//            p1.setvY(-5);
-			//            up.resize(42, 42);
-			//            p1.image = up;
 		}
 		if (keyCode == KeyEvent.VK_A) {
 			keyA = true;
 			p1.setvX(-5);
-			//p1.setvX(-5);
-			//p1.image = left;
 		}
 		if (keyCode == KeyEvent.VK_S) {
 			keyS = true;
 			p1.setvY(5);
-			//p1.setvY(5);
-			//p1.image = down;
 		}
 		if (keyCode == KeyEvent.VK_D) {
 			keyD = true;
 			p1.setvX(5);
-			//p1.setvX(5);
-			///right.resize(42, 42);
-			//p1.image = right;
 		}
 		if (keyCode == KeyEvent.VK_Q) {
 			Projectile proj = p1.launchMissile(mouseX,  mouseY);
@@ -404,6 +382,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				list.add(proj);
 		}
 	}
+	
 	/**
 	 * Setting velocity to 0 when WASD keys are released. 
 	 */
@@ -429,6 +408,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				image.moveByAmount(-x, -y);
 		}
 	}
+	
 	private void startGame() {
 		blind = 0;
 		kills = 0;
@@ -455,24 +435,34 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			}
 		}
 	}
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

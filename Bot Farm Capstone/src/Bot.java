@@ -2,9 +2,8 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 /**
- * The superclass for all bots
+ * The superclass for all Bots.
  * @author Michael Chen
- *
  */
 public abstract class Bot extends MovingImage {
     
@@ -13,13 +12,13 @@ public abstract class Bot extends MovingImage {
     protected boolean edead; //true or false dead
     
     /**
-     * 
-     * @param image The image for the bot
-     * @param x The x-coordinate of the top left corner of the bot
-     * @param y The y-coordinate of the top left corner of the bot
-     * @param width The width of the bot
-     * @param height The height of the bot
-     * @param hp The amount of HP the bot has
+     * Constructs a Bot.
+     * @param image The image for the Bot.
+     * @param x The x-coordinate of the top left corner of the Bot.
+     * @param y The y-coordinate of the top left corner of the Bot.
+     * @param width The width of the Bot.
+     * @param height The height of the Bot.
+     * @param hp The amount of HP the Bot has.
      */
     public Bot(PImage image, double x, double y, int width, int height, int hp){
             super(image, x, y, width, height);
@@ -31,23 +30,23 @@ public abstract class Bot extends MovingImage {
     }
     
     /**
-     * Sets the velocity of the bot in the x-direction
-     * @param x The new velocity 
+     * Sets the velocity of the Bot in the x-direction.
+     * @param x The new x-velocity.
      */
     public void setvX(int x){
         vX = x;
     }
 
     /**
-     * Sets the velocity of the bot in the y-direction
-     * @param y The new velocity 
+     * Sets the velocity of the Bot in the y-direction.
+     * @param y The new y-velocity. 
      */
     public void setvY(int y) {
         vY = y;
     }
   
     /**
-     * Causes the bot to lose exactly 1 hp, automatically dies if ehp is below 0
+     * Causes the Bot to lose exactly 1 hp, automatically dies if ehp is below 0.
      */
     public void loseHP(){
         ehp -= 1;
@@ -57,25 +56,25 @@ public abstract class Bot extends MovingImage {
     }
     
     /**
-     * causes the bot to lose n hp
-     * @param n the amount of hp to lose
+     * Causes the Bot to lose n hp, automatically dies of ehp is below 0. 
+     * @param n The amount of hp to lose.
      */
     public void loseHP(int n) {
     	ehp -=n;
     	if(ehp <= 0)die();
     }
-
-    public static void sound(String filepath) {
-       
-    }
-
     
     /**
-     * Causes the bot to die
+     * Causes the Bot to die; sets the boolean to true.
      */
     public void die() {
     	edead = true;
     }
+    
+    /**
+     * Draws the health indicator for the Bot.
+     * @param marker The PApplet to draw the health indicator on. 
+     */
     public void draw(PApplet marker) {
 		super.draw(marker);
 		marker.fill(200);
@@ -96,18 +95,18 @@ public abstract class Bot extends MovingImage {
 	}
 
     /**
-     * Returns if the bot is dead or not
-     * @return whether the bot is dead or not
+     * Returns if the Bot is dead or not.
+     * @return Whether the Bot is dead or not.
      */
     public boolean isDead(){
         return edead; //Change the below statement to return an accurate value.
     }
     
     /**
-     * Shoots projectiles from and returns them 
-     * @param x The x-coordinate of the destination of the projectile
-     * @param y The y-coordinate of the destination of the projectile
-     * @return The projectiles fired
+     * Shoots Projectiles and returns them.
+     * @param x The x-coordinate of the destination of the Projectile.
+     * @param y The y-coordinate of the destination of the Projectile.
+     * @return The Projectiles fired.
      */
     public abstract ArrayList<Projectile> shoot(int x, int y);
     

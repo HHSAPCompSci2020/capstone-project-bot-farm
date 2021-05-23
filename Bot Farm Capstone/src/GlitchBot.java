@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.awt.geom.Rectangle2D;
 import processing.core.PImage;
 
 /**
@@ -11,23 +10,23 @@ public class GlitchBot extends Bot {
     public final int SPEED = 5;
 	
     /**
-	 * Constructs a GlitchBot.
-	 * @param image The image that corresponds to this bot
-	 * @param x The x-coordinate of the top left corner of the bot
-	 * @param y The y-coordinate of the top left corner of the bot
-	 * @param width The width of the bot
-	 * @param height The height of the bot
-	 * @param hp The amount of HP the bot has
+	 * Constructs an GlitchBot.
+	 * @param image The image that corresponds to this GlitchBot.
+	 * @param x The x-coordinate of the top left corner of the GlitchBot.
+	 * @param y The y-coordinate of the top left corner of the GlitchBot.
+	 * @param width The width of the GlitchBot.
+	 * @param height The height of the GlitchBot.
+	 * @param hp The amount of HP the GlitchBot has.
 	 */
     public GlitchBot(PImage image, int x, int y, int width, int height, int hp){
 		super(image, x, y, width, height, hp);
     }
     
     /**
-	 * Handles the movement and shooting patterns of the bot
-	 * Also periodically glitches around teleporting to random locations nearby
-	 * @param list The list of entities currently in the game
-	 * @return the Bot to be removed in this process
+	 * Handles the shooting patterns of the GlitchBot.
+	 * Also periodically glitches around teleporting to random nearby locations.
+	 * @param list The list of entities currently in the game.
+	 * @return The GlitchBot to be removed in this process.
 	 */
     public MovingImage act(ArrayList<MovingImage> list){
     	Player p = null;

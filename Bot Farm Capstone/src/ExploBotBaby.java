@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PImage;
 /**
- * represents a explobot baby
+ * Represents a ExploBotBaby.
  * @author Zackery He
  *
  */
@@ -13,24 +13,22 @@ public class ExploBotBaby extends Bot{
 	private final int DMG_RADIUS = 100;
 
 	/**
-	 * 
-	 * @param image image displayed to represent the bot
-	 * @param i2 image used as an attack animation
-	 * @param x x coord of the bot
-	 * @param y y coord of the bot
-	 * @param width width of the image
-	 * @param height height of the image
+	 * Constructs an ExploBotBaby.
+	 * @param image The image that corresponds to this ExploBotBaby.
+	 * @param x The x-coordinate of the top left corner of the ExploBotBaby.
+	 * @param y The y-coordinate of the top left corner of the ExploBotBaby.
+	 * @param width The width of the ExploBotBaby.
+	 * @param height The height of the ExploBotBaby.
 	 */
 	public ExploBotBaby(PImage image, double x, double y, int width, int height) {
 		super(image, x,y,width,height,10);
-		
 	}
+	
 	/**
-	 * handles how the bot will act
-	 * @param list list of all the MovingImages in the game
-	 * @return the bot that will be removed in this process
+	 * Handles the movement and shooting patterns of the ExploBotBaby.
+	 * @param list The list of entities currently in the game.
+	 * @return The ExploBotBaby to be removed in this process.
 	 */
-	//taken from blind bot
 	public MovingImage act(ArrayList<MovingImage> list){
 		Player p = null;
 		for (MovingImage m : list) {
@@ -87,6 +85,7 @@ public class ExploBotBaby extends Bot{
 		return null;
 
 	}
+	
 	/**
 	 * explodes the bot
 	 */
@@ -102,8 +101,10 @@ public class ExploBotBaby extends Bot{
 	}
 	
 	/**
-	 * shoots projectiles in the attack pattern of the bot
-	 * @return an arraylist of the bullet pattern
+	 * Shoots a ExploBotBabyProjectile and returns it.
+	 * @param x The x-coordinate of the destination of the ExploBotBabyProjectile.
+	 * @param y The y-coordinate of the destination of the ExploBotBabyProjectile.
+	 * @return The ExploBotBabyProjectile fired.
 	 */
 	public ArrayList<Projectile> shoot(int x, int y) {
 		ArrayList<Projectile> pattern = new ArrayList<Projectile>();
@@ -115,13 +116,11 @@ public class ExploBotBaby extends Bot{
 	}
 	
 	/**
-	 * returns the id of the bot
-	 * @return the id of the bot
+	 * Returns the ID of the ExploBotBaby.
+	 * @return The ID of the ExploBotBaby.
 	 */
 	public String toString() {
 		return "explobotbaby";
 	}
 	
-	
-
 }
