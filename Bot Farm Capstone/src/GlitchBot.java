@@ -71,7 +71,7 @@ public class GlitchBot extends Bot {
     	double newx = (Math.random() * 200) - 100;
     	double newy = (Math.random() * 200) - 100;
     	GlitchBot temp = new GlitchBot(DrawingSurface.glitchb, (int)newx, (int)newy, 50, 50, 100);
-    	if (temp.intersects(DrawingSurface.getBorder()))
+    	if (!(temp.intersects(DrawingSurface.getBorder())))
     		this.moveByAmount(newx, newy);
     }
 	
