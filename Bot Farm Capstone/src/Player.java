@@ -50,7 +50,7 @@ public class Player extends MovingImage {
 			double sY = y - this.getY();
 			double angle = Math.atan2(sY, sX);
 			if (isDead() == false)
-				return new AndroidBasicProjectile(DrawingSurface.androidbullet, (int)this.getX(), (int)this.getY(), 20, 35, "player", angle,50);
+				return new AndroidBasicProjectile(DrawingSurface.androidbullet, (int)this.getCenterX() - 10, (int)this.getCenterY() - 17, 20, 35, "player", angle,50);
 			else
 				return null;
 		}
@@ -71,7 +71,7 @@ public class Player extends MovingImage {
 			double sX = x - this.getX();
 			double sY = y - this.getY();
 			double angle = Math.atan2(sY, sX);
-			return new AndroidMissile(DrawingSurface.missile, (int)this.getX(), (int)this.getY(), 40, 40, "player", angle, 500);
+			return new AndroidMissile(DrawingSurface.missile, (int)this.getCenterX() - 20, (int)this.getCenterY() - 20, 40, 40, "player", angle, 500);
 		}
 		return null;
 	}
