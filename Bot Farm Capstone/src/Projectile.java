@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+
+import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
@@ -79,6 +81,13 @@ public class Projectile extends MovingImage {
 		}
 		return null; // If all else fails, return null.
 
+	}
+	public void draw(PApplet marker) {
+		marker.pushMatrix();
+		marker.translate((float)x, (float)y);
+		marker.rotate((float)angle + (float)Math.PI/2);
+		marker.image(image, 0, 0, (float)this.width, (float)this.height);
+		marker.popMatrix();
 	}
 
 }

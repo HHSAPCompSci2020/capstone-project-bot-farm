@@ -35,7 +35,7 @@ public class GlitchBot extends Bot {
 			if (m instanceof Player)
 				p = (Player) m;
 		}
-		if (counter%100 == 0){
+		if (counter%75 == 0){
 			glitch();
 			int pX = (int) p.getX();
 			int pY = (int) p.getY();
