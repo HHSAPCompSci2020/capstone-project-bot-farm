@@ -207,7 +207,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 
 			//add enemies
 			if (bot.equalsIgnoreCase("blindbot"))
-				list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 100));
+				list.add(new BlindBot(blindb, enemyX, enemyY, 50, 50, 80));
 			else if (bot.equalsIgnoreCase("explobot"))
 				list.add(new ExploBot(explob, enemyX, enemyY, 50, 50, 50));
 			else if (bot.equalsIgnoreCase("glitchbot"))
@@ -245,7 +245,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 						}
 
 						if(actor instanceof GlitchProjectile) {
-							((Player) actedUpon).loseHP(15);
+							((Player) actedUpon).loseHP(25);
 						}
 
 						//((Player) actedUpon).loseHP();
