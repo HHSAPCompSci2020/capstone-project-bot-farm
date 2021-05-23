@@ -4,8 +4,8 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * represents the player
- * @author Zackery He
+ * Represents the Player
+ * @author Zackery He, Harry Guan
  *
  */
 public class Player extends MovingImage {
@@ -16,16 +16,15 @@ public class Player extends MovingImage {
 	private final int maxCooldown;
 
 	/**
-	 * 
-	 * @param image image displayed at the players coords
-	 * @param x x coord of the player
-	 * @param y y coord of the player
-	 * @param width width of the image
-	 * @param height height of the image
+	 * Constructs a Player. 
+	 * @param image The image that corresponds to this Player.
+	 * @param x The x-coordinate of the top left corner of the Player.
+	 * @param y The y-coordinate of the top left corner of the Player.
+	 * @param width The width of the Player.
+	 * @param height The height of the Player.
 	 */
 	public Player(PImage image, double x, double y, int width, int height) {
 		super(image, x, y, width, height);
-		//vX and vY should be initially 0, hp should start at 20, and dead should be false.
 		maxCooldown = 450;
 		cooldown = maxCooldown;
 		vX = 0;
@@ -39,10 +38,10 @@ public class Player extends MovingImage {
 	}
 
 	/**
-	 * shoots a projectile for the player
-	 * @param x x coordinate of the initial position for the projectile
-	 * @param y y coordinate of the initial position for the projectile
-	 * @return the projectile being shot
+	 * Shoots an AndroidBasicProjectile and returns it.
+	 * @param x The x-coordinate of the destination of the AndroidBasicProjectile.
+	 * @param y The y-coordinate of the destination of the AndroidBasicProjectile.
+	 * @return The AndroidBasicProjectile fired.
 	 */
 	public Projectile shoot(int x, int y) {
 		if (mana >= 2) {
@@ -58,7 +57,12 @@ public class Player extends MovingImage {
 		return null;
 	}
 	
-	
+	/**
+	 * Shoots an AndroidMissile and returns it. 
+	 * @param x The x-coordinate of the destination of the AndroidMissile.
+	 * @param y The y-coordinate of the destination of the AndroidMissile.
+	 * @return The AndroidMissile fired.
+	 */
 	public Projectile launchMissile(int x, int y) {
 		if (cooldown <= 0 && mana >= 20) {
 			mana -= 20;
@@ -73,59 +77,57 @@ public class Player extends MovingImage {
 	}
 
 	/**
-	 * changes the x velocity of the player
-	 * @param x the velocity of the player to be set
+	 * Changes the x-velocity of the Player.
+	 * @param x The x-velocity of the Player to be set.
 	 */
 	public void setvX(int x) {
 		vX = x;
 	}
+	
 	/**
-	 * changes the y velocity of the player
-	 * @param y the velocity of the player to be set
+	 * Changes the y-velocity of the Player.
+	 * @param y The y-velocity of the Player to be set.
 	 */
 	public void setvY(int y) {
 		vY = y;
 	}
 	/**
-	 * returns the x velocity of the player
-	 * @return the x velocity of the player
+	 * Returns the x-velocity of the Player.
+	 * @return The x-velocity of the Player.
 	 */
 	public int getVx() {
 		return vX;
 	}
 	/**
-	 * returns the y velocity of the player
-	 * @return the y velocity of the player
+	 * Returns the y-velocity of the Player.
+	 * @return The y-velocity of the Player.
 	 */
 	public int getVy() {
 		return vY;
 	}
 
 	/**
-	 * causes the player to lose 1 hp
+	 * Causes the Player to lose 1 hp. If hp falls less than 0, die.
 	 */
 	public void loseHP() {
 		hp --;
 		if (hp <= 0) die();
 	}
 	/**
-	 * causes the player to lose n hp
-	 * @param n amount of hp to lose
+	 * Causes the Player to lose n hp. If hp falls less than 0, die. 
+	 * @param n The amount of hp to lose.
 	 */
 	public void loseHP(int n) {
 		hp -= n;
 		if (hp <= 0) die();
 	}
 
-	/**
-	 * causes the player to die
-	 */
 	private void die() {
 		dead = true;
 	}
 
 	/**
-	 * causes the player to take damage from poison
+	 * Causes the player to take damage from poisonous gas. If hp falls less than 0, die.
 	 */
 	public void poisonDamage() {
         hp -= 0.2;
@@ -133,15 +135,16 @@ public class Player extends MovingImage {
             die();
     } 
 	/**
-	 * checks if the player is dead
-	 * @return true if the player is dead, false if not
+	 * Checks if the player is dead.
+	 * @return Whether the player is dead.
 	 */
 	public boolean isDead() {
 		//Change the below statement to return an accurate value.
 		return dead;
 	}
 	/**
-	 * draws the hp bar of the player
+	 * Draws the hp bar of the player.
+	 * @param marker The PApplet to draw on. 
 	 */
 	public void draw(PApplet marker) {
 
@@ -179,8 +182,8 @@ public class Player extends MovingImage {
 		marker.popMatrix();
 	}
 	/**
-	 * handles movement and collision between blocks
-	 * @param list list containing all the MovingImages
+	 * Handles movement and collision between Blocks.
+	 * @param list The list containing all entities currently in the game. 
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) { 
 		MovingImage image = null;
@@ -219,11 +222,11 @@ public class Player extends MovingImage {
 				image = s;
 
 		}
-		return null;
+		return image;
 	}
 	/**
-	 * returns the id of the player
-	 * @return returns the id of the player
+	 * Returns the ID of the Player.
+	 * @return The ID of the Player.
 	 */
 	public String toString(){
 		return "player";

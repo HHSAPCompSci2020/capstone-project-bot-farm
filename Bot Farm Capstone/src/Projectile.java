@@ -1,11 +1,10 @@
 import java.util.ArrayList;
-
 import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * represents a projectile
- * @author Zackery He
+ * Represents a Projectile
+ * @author Zackery He, Harry Guan
  *
  */
 public class Projectile extends MovingImage {
@@ -17,18 +16,17 @@ public class Projectile extends MovingImage {
 	protected int timer;
 	double delay;
 	/**
-	 * 
-	 * @param img image displayed to represent the projectile
-	 * @param x x coord of the projectile launch
-	 * @param y y coord of the projectile launch
-	 * @param w width of the image 
-	 * @param h height of the image
-	 * @param owner owner of the projectile
-	 * @param delay delay of the projectile
+	 * Constructs a Projectile.
+	 * @param img The image to be used.
+	 * @param x The x-coordinate of the Projectile.
+	 * @param y The y-coordinate of the Projectile. 
+	 * @param w The width of the Projectile.
+	 * @param h The height of the Projectile.
+	 * @param owner The owner of the Projectile.
+	 * @param delay The range (or delay before the Projectile disappears).
 	 */
 	public Projectile(PImage img, double x, double y, int w, int h, String owner, int delay) {
 		super(img, x, y, w, h);
-		// The field owner should equal the parameter owner.
 		this.owner = owner;
 		stepX = 0;
 		stepY = -5;
@@ -38,19 +36,18 @@ public class Projectile extends MovingImage {
 	}
 
 	/**
-	 * 
-	 * @param img image displayed to represent the bot
-	 * @param x x coord of the projectile launch
-	 * @param y y coord of the projectile launch
-	 * @param w width of the image 
-	 * @param h height of the image
-	 * @param owner owner of the projectile
-	 * @param angle angle the projectile will be shot from
-	 * @param delay delay of the projectile
+	 * Constructs a Projectile.
+	 * @param img The image to be used.
+	 * @param x The x-coordinate of the Projectile.
+	 * @param y The y-coordinate of the Projectile. 
+	 * @param w The width of the Projectile.
+	 * @param h The height of the Projectile.
+	 * @param owner The owner of the Projectile.
+	 * @param angle The angle to fire the Projectile.
+	 * @param delay The range (or delay before the Projectile disappears).
 	 */
 	public Projectile(PImage img, double x, double y, int w, int h, String owner, double angle, int delay) {
 		super(img, x, y, w, h);
-		// The field owner should equal the parameter owner.
 		this.owner = owner;
 		this.angle = angle;
 		this.delay = delay;
@@ -63,9 +60,9 @@ public class Projectile extends MovingImage {
 	}
 	
 	/**
-	 * handles how the projectile will act in game
-	 * @param list list of the all the MovingImages
-	 * @return the projectile that will be removed in this process
+	 * Handles how the Projectile will act in game.
+	 * @param list The list of all entities currently in the game.
+	 * @return The Projectile that will be removed in this process
 	 */
 	public MovingImage act(ArrayList<MovingImage> list) {
 		this.moveByAmount(stepX, stepY);
@@ -73,7 +70,7 @@ public class Projectile extends MovingImage {
 		if (!this.isInWindow() || timer > delay)
 			return this;
 
-		for (MovingImage m : list) { // Collision detection (do not modify) m scrolls thru list
+		for (MovingImage m : list) { 
 			if (this.intersects(m) && m instanceof Block && !(m instanceof NoClipBlock))
 				return this;
 			if (this != m && this.intersects(m) && !this.owner.equals(m.toString()) && !(m instanceof Projectile))
@@ -82,6 +79,11 @@ public class Projectile extends MovingImage {
 		return null; // If all else fails, return null.
 
 	}
+	
+	/**
+	 * Draws the Projectile to the PApplet.
+	 * @param marker The PApplet to draw to. 
+	 */
 	public void draw(PApplet marker) {
 		marker.pushMatrix();
 		marker.translate((float)x, (float)y);

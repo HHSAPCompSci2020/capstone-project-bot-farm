@@ -13,8 +13,16 @@ import javax.swing.JFrame;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
+/**
+ * The Main class. 
+ * @author Harry Guan, Michael Chen
+ *
+ */
 public class Main {
-
+	
+	/**
+	 * Runs the program. 
+	 */
 	public static void main(String[] args) {
 		DrawingSurface drawing = new DrawingSurface();
 		PApplet.runSketch(new String[] { "" }, drawing);

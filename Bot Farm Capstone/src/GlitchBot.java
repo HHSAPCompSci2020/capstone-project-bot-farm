@@ -50,10 +50,10 @@ public class GlitchBot extends Bot {
 	}
     
     /**
-	 * Shoots a GlitchProjectile and returns it
-	 * @param x The x-coordinate of the destination of the projectile
-	 * @param y The y-coordinate of the destination of the projectile
-	 * @return The BlindProjectile fired
+	 * Shoots a GlitchProjectile and returns it.
+	 * @param x The x-coordinate of the destination of the GlitchProjectile.
+	 * @param y The y-coordinate of the destination of the GlitchProjectile.
+	 * @return The GlitchProjectile fired.
 	 */
     public ArrayList<Projectile> shoot(int x, int y){
     	GlitchProjectile proj = new GlitchProjectile(DrawingSurface.glitchbullet, this.x, this.y, (int)width, (int)height, 

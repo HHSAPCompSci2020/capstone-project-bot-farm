@@ -3,7 +3,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 /**
  * The superclass for all Bots.
- * @author Michael Chen
+ * @author Michael Chen, Harry Guan
  */
 public abstract class Bot extends MovingImage {
     
