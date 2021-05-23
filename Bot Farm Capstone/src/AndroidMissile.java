@@ -37,6 +37,8 @@ public class AndroidMissile extends Projectile {
 		for (MovingImage s : list) {
 			if (pos.distance(s.getCenterX(), s.getCenterY()) <= RADIUS) {
 				if (s instanceof Bot) {
+					if (s instanceof ExploBotBaby)
+						((ExploBotBaby) s).explode(list);
 					((Bot)s).die();
 					exploded.add(s);
 				}

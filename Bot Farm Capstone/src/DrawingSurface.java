@@ -33,6 +33,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	// -1: Before start, 0: Playing, 1: Dead -2: info
 
 	private ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
+	private ArrayList<Rock> brokenRocks;
 	private ArrayList<Rectangle2D> stars;
 	private int runTime;
 	private int spawnRate;
@@ -46,6 +47,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public DrawingSurface() {
 		stars = new ArrayList<Rectangle2D>();
 		list = new ArrayList<MovingImage>();
+		brokenRocks = new ArrayList<Rock>();
 		gameState = -1;
 		keyW = false;
 		keyA = false;
@@ -304,15 +306,25 @@ public class DrawingSurface extends PApplet implements MouseListener {
 							}
 						}
 					} else if (actor instanceof AndroidMissile) {
-						if (!(actedUpon instanceof NoClipBlock)) {
-							list.remove(actor);
-							ArrayList<MovingImage> temp = new ArrayList<MovingImage>(list);
-							for (MovingImage exploded : ((AndroidMissile) actor).explode(list)) {
-								temp.remove(exploded);
-								if (exploded instanceof Bot)
-									kills++;
+						if (!(actedUpon instanceof NoClipBlock) || actedUpon == actor) {
+							if (actedUpon instanceof ExploBotBaby) {
+								((ExploBotBaby) actedUpon).explode(list);
+								kills++;
 							}
-							list = temp;
+							else {
+								list.remove(actor);
+								ArrayList<MovingImage> temp = new ArrayList<MovingImage>(list);
+								for (MovingImage exploded : ((AndroidMissile) actor).explode(list)) {
+									temp.remove(exploded);
+									if (exploded instanceof Bot)
+										kills++;
+									else if (exploded instanceof Rock) {
+										((Rock) exploded).destroy();
+										brokenRocks.add((Rock) exploded);
+									}
+								}
+								list = temp;
+							}
 						}
 					}
 				}
@@ -325,6 +337,15 @@ public class DrawingSurface extends PApplet implements MouseListener {
 				i--;
 			}
 		}
+		ArrayList<Rock> temp = new ArrayList<Rock>(brokenRocks);
+		for (Rock rock : brokenRocks) {
+			rock.act(list);
+			if (!rock.isBroken() && !list.contains(rock) && !p1.intersects(rock)) {
+				temp.remove(rock);
+				list.add(rock);
+			}
+		}
+		brokenRocks = temp;
 	}
 
 	/**
@@ -407,12 +428,15 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			if (!(image instanceof Player))
 				image.moveByAmount(-x, -y);
 		}
+		for (Rock rock : brokenRocks)
+			rock.moveByAmount(-x, -y);
 	}
 	
 	private void startGame() {
 		blind = 0;
 		kills = 0;
 		list = new ArrayList<MovingImage>();
+		brokenRocks = new ArrayList<Rock>();
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
 		list.add(p1);

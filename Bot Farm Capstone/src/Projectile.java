@@ -84,9 +84,9 @@ public class Projectile extends MovingImage {
 	}
 	public void draw(PApplet marker) {
 		marker.pushMatrix();
-		marker.translate((float)x, (float)y);
+		marker.translate((float)(x + width/2), (float)(y + height/2));
 		marker.rotate((float)angle + (float)Math.PI/2);
-		marker.image(image, 0, 0, (float)this.width, (float)this.height);
+		marker.image(image, -(float)width/2, -(float)height/2, (float)this.width, (float)this.height);
 		marker.popMatrix();
 	}
 
