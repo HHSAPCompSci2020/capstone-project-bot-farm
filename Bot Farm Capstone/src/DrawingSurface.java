@@ -76,7 +76,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		androidbullet = loadImage("androidbullet.png");
 		cursor = loadImage("cursor.png");
 		toxicgas = loadImage("toxicgas.png");
-		missile = loadImage("cursor.png");
+		missile = loadImage("missile.png");
 		button = loadImage("button.png");
 		start = new Button(button, WIDTH/2, HEIGHT/2, 250, 50, "Start Game", 40);
 		playAgain = new Button(button, WIDTH/2, 500, 250, 50, "Play Again?", 40);
