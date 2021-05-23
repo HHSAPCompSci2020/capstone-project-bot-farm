@@ -22,7 +22,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private static Rectangle2D.Double border;
 	private Button start, playAgain, info, goBack;
 	public int gameState;
-	// -1: Before start, 0: Playing, 1: Dead
+	// -1: Before start, 0: Playing, 1: Dead -2: info
 
 	private ArrayList<MovingImage> list; //This ArrayList stores every single object represented on screen.
 	private int spawnRate;
@@ -129,13 +129,13 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			this.text(" After a devastating robot takeover of the Planet X-69, " + "\n" + " there is a miniscule amount of human lifeforms remaining on the planet " + "\n" + " which the massive army of robots seek to snuff out. The robots are rapidly " + "\n" + " advancing in their combat prowess, and the rebels must wipe them out " + "\n" + " before they are unstoppable. \n"
 					 , 50,100);
 			this.text("MISSION\n"
-					+ "defeat all the bots and survive for as long as possible."
+					+ "Poison gas stops your retreat, defeat all the bots and survive for as \nlong as possible while avoiding clouds of poisonous gas."
 					, 100,300);
 			this.text("INSTRUCTIONS\n"
 					+ "WASD: keys for movement\n"
 					+ "Q: Special ability\n"
 					+ "Left Mouse click: basic attacks\n"
-					+ "", 100,400);
+					+ "", 100,500);
 			fill(255);
 			popMatrix();
 			goBack.draw(this);
@@ -148,7 +148,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			pushMatrix();
 			textSize(100);
 			fill(200,30,30);
-			this.text("BOT FARM", 200,300);
+			this.text("BOT FARM", 150,300);
 			fill(255);
 			popMatrix();
 //			this.text("Start Game", 270, 390);
@@ -302,7 +302,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Shoots AndroidBasicProjectile on mouse clicks. 
 	 */
 	public void mousePressed() {
-		if (gameState == 0) {
+		if (gameState == 0 &&  !p1.isDead()) {
 			list.add(p1.shoot(mouseX, mouseY));
 		} else if (gameState == -1){
 			if (start.isHovered(mouseX, mouseY)) {
@@ -386,6 +386,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	}
 	private void startGame() {
 		blind = 0;
+		kills = 0;
 		list = new ArrayList<MovingImage>();
 		p1 = new Player(android, WIDTH/2, HEIGHT/2, 42, 42);
 		border = new Rectangle2D.Double(0, 0, MAP_SIZE * 50, MAP_SIZE * 50);
