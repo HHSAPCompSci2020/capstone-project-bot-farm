@@ -1,7 +1,8 @@
 ﻿Bot Farm
 Authors: Harry Guan, Michael Chen, Zackery He
-Revision: 4/19/21
+Revision: 5/23/21
 
+Video: https://drive.google.com/file/d/1eVvyx102DPlHc-LSCBzv1_UCUkSdzjaZ/view?usp=sharing
 
 Introduction: 
 
