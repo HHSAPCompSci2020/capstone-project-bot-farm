@@ -1,17 +1,10 @@
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.awt.geom.Point2D.Double;
-
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PImage;
 
 /**
