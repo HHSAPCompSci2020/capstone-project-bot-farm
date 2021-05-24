@@ -66,6 +66,7 @@ public class GlitchBot extends Bot {
     /**
      * Teleports to random location nearby.
      * Cannot be outside the grid or in solid blocks.
+     * @param list The list of sprites on the map
      */
     public void glitch(ArrayList<MovingImage> list) {
     	double newx = (Math.random() * 200) - 100;

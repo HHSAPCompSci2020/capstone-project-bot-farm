@@ -1,8 +1,18 @@
+
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import java.io.IOException;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -41,6 +51,26 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * list.
 	 */
 	public DrawingSurface() {
+		//edited from https://www.geeksforgeeks.org/play-audio-file-using-java/
+		//volume from http://helpdesk.objects.com.au/java/how-to-control-volume-of-audio-clip
+		
+		AudioInputStream audioInputStream;
+		try {
+			audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/data/gamemusic.wav"));
+			// create clip reference
+			Clip clip = AudioSystem.getClip();
+
+			// open audioInputStream to the clip
+			clip.open(audioInputStream);
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			double gain = 0.1;   
+			float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+			gainControl.setValue(dB);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		stars = new ArrayList<Rectangle2D>();
 		list = new ArrayList<MovingImage>();
 		brokenRocks = new ArrayList<Rock>();

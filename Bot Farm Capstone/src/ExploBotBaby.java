@@ -88,6 +88,7 @@ public class ExploBotBaby extends Bot{
 	
 	/**
 	 * explodes the bot
+	 * @param list The list of all sprites on the map
 	 */
 	public void explode(ArrayList<MovingImage> list) {
 		Player p = null;
