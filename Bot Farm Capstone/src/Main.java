@@ -24,7 +24,6 @@ public class Main {
 		window.setResizable(false);
 
 		window.setVisible(true);
-
 		canvas.requestFocus();
 		
 	}
