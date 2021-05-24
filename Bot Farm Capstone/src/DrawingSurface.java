@@ -314,11 +314,11 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	public void runGame() {
 		gameTime++;
 		if (list.size() < 3) {
-			//spawnEnemy();
+			spawnEnemy();
 		}
 		spawnRate++; // Spawn rate timer
 		if (spawnRate % 200 == 0) { // Spawns enemy once every 400 1/60th of a second.
-			//spawnEnemy();
+			spawnEnemy();
 		}
 		for (int i = 0; i < list.size(); i++) { // This code handles the collision.
 			MovingImage actor = list.get(i);
