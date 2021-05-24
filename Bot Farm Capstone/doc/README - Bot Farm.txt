@@ -69,6 +69,7 @@ Class List:
 * ExploBot - the enemy that spawns exploding entities
 * ExploBotBaby - the exploding entities spawned by ExploBot
 * GlitchBot - the enemy which glitches around 
+* Explosion - a visual representation of an explosion from a missile
 
 
 * DrawingSurface - draws everything
@@ -84,10 +85,10 @@ Class List:
 Credits:
 * List the group members and describe how each member contributed to the completion of the final program. This could be classes written, art assets created, leadership/organizational skills exercises, or other tasks. Initially, this is how you plan on splitting the work.
    * Harry - README work, MovingImage, DrawingSurface, Main, creative process, GlitchBot, GlitchBotProjectile, all graphics, map reading, sound, most Javadoc documentation
-   * Michael - UML work, created Javadocs and Jar, Bot class, BlindBot, BlindProjectile, side scrolling. auto generating terrain, graphics quality increase, button glow, pathfinding
-   * Zackery - README work, Player changes, ExploBot, ExploBotBaby, ExploBotBabyProjectile, menu features, audio loop and file research, game balance
+   * Michael - UML work, created Javadocs and Jar, Bot class, BlindBot, BlindProjectile, side scrolling. auto generating terrain, graphics quality increase, button glow, pathfinding, missile explosion
+   * Zackery - README work, Player changes, ExploBot, ExploBotBaby, ExploBotBabyProjectile, menu features, audio loop and file research, game balance, graphics quality
 * Give credit to all outside resources used. This includes downloaded images or sounds, external java libraries, parent/tutor/student coding help, etc.]
-   * Previous project by Harry assisted in DrawingSurface,  MovingImage, and Player. 
+   * A previous project by Harry assisted in DrawingSurface,  MovingImage, and Player. 
    * ProcessingSoundLibrary from the Google Drive Demos
    * How to control volume of audio Clip | web development helpdesk (objects.com.au)
    * https://www.geeksforgeeks.org/play-audio-file-using-java/ 
