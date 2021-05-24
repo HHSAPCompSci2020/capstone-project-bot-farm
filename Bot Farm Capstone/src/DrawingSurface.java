@@ -40,7 +40,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private ArrayList<MovingImage> list, background; //This ArrayList stores every single object represented on screen.
 	private ArrayList<Rock> brokenRocks;
 	private ArrayList<Rectangle2D> stars;
-	private int runTime;
+	private int runTime, gameTime;
 	private int spawnRate;
 	private int kills;
 	private int blind;
@@ -81,6 +81,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		keyS = false;
 		keyD = false;
 		blind = 0;
+		gameTime = 0;
 		for (int i = 0; i < 100; i++) {
 			double x = Math.random() * (double) WIDTH;
 			double y = Math.random() * (double) HEIGHT;
@@ -196,8 +197,8 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			if (blind > 0)
 				blind--;
 			textSize(40);
-			fill(200);
-			this.text(kills + " kills", 25, 50);
+			fill(255);
+			this.text(getTime(gameTime) + "\n" + kills + " kills ", 25, 50);
 		}
 		else if (gameState == -2) {
 			pushMatrix();
@@ -264,7 +265,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 			this.text("Game Over", WIDTH / 2, 200);
 			textSize(40);
 			fill(200);
-			this.text("You've killed " + kills + " enemies.", WIDTH / 2, 330);
+			this.text("You survived for " + getTime(gameTime) + "\nand killed " + kills + " enemies.", WIDTH / 2, 330);
 			popStyle();
 			playAgain.draw(this);
 			delay(20);
@@ -311,12 +312,13 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	 * Runs the game and detects for collision of projectiles.
 	 */
 	public void runGame() {
+		gameTime++;
 		if (list.size() < 3) {
-			spawnEnemy();
+			//spawnEnemy();
 		}
 		spawnRate++; // Spawn rate timer
 		if (spawnRate % 200 == 0) { // Spawns enemy once every 400 1/60th of a second.
-			spawnEnemy();
+			//spawnEnemy();
 		}
 		for (int i = 0; i < list.size(); i++) { // This code handles the collision.
 			MovingImage actor = list.get(i);
@@ -509,6 +511,7 @@ public class DrawingSurface extends PApplet implements MouseListener {
 	private void startGame() {
 		blind = 0;
 		kills = 0;
+		gameTime = 0;
 		list = new ArrayList<MovingImage>();
 		brokenRocks = new ArrayList<Rock>();
 		p1 = new Player(android, WIDTH / 2, HEIGHT / 2, 42, 42);
@@ -574,6 +577,18 @@ public class DrawingSurface extends PApplet implements MouseListener {
 		}
 	}
 
+	private String getTime(int frames) {
+		String time = "";
+		int seconds = frames / 60;
+		int minutes = seconds / 60;
+		int leftOver = (int) ((frames - seconds*60)/60.0 * 100);
+		if (minutes > 0)
+			time += minutes + ":";
+		if ((seconds - minutes*60) < 10)
+			time += "0";
+		time += (seconds - minutes*60) + "." + leftOver;
+		return time;
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
