@@ -35,7 +35,7 @@ public class GlitchBot extends Bot {
 				p = (Player) m;
 		}
 		if (counter%75 == 0){
-			glitch();
+			glitch(list);
 			int pX = (int) p.getX();
 			int pY = (int) p.getY();
 			for (MovingImage m : this.shoot(pX, pY))
@@ -65,13 +65,18 @@ public class GlitchBot extends Bot {
     
     /**
      * Teleports to random location nearby.
-     * Cannot be outside the grid.
+     * Cannot be outside the grid or in solid blocks.
      */
-    public void glitch() {
+    public void glitch(ArrayList<MovingImage> list) {
     	double newx = (Math.random() * 200) - 100;
     	double newy = (Math.random() * 200) - 100;
-    	GlitchBot temp = new GlitchBot(DrawingSurface.glitchb, (int)newx, (int)newy, 50, 50, 100);
-    	if (!(temp.intersects(DrawingSurface.getBorder())))
+    	GlitchBot temp = new GlitchBot(DrawingSurface.glitchb, (int)(x+newx), (int)(y+newy), 50, 50, 100);
+    	boolean valid = temp.intersects(DrawingSurface.getBorder());
+    	for (MovingImage image : list) {
+    		if (temp.intersects(image) && (image instanceof Block && !(image instanceof NoClipBlock)))	
+    			valid = false;
+    	}
+    	if (valid)
     		this.moveByAmount(newx, newy);
     }
 	
